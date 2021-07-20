@@ -1,23 +1,668 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="zh-CH">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
-{% block title %}{{ config.title }}{% if theme.index_with_subtitle and config.subtitle %} - {{config.subtitle }}{% endif %}{% endblock %}
+<link rel="stylesheet" href="/css/main.css">
 
-{% block page_class %}
-  {% if is_home() %}page-home{% endif -%}
-{% endblock %}
 
-{% block content %}
-  <section id="posts" class="posts-expand">
-    {% for post in page.posts %}
-      {{ post_template.render(post, true) }}
-    {% endfor %}
-  </section>
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-  {% include '_partials/pagination.swig' %}
-{% endblock %}
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"naruuu-xx.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
 
-{% block sidebar %}
-  {{ sidebar_template.render(false) }}
-{% endblock %}
+  <meta property="og:type" content="website">
+<meta property="og:title" content="naru&#39;s blog">
+<meta property="og:url" content="https://naruuu-xx.github.io/index.html">
+<meta property="og:site_name" content="naru&#39;s blog">
+<meta property="og:locale" content="zh_CH">
+<meta property="article:author" content="naru">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://naruuu-xx.github.io/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CH'
+  };
+</script>
+
+  <title>naru's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="تشغيل شريط التصفح">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">naru's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">code share and learn</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>الأرشيفات</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CH">
+    <link itemprop="mainEntityOfPage" href="https://naruuu-xx.github.io/2021/07/19/powershell%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="naru">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="naru's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/07/19/powershell%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" class="post-title-link" itemprop="url">powershell命令行快速入门</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">نُشر في</span>
+              
+
+              <time title="أُنشأ: 2021-07-19 17:30:22 / عُدل: 17:39:12" itemprop="dateCreated datePublished" datetime="2021-07-19T17:30:22+08:00">2021-07-19</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>参考书籍： <a target="_blank" rel="noopener" href="https://www.zybuluo.com/Standalone/note/1677177#5571">笨办法学python3</a> 附录</p>
+<p><strong>笔者本文章的大部分代码显示都采取了截图的方式，在阅读学习中请不要想着复制粘贴，最好自己尝试着运用命令行去做每一步，只有这样才可以快速学会。</strong>  </p>
+<p><strong>再次提醒 本文章不是只用来看的，请一定要动手跟着做。</strong>  </p>
+</blockquote>
+<h2 id="整体概述"><a href="#整体概述" class="headerlink" title="整体概述"></a>整体概述</h2><blockquote>
+<p>阅读并练习本文章内所提及的内容，你将快速对powershell有一个快速的认识且掌握一些基础知识，本文章内容包含有：</p>
+</blockquote>
+<ul>
+<li>准备工作</li>
+<li>打印工作目录 <code>pwd</code></li>
+<li>回到home目录 <code>cd~</code></li>
+<li>如何创建文件夹 <code>mkdir</code></li>
+<li>更改目录<code>cd</code></li>
+<li>列出目录内容 <code>ls</code></li>
+<li>删除目录  <code>rmdir</code></li>
+<li>多个目录切换<code>pushd</code>和<code>popd</code></li>
+<li>创建空文件夹 <code>New-Item</code></li>
+<li>复制文件 <code>cp</code></li>
+<li>移动文件 <code>mv </code></li>
+<li>查看文件内容 <code>more</code></li>
+<li>流文件内容显示 <code>cat</code></li>
+<li>删除文件 <code>rm </code></li>
+<li>退出终端 <code>exit</code></li>
+</ul>
+<hr>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>win7以上的系统自带powershell，<code>WIN+R</code>键入<code>powershell</code>，然后<code>ENTER</code>即可打开终端。</p>
+<h3 id="升级powershell的两种办法"><a href="#升级powershell的两种办法" class="headerlink" title="升级powershell的两种办法"></a>升级powershell的两种办法</h3><blockquote>
+<p>个人推荐第一种办法，因为第二种办法需要更新下载的东西有很多</p>
+</blockquote>
+<h4 id="终端内部升级"><a href="#终端内部升级" class="headerlink" title="终端内部升级"></a>终端内部升级</h4><ol>
+<li>首先打开电脑自带的powershell，键入<code>Start-Process powershell -Verb runAs </code>打开管理员权限。</li>
+</ol>
+<p><img src="https://img-blog.csdnimg.cn/20210104172955192.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L25ydXV1,size_16,color_FFFFFF,t_70#pic_center" alt="powershell申请管理员权限"></p>
+<ol start="2">
+<li>然后会弹出新的powershell窗口，显示为如下：</li>
+</ol>
+<p><img src="https://img-blog.csdnimg.cn/20210104173030218.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L25ydXV1,size_16,color_FFFFFF,t_70#pic_center" alt="管理员权限2"></p>
+<ol start="3">
+<li><p>在新弹出的powershell窗口内键入：</p>
+<p><code>iex &quot;&amp; &#123; $(irm https://aka.ms/install-powershell.ps1) &#125; -UseMSI&quot;</code></p>
+<p> 系统将自动从powershell github 页面下载程序，这个过程可能会很慢，要慢慢等。</p>
+</li>
+</ol>
+<p>如果上面这个方法下载失败，请参考接下来这个办法：</p>
+<h4 id="官网下载更新"><a href="#官网下载更新" class="headerlink" title="官网下载更新"></a>官网下载更新</h4><p>参考微软官方给出的文档 <a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/powershell/scripting/install/migrating-from-windows-powershell-51-to-powershell-7?view=powershell-7.1">powershell在windows下的安装</a> </p>
+<hr>
+<h2 id="打印工作目录pwd"><a href="#打印工作目录pwd" class="headerlink" title="打印工作目录pwd"></a>打印工作目录<code>pwd</code></h2><p>pwd命令全名为：“print working directory”</p>
+<p>即打印出当前的工作路径</p>
+<p><img src="https://img-blog.csdnimg.cn/20210104173103326.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L25ydXV1,size_16,color_FFFFFF,t_70#pic_center" alt="pwd"></p>
+<hr>
+<h2 id="回到home目录cd"><a href="#回到home目录cd" class="headerlink" title="回到home目录cd ~"></a>回到home目录<code>cd ~</code></h2><p>当你运用命令行进行操作时，如果不清楚自己到了哪里，也不知道接下来该怎么办，这个时候 <code>cd~</code>就派上了用场。</p>
+<p>当你在命令行中迷路时，干两件事：</p>
+<ol>
+<li>键入<code>pwd</code>查看当前所在位置的路径</li>
+<li>键入<code>cd~</code>回到最初的起点路径（即home目录）<br><img src="https://img-blog.csdnimg.cn/20210104173144488.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L25ydXV1,size_16,color_FFFFFF,t_70#pic_center" alt="cd~"></li>
+</ol>
+<hr>
+<h2 id="创建目录mkdir"><a href="#创建目录mkdir" class="headerlink" title="创建目录mkdir"></a>创建目录<code>mkdir</code></h2><p>在powershell我们可以利用<code>mkdir</code>创建空文件夹（新目录）</p>
+<p>运用起之前<code>pwd</code>和<code>cd~</code>的知识，我们将在C:\Users\用户 这个目录下新建一个文件夹 hello 在hello里再建立新的文件夹</p>
+<p><img src="https://img-blog.csdnimg.cn/20210104173205649.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L25ydXV1,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>创建一个名字包含空格的目录，方法为：键入 <code>mkdir &quot;hello world&quot;</code></p>
+<p><img src="https://img-blog.csdnimg.cn/20210104173221257.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L25ydXV1,size_16,color_FFFFFF,t_70#pic_center"></p>
+<hr>
+<h2 id="更改目录cd"><a href="#更改目录cd" class="headerlink" title="更改目录cd"></a>更改目录<code>cd</code></h2><ul>
+<li>利用<code>cd</code>可以更改访问的目录</li>
+<li><code>cd .. </code>为返回该目录的上一层</li>
+<li><code>cd ..\ ..\</code>返回上一层的上一层、</li>
+</ul>
+<p>利用我们上一步新建好的目录来实现这些操作：</p>
+<p><img src="https://img-blog.csdnimg.cn/20210104173249372.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L25ydXV1,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<hr>
+<h2 id="列出目录内容-ls"><a href="#列出目录内容-ls" class="headerlink" title="列出目录内容 ls"></a>列出目录内容 <code>ls</code></h2><ul>
+<li>键入<code>ls</code>可查看该目录下的内容</li>
+<li><code>dir -R</code>可查看该目录下所有内容</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20210104173304437.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L25ydXV1,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<hr>
+<h2 id="删除目录rmidr"><a href="#删除目录rmidr" class="headerlink" title="删除目录rmidr"></a>删除目录<code>rmidr</code></h2><p>利用<code>rmdir</code>命令删除空目录</p>
+<p>删除掉一个空目录很简单，只需要先移动到你要删除的目录的上一层 然后键入<code>rmdir &lt;dir&gt;</code>就可以删除掉这个空目录。</p>
+<p><img src="https://img-blog.csdnimg.cn/20210104173329782.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L25ydXV1,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>注：</p>
+<blockquote>
+<p>如果删除的目录非空，在键入<code>rmdir</code>后 会有提示出现  <img src="https://img-blog.csdnimg.cn/20210104173350355.png#pic_center" alt="在这里插入图片描述"></p>
+</blockquote>
+<hr>
+<h2 id="多个目录切换pushd和popd"><a href="#多个目录切换pushd和popd" class="headerlink" title="多个目录切换pushd和popd"></a>多个目录切换<code>pushd</code>和<code>popd</code></h2><p>pushd和popd一般成对出现，pushd保存当前的位置并转到一个新位置，popd为回到先前保存的位置。</p>
+<p>生动形象一些pushd和popd就是传送门，pushd把你传送到你去的新位置，popd把你送回之前的位置。</p>
+<p><img src="https://img-blog.csdnimg.cn/20210104173407503.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L25ydXV1,size_16,color_FFFFFF,t_70#pic_center"></p>
+<hr>
+<h2 id="创建空文件-New-Item"><a href="#创建空文件-New-Item" class="headerlink" title="创建空文件 New-Item"></a>创建空文件 <code>New-Item</code></h2><p>windows中利用<code>New-item</code>创建空文件或者新目录。</p>
+<p><img src="https://img-blog.csdnimg.cn/20210104173445687.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L25ydXV1,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<hr>
+<h2 id="复制文件cp"><a href="#复制文件cp" class="headerlink" title="复制文件cp"></a>复制文件<code>cp</code></h2><p>cp命令即copy，将文件从一个地方copy到另一个地方。</p>
+<p><code>cp -r</code>可复制非空目录</p>
+<p><img src="https://img-blog.csdnimg.cn/20210104173505994.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L25ydXV1,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/20210104173521908.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L25ydXV1,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<hr>
+<h2 id="移动文件-mv"><a href="#移动文件-mv" class="headerlink" title="移动文件 mv "></a>移动文件 <code>mv </code></h2><p> 移动文件或者重命名文件，<code>mv</code>后跟原来的名字以及新名字就可以了。</p>
+<p><img src="https://img-blog.csdnimg.cn/20210104173536144.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L25ydXV1,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<hr>
+<h2 id="浏览文件-more"><a href="#浏览文件-more" class="headerlink" title="浏览文件 more"></a>浏览文件 <code>more</code></h2><p>进行该练习前的准备：</p>
+<ul>
+<li>利用文本编辑器新建一个内容非空的<code>.txt </code>文件</li>
+<li>将该<code>.txt</code>文件保存到桌面，命名为<code>test.txt</code></li>
+<li>用你之前学过的命令把其复制到当前的工作目录 <code>hello</code>目录下</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20210104173551107.png#pic_center" alt="在这里插入图片描述"></p>
+<hr>
+<h2 id="stream-文件显示cat"><a href="#stream-文件显示cat" class="headerlink" title="stream 文件显示cat"></a>stream 文件显示<code>cat</code></h2><p>利用我们上一步新建的<code>test.txt</code>文件来继续进行操作。</p>
+<p><img src="https://img-blog.csdnimg.cn/20210104173604443.png#pic_center" alt="在这里插入图片描述"></p>
+<p>是不是发现<code>cat</code>命令和我们上一节学到的<code>more</code>很像呢，二者的区别在于：</p>
+<ul>
+<li><p>如果读取的文件较长时，<code>more</code>指令是“分段”显示的，你可以进行翻页</p>
+</li>
+<li><p>而<code>cat</code>指令是直接读取文件，然后把文件内容一次性全部显示出来</p>
+</li>
+</ul>
+<blockquote>
+<p>额外的任务：</p>
+<ol>
+<li>将test文件增添一些内容，尽量越多越好，然后再用<code>more</code>和 <code>cat</code>分别读取文件，看看差别在哪里</li>
+<li>再在hello目录下新建一个<code>test2.txt</code>，尝试键入 <code>cat test.txt test2.txt</code>会发生什么</li>
+</ol>
+</blockquote>
+<hr>
+<h2 id="移除文件rm"><a href="#移除文件rm" class="headerlink" title="移除文件rm"></a>移除文件<code>rm</code></h2><p><img src="https://img-blog.csdnimg.cn/20210104173629506.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L25ydXV1,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<blockquote>
+<p>注意区分和<code>rmdir</code>和区别</p>
+<p>以及我们之前利用<code>rmdir</code>删除一个非空文件夹时会有提示，而现在利用<code>rm</code>,则算是深入到一个非空文件夹的内部，删掉其中的文件。</p>
+</blockquote>
+<blockquote>
+<p>额外任务</p>
+<p>删除掉我们学习用的hello文件夹里的所有东西，<strong>请一定用powershell来执行</strong> </p>
+</blockquote>
+<hr>
+<h2 id="退出终端-exit"><a href="#退出终端-exit" class="headerlink" title="退出终端 exit"></a>退出终端 <code>exit</code></h2><p>键入<code>exit</code>即可退出终端</p>
+<p><img src="https://img-blog.csdnimg.cn/20210104173648570.png#pic_center" alt="在这里插入图片描述"></p>
+<hr>
+<h2 id="命令符含义表"><a href="#命令符含义表" class="headerlink" title="命令符含义表"></a>命令符含义表</h2><p>可以尝试记忆，但是本人不建议死记硬背，要用的时候进行查找就可以了。</p>
+<table>
+<thead>
+<tr>
+<th align="center">命令符</th>
+<th align="center">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">pwd</td>
+<td align="center">打印工作内容</td>
+</tr>
+<tr>
+<td align="center">hostname</td>
+<td align="center">计算机网络运营商名称</td>
+</tr>
+<tr>
+<td align="center">mkdir</td>
+<td align="center">创建目录</td>
+</tr>
+<tr>
+<td align="center">cd</td>
+<td align="center">切换目录</td>
+</tr>
+<tr>
+<td align="center">ls</td>
+<td align="center">列出目录</td>
+</tr>
+<tr>
+<td align="center">rmdir</td>
+<td align="center">删除目录</td>
+</tr>
+<tr>
+<td align="center">pushd</td>
+<td align="center">前往新目录地址</td>
+</tr>
+<tr>
+<td align="center">popd</td>
+<td align="center">返回原目录地址</td>
+</tr>
+<tr>
+<td align="center">cp</td>
+<td align="center">复制文件或目录</td>
+</tr>
+<tr>
+<td align="center">robocopy</td>
+<td align="center">超强复制</td>
+</tr>
+<tr>
+<td align="center">mv</td>
+<td align="center">移动文件或目录</td>
+</tr>
+<tr>
+<td align="center">more</td>
+<td align="center">在文件中翻页</td>
+</tr>
+<tr>
+<td align="center">type</td>
+<td align="center">打印整个文件</td>
+</tr>
+<tr>
+<td align="center">forfiles</td>
+<td align="center">在多个文件执行命令</td>
+</tr>
+<tr>
+<td align="center">dir -r</td>
+<td align="center">查找文件</td>
+</tr>
+<tr>
+<td align="center">select-stirng</td>
+<td align="center">在文件中查找内容</td>
+</tr>
+<tr>
+<td align="center">help</td>
+<td align="center">帮助手册</td>
+</tr>
+<tr>
+<td align="center">helpctr</td>
+<td align="center">查找合适的帮助内容</td>
+</tr>
+<tr>
+<td align="center">env</td>
+<td align="center">查看环境</td>
+</tr>
+<tr>
+<td align="center">echo</td>
+<td align="center">打印参数值</td>
+</tr>
+<tr>
+<td align="center">set</td>
+<td align="center">输出/设置新环境变量</td>
+</tr>
+<tr>
+<td align="center">exit</td>
+<td align="center">退出终端</td>
+</tr>
+<tr>
+<td align="center">runas</td>
+<td align="center">获得root权限</td>
+</tr>
+</tbody></table>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CH">
+    <link itemprop="mainEntityOfPage" href="https://naruuu-xx.github.io/2021/07/19/hello-world/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="naru">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="naru's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/07/19/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">نُشر في</span>
+
+              <time title="أُنشأ: 2021-07-19 11:07:50" itemprop="dateCreated datePublished" datetime="2021-07-19T11:07:50+08:00">2021-07-19</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          المحتويات
+        </li>
+        <li class="sidebar-nav-overview">
+          عام
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">naru</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-name">المقالات</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">naru</span>
+</div>
+  <div class="powered-by">تطبيق الموقع <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
