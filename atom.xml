@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>naru&#39;s blog</title>
+  <title>久远&#39;s blog</title>
   
   <subtitle>随便写写</subtitle>
   <link href="https://naruuu-xx.github.io/atom.xml" rel="self"/>
@@ -10,7 +10,7 @@
   <id>https://naruuu-xx.github.io/</id>
   
   <author>
-    <name>naru</name>
+    <name>久远</name>
     
   </author>
   
