@@ -23,24 +23,24 @@
   <meta name="description" content="对链表进行了讲解。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【久远讲算法】链表—实现无序列表">
-<meta property="og:url" content="https://naruuu-xx.github.io/2021/10/07/%E3%80%90%E4%B9%85%E8%BF%9C%E8%AE%B2%E7%AE%97%E6%B3%95%E3%80%91%E9%93%BE%E8%A1%A8%E2%80%94%E5%AE%9E%E7%8E%B0%E6%97%A0%E5%BA%8F%E5%88%97%E8%A1%A8/index.html">
+<meta property="og:url" content="https://naruuu-xx.github.io/2021/10/30/%E3%80%90%E4%B9%85%E8%BF%9C%E8%AE%B2%E7%AE%97%E6%B3%95%E3%80%91%E9%93%BE%E8%A1%A8%E2%80%94%E5%AE%9E%E7%8E%B0%E6%97%A0%E5%BA%8F%E5%88%97%E8%A1%A8/index.html">
 <meta property="og:site_name" content="久远&#39;s blog">
 <meta property="og:description" content="对链表进行了讲解。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://naruuu-xx.github.io/2021/10/07/%E3%80%90%E4%B9%85%E8%BF%9C%E8%AE%B2%E7%AE%97%E6%B3%95%E3%80%91%E9%93%BE%E8%A1%A8%E2%80%94%E5%AE%9E%E7%8E%B0%E6%97%A0%E5%BA%8F%E5%88%97%E8%A1%A8/04-%E3%80%90%E4%B9%85%E8%BF%9C%E8%AE%B2%E7%AE%97%E6%B3%95%E3%80%91%E9%93%BE%E8%A1%A8%E2%80%94%E2%80%94%E5%AE%9E%E7%8E%B0%E6%97%A0%E5%BA%8F%E5%88%97%E8%A1%A8.assets/Snipaste_2021-10-27_21-48-24-16354375353581.png">
-<meta property="og:image" content="https://naruuu-xx.github.io/2021/10/07/%E3%80%90%E4%B9%85%E8%BF%9C%E8%AE%B2%E7%AE%97%E6%B3%95%E3%80%91%E9%93%BE%E8%A1%A8%E2%80%94%E5%AE%9E%E7%8E%B0%E6%97%A0%E5%BA%8F%E5%88%97%E8%A1%A8/04-%E3%80%90%E4%B9%85%E8%BF%9C%E8%AE%B2%E7%AE%97%E6%B3%95%E3%80%91%E9%93%BE%E8%A1%A8%E2%80%94%E2%80%94%E5%AE%9E%E7%8E%B0%E6%97%A0%E5%BA%8F%E5%88%97%E8%A1%A8.assets/Snipaste_2021-10-27_21-48-24-16354375802992-16354375919803.png">
-<meta property="og:image" content="https://naruuu-xx.github.io/2021/10/07/%E3%80%90%E4%B9%85%E8%BF%9C%E8%AE%B2%E7%AE%97%E6%B3%95%E3%80%91%E9%93%BE%E8%A1%A8%E2%80%94%E5%AE%9E%E7%8E%B0%E6%97%A0%E5%BA%8F%E5%88%97%E8%A1%A8/04-%E3%80%90%E4%B9%85%E8%BF%9C%E8%AE%B2%E7%AE%97%E6%B3%95%E3%80%91%E9%93%BE%E8%A1%A8%E2%80%94%E2%80%94%E5%AE%9E%E7%8E%B0%E6%97%A0%E5%BA%8F%E5%88%97%E8%A1%A8.assets/Snipaste_2021-10-28_22-38-09-16354376252494.png">
-<meta property="og:image" content="https://naruuu-xx.github.io/2021/10/07/%E3%80%90%E4%B9%85%E8%BF%9C%E8%AE%B2%E7%AE%97%E6%B3%95%E3%80%91%E9%93%BE%E8%A1%A8%E2%80%94%E5%AE%9E%E7%8E%B0%E6%97%A0%E5%BA%8F%E5%88%97%E8%A1%A8/04-%E3%80%90%E4%B9%85%E8%BF%9C%E8%AE%B2%E7%AE%97%E6%B3%95%E3%80%91%E9%93%BE%E8%A1%A8%E2%80%94%E2%80%94%E5%AE%9E%E7%8E%B0%E6%97%A0%E5%BA%8F%E5%88%97%E8%A1%A8.assets/Snipaste_2021-10-28_22-43-43-16354376565165.png">
-<meta property="og:image" content="https://naruuu-xx.github.io/2021/10/07/%E3%80%90%E4%B9%85%E8%BF%9C%E8%AE%B2%E7%AE%97%E6%B3%95%E3%80%91%E9%93%BE%E8%A1%A8%E2%80%94%E5%AE%9E%E7%8E%B0%E6%97%A0%E5%BA%8F%E5%88%97%E8%A1%A8/04-%E3%80%90%E4%B9%85%E8%BF%9C%E8%AE%B2%E7%AE%97%E6%B3%95%E3%80%91%E9%93%BE%E8%A1%A8%E2%80%94%E2%80%94%E5%AE%9E%E7%8E%B0%E6%97%A0%E5%BA%8F%E5%88%97%E8%A1%A8.assets/%E7%9F%A5%E8%AF%86%E6%98%9F%E7%90%83-16354376863386.jpg">
-<meta property="article:published_time" content="2021-10-07T14:09:47.000Z">
-<meta property="article:modified_time" content="2021-10-30T14:46:55.888Z">
+<meta property="og:image" content="https://naruuu-xx.github.io/2021/10/30/%E3%80%90%E4%B9%85%E8%BF%9C%E8%AE%B2%E7%AE%97%E6%B3%95%E3%80%91%E9%93%BE%E8%A1%A8%E2%80%94%E5%AE%9E%E7%8E%B0%E6%97%A0%E5%BA%8F%E5%88%97%E8%A1%A8/04-%E3%80%90%E4%B9%85%E8%BF%9C%E8%AE%B2%E7%AE%97%E6%B3%95%E3%80%91%E9%93%BE%E8%A1%A8%E2%80%94%E2%80%94%E5%AE%9E%E7%8E%B0%E6%97%A0%E5%BA%8F%E5%88%97%E8%A1%A8.assets/Snipaste_2021-10-27_21-48-24-16354375353581.png">
+<meta property="og:image" content="https://naruuu-xx.github.io/2021/10/30/%E3%80%90%E4%B9%85%E8%BF%9C%E8%AE%B2%E7%AE%97%E6%B3%95%E3%80%91%E9%93%BE%E8%A1%A8%E2%80%94%E5%AE%9E%E7%8E%B0%E6%97%A0%E5%BA%8F%E5%88%97%E8%A1%A8/04-%E3%80%90%E4%B9%85%E8%BF%9C%E8%AE%B2%E7%AE%97%E6%B3%95%E3%80%91%E9%93%BE%E8%A1%A8%E2%80%94%E2%80%94%E5%AE%9E%E7%8E%B0%E6%97%A0%E5%BA%8F%E5%88%97%E8%A1%A8.assets/Snipaste_2021-10-27_21-48-24-16354375802992-16354375919803.png">
+<meta property="og:image" content="https://naruuu-xx.github.io/2021/10/30/%E3%80%90%E4%B9%85%E8%BF%9C%E8%AE%B2%E7%AE%97%E6%B3%95%E3%80%91%E9%93%BE%E8%A1%A8%E2%80%94%E5%AE%9E%E7%8E%B0%E6%97%A0%E5%BA%8F%E5%88%97%E8%A1%A8/04-%E3%80%90%E4%B9%85%E8%BF%9C%E8%AE%B2%E7%AE%97%E6%B3%95%E3%80%91%E9%93%BE%E8%A1%A8%E2%80%94%E2%80%94%E5%AE%9E%E7%8E%B0%E6%97%A0%E5%BA%8F%E5%88%97%E8%A1%A8.assets/Snipaste_2021-10-28_22-38-09-16354376252494.png">
+<meta property="og:image" content="https://naruuu-xx.github.io/2021/10/30/%E3%80%90%E4%B9%85%E8%BF%9C%E8%AE%B2%E7%AE%97%E6%B3%95%E3%80%91%E9%93%BE%E8%A1%A8%E2%80%94%E5%AE%9E%E7%8E%B0%E6%97%A0%E5%BA%8F%E5%88%97%E8%A1%A8/04-%E3%80%90%E4%B9%85%E8%BF%9C%E8%AE%B2%E7%AE%97%E6%B3%95%E3%80%91%E9%93%BE%E8%A1%A8%E2%80%94%E2%80%94%E5%AE%9E%E7%8E%B0%E6%97%A0%E5%BA%8F%E5%88%97%E8%A1%A8.assets/Snipaste_2021-10-28_22-43-43-16354376565165.png">
+<meta property="og:image" content="https://naruuu-xx.github.io/2021/10/30/%E3%80%90%E4%B9%85%E8%BF%9C%E8%AE%B2%E7%AE%97%E6%B3%95%E3%80%91%E9%93%BE%E8%A1%A8%E2%80%94%E5%AE%9E%E7%8E%B0%E6%97%A0%E5%BA%8F%E5%88%97%E8%A1%A8/04-%E3%80%90%E4%B9%85%E8%BF%9C%E8%AE%B2%E7%AE%97%E6%B3%95%E3%80%91%E9%93%BE%E8%A1%A8%E2%80%94%E2%80%94%E5%AE%9E%E7%8E%B0%E6%97%A0%E5%BA%8F%E5%88%97%E8%A1%A8.assets/%E7%9F%A5%E8%AF%86%E6%98%9F%E7%90%83-16354376863386.jpg">
+<meta property="article:published_time" content="2021-10-29T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-10-30T14:53:33.091Z">
 <meta property="article:author" content="久远Forever">
 <meta property="article:tag" content="java">
 <meta property="article:tag" content="data structure">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://naruuu-xx.github.io/2021/10/07/%E3%80%90%E4%B9%85%E8%BF%9C%E8%AE%B2%E7%AE%97%E6%B3%95%E3%80%91%E9%93%BE%E8%A1%A8%E2%80%94%E5%AE%9E%E7%8E%B0%E6%97%A0%E5%BA%8F%E5%88%97%E8%A1%A8/04-%E3%80%90%E4%B9%85%E8%BF%9C%E8%AE%B2%E7%AE%97%E6%B3%95%E3%80%91%E9%93%BE%E8%A1%A8%E2%80%94%E2%80%94%E5%AE%9E%E7%8E%B0%E6%97%A0%E5%BA%8F%E5%88%97%E8%A1%A8.assets/Snipaste_2021-10-27_21-48-24-16354375353581.png">
+<meta name="twitter:image" content="https://naruuu-xx.github.io/2021/10/30/%E3%80%90%E4%B9%85%E8%BF%9C%E8%AE%B2%E7%AE%97%E6%B3%95%E3%80%91%E9%93%BE%E8%A1%A8%E2%80%94%E5%AE%9E%E7%8E%B0%E6%97%A0%E5%BA%8F%E5%88%97%E8%A1%A8/04-%E3%80%90%E4%B9%85%E8%BF%9C%E8%AE%B2%E7%AE%97%E6%B3%95%E3%80%91%E9%93%BE%E8%A1%A8%E2%80%94%E2%80%94%E5%AE%9E%E7%8E%B0%E6%97%A0%E5%BA%8F%E5%88%97%E8%A1%A8.assets/Snipaste_2021-10-27_21-48-24-16354375353581.png">
 
-<link rel="canonical" href="https://naruuu-xx.github.io/2021/10/07/%E3%80%90%E4%B9%85%E8%BF%9C%E8%AE%B2%E7%AE%97%E6%B3%95%E3%80%91%E9%93%BE%E8%A1%A8%E2%80%94%E5%AE%9E%E7%8E%B0%E6%97%A0%E5%BA%8F%E5%88%97%E8%A1%A8/">
+<link rel="canonical" href="https://naruuu-xx.github.io/2021/10/30/%E3%80%90%E4%B9%85%E8%BF%9C%E8%AE%B2%E7%AE%97%E6%B3%95%E3%80%91%E9%93%BE%E8%A1%A8%E2%80%94%E5%AE%9E%E7%8E%B0%E6%97%A0%E5%BA%8F%E5%88%97%E8%A1%A8/">
 
 
 <script id="page-configurations">
@@ -162,7 +162,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://naruuu-xx.github.io/2021/10/07/%E3%80%90%E4%B9%85%E8%BF%9C%E8%AE%B2%E7%AE%97%E6%B3%95%E3%80%91%E9%93%BE%E8%A1%A8%E2%80%94%E5%AE%9E%E7%8E%B0%E6%97%A0%E5%BA%8F%E5%88%97%E8%A1%A8/">
+    <link itemprop="mainEntityOfPage" href="https://naruuu-xx.github.io/2021/10/30/%E3%80%90%E4%B9%85%E8%BF%9C%E8%AE%B2%E7%AE%97%E6%B3%95%E3%80%91%E9%93%BE%E8%A1%A8%E2%80%94%E5%AE%9E%E7%8E%B0%E6%97%A0%E5%BA%8F%E5%88%97%E8%A1%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -184,16 +184,10 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2021-10-07 22:09:47" itemprop="dateCreated datePublished" datetime="2021-10-07T22:09:47+08:00">2021-10-07</time>
+              <time title="创建时间：2021-10-30 00:00:00 / 修改时间：22:53:33" itemprop="dateCreated datePublished" datetime="2021-10-30T00:00:00+08:00">2021-10-30</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-10-30 22:46:55" itemprop="dateModified" datetime="2021-10-30T22:46:55+08:00">2021-10-30</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -332,13 +326,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021/08/20/BFS%E5%92%8CDFS/" rel="prev" title="BFS和DFS">
-      <i class="fa fa-chevron-left"></i> BFS和DFS
+    <a href="/2021/10/30/%E3%80%90%E4%B9%85%E8%BF%9C%E8%AE%B2%E7%AE%97%E6%B3%95%E3%80%91%E6%95%B0%E7%BB%84%E2%80%94%E2%80%94%E6%9C%80%E7%AE%80%E5%8D%95%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="prev" title="【久远讲算法】数组——最简单的数据结构">
+      <i class="fa fa-chevron-left"></i> 【久远讲算法】数组——最简单的数据结构
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2021/10/07/%E3%80%90%E4%B9%85%E8%BF%9C%E8%AE%B2%E7%AE%97%E6%B3%95%E3%80%91%E4%BB%80%E4%B9%88%E6%98%AF%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6/" rel="next" title="【久远讲算法】什么是时间复杂度">
-      【久远讲算法】什么是时间复杂度 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
