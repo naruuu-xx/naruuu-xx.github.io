@@ -231,10 +231,11 @@
       
         <blockquote>
 <p>参考书籍： <a target="_blank" rel="noopener" href="https://www.zybuluo.com/Standalone/note/1677177#5571">笨办法学python3</a> 附录</p>
-<p><strong>笔者本文章的大部分代码显示都采取了截图的方式，在阅读学习中请不要想着复制粘贴，最好自己尝试着运用命令行去做每一步，只有这样才可以快速学会。</strong>  </p>
-<p><strong>再次提醒 本文章不是只用来看的，请一定要动手跟着做。</strong>  </p>
+<p><strong>笔者本文章的大部分代码显示都采取了截图的方式，在阅读学习中请不要想着复制粘贴，最好自己尝试着运用命令行去做每一步，只有这样才可以快速学会。</strong></p>
+<p><strong>再次提醒 本文章不是只用来看的，请一定要动手跟着做。</strong></p>
 </blockquote>
-<h2 id="整体概述"><a href="#整体概述" class="headerlink" title="整体概述"></a>整体概述</h2><blockquote>
+<h2 id="整体概述">整体概述</h2>
+<blockquote>
 <p>阅读并练习本文章内所提及的内容，你将快速对powershell有一个快速的认识且掌握一些基础知识，本文章内容包含有：</p>
 </blockquote>
 <ul>
@@ -244,7 +245,7 @@
 <li>如何创建文件夹 <code>mkdir</code></li>
 <li>更改目录<code>cd</code></li>
 <li>列出目录内容 <code>ls</code></li>
-<li>删除目录  <code>rmdir</code></li>
+<li>删除目录 <code>rmdir</code></li>
 <li>多个目录切换<code>pushd</code>和<code>popd</code></li>
 <li>创建空文件夹 <code>New-Item</code></li>
 <li>复制文件 <code>cp</code></li>
@@ -254,223 +255,269 @@
 <li>删除文件 <code>rm</code></li>
 <li>退出终端 <code>exit</code></li>
 </ul>
-<hr>
-<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>win7以上的系统自带powershell，<code>WIN+R</code>键入<code>powershell</code>，然后<code>ENTER</code>即可打开终端。</p>
-<h3 id="升级powershell的两种办法"><a href="#升级powershell的两种办法" class="headerlink" title="升级powershell的两种办法"></a>升级powershell的两种办法</h3><blockquote>
+<hr />
+<h2 id="准备工作">准备工作</h2>
+<p>win7以上的系统自带powershell，<code>WIN+R</code>键入<code>powershell</code>，然后<code>ENTER</code>即可打开终端。</p>
+<h3 id="升级powershell的两种办法">升级powershell的两种办法</h3>
+<blockquote>
 <p>个人推荐第一种办法，因为第二种办法需要更新下载的东西有很多</p>
 </blockquote>
-<h4 id="终端内部升级"><a href="#终端内部升级" class="headerlink" title="终端内部升级"></a>终端内部升级</h4><ol>
+<h4 id="终端内部升级">终端内部升级</h4>
+<ol type="1">
 <li>首先打开电脑自带的powershell，键入<code>Start-Process powershell -Verb runAs</code>打开管理员权限。</li>
 </ol>
-<p><img src="https://img-blog.csdnimg.cn/20210104172955192.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L25ydXV1,size_16,color_FFFFFF,t_70#pic_center" alt="powershell申请管理员权限"></p>
-<ol>
+<figure>
+<img src="https://img-blog.csdnimg.cn/20210104172955192.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L25ydXV1,size_16,color_FFFFFF,t_70#pic_center" alt="powershell申请管理员权限" /><figcaption aria-hidden="true">powershell申请管理员权限</figcaption>
+</figure>
+<ol start="2" type="1">
 <li>然后会弹出新的powershell窗口，显示为如下：</li>
 </ol>
-<p><img src="https://img-blog.csdnimg.cn/20210104173030218.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L25ydXV1,size_16,color_FFFFFF,t_70#pic_center" alt="管理员权限2"></p>
-<ol>
+<figure>
+<img src="https://img-blog.csdnimg.cn/20210104173030218.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L25ydXV1,size_16,color_FFFFFF,t_70#pic_center" alt="管理员权限2" /><figcaption aria-hidden="true">管理员权限2</figcaption>
+</figure>
+<ol start="3" type="1">
 <li><p>在新弹出的powershell窗口内键入：</p>
-<p><code>iex &quot;&amp; &#123; $(irm https://aka.ms/install-powershell.ps1) &#125; -UseMSI&quot;</code></p>
-<p> 系统将自动从powershell github 页面下载程序，这个过程可能会很慢，要慢慢等。</p>
-</li>
+<p><code>iex "&amp; &#123; $(irm https://aka.ms/install-powershell.ps1) &#125; -UseMSI"</code></p>
+<p>系统将自动从powershell github 页面下载程序，这个过程可能会很慢，要慢慢等。</p></li>
 </ol>
 <p>如果上面这个方法下载失败，请参考接下来这个办法：</p>
-<h4 id="官网下载更新"><a href="#官网下载更新" class="headerlink" title="官网下载更新"></a>官网下载更新</h4><p>参考微软官方给出的文档 <a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/powershell/scripting/install/migrating-from-windows-powershell-51-to-powershell-7?view=powershell-7.1">powershell在windows下的安装</a> </p>
-<hr>
-<h2 id="打印工作目录pwd"><a href="#打印工作目录pwd" class="headerlink" title="打印工作目录pwd"></a>打印工作目录<code>pwd</code></h2><p>pwd命令全名为：“print working directory”</p>
+<h4 id="官网下载更新">官网下载更新</h4>
+<p>参考微软官方给出的文档 <a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/powershell/scripting/install/migrating-from-windows-powershell-51-to-powershell-7?view=powershell-7.1">powershell在windows下的安装</a></p>
+<hr />
+<h2 id="打印工作目录pwd">打印工作目录<code>pwd</code></h2>
+<p>pwd命令全名为：“print working directory”</p>
 <p>即打印出当前的工作路径</p>
-<p><img src="https://img-blog.csdnimg.cn/20210104173103326.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L25ydXV1,size_16,color_FFFFFF,t_70#pic_center" alt="pwd"></p>
-<hr>
-<h2 id="回到home目录cd"><a href="#回到home目录cd" class="headerlink" title="回到home目录cd ~"></a>回到home目录<code>cd ~</code></h2><p>当你运用命令行进行操作时，如果不清楚自己到了哪里，也不知道接下来该怎么办，这个时候 <code>cd~</code>就派上了用场。</p>
+<figure>
+<img src="https://img-blog.csdnimg.cn/20210104173103326.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L25ydXV1,size_16,color_FFFFFF,t_70#pic_center" alt="pwd" /><figcaption aria-hidden="true">pwd</figcaption>
+</figure>
+<hr />
+<h2 id="回到home目录cd">回到home目录<code>cd ~</code></h2>
+<p>当你运用命令行进行操作时，如果不清楚自己到了哪里，也不知道接下来该怎么办，这个时候 <code>cd~</code>就派上了用场。</p>
 <p>当你在命令行中迷路时，干两件事：</p>
-<ol>
+<ol type="1">
 <li>键入<code>pwd</code>查看当前所在位置的路径</li>
-<li>键入<code>cd~</code>回到最初的起点路径（即home目录）<br><img src="https://img-blog.csdnimg.cn/20210104173144488.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L25ydXV1,size_16,color_FFFFFF,t_70#pic_center" alt="cd~"></li>
+<li>键入<code>cd~</code>回到最初的起点路径（即home目录） <img src="https://img-blog.csdnimg.cn/20210104173144488.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L25ydXV1,size_16,color_FFFFFF,t_70#pic_center" alt="cd~" /></li>
 </ol>
-<hr>
-<h2 id="创建目录mkdir"><a href="#创建目录mkdir" class="headerlink" title="创建目录mkdir"></a>创建目录<code>mkdir</code></h2><p>在powershell我们可以利用<code>mkdir</code>创建空文件夹（新目录）</p>
-<p>运用起之前<code>pwd</code>和<code>cd~</code>的知识，我们将在C:\Users\用户 这个目录下新建一个文件夹 hello 在hello里再建立新的文件夹</p>
-<p><img src="https://img-blog.csdnimg.cn/20210104173205649.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L25ydXV1,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<p>创建一个名字包含空格的目录，方法为：键入 <code>mkdir &quot;hello world&quot;</code></p>
-<p><img src="https://img-blog.csdnimg.cn/20210104173221257.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L25ydXV1,size_16,color_FFFFFF,t_70#pic_center" alt=""></p>
-<hr>
-<h2 id="更改目录cd"><a href="#更改目录cd" class="headerlink" title="更改目录cd"></a>更改目录<code>cd</code></h2><ul>
+<hr />
+<h2 id="创建目录mkdir">创建目录<code>mkdir</code></h2>
+<p>在powershell我们可以利用<code>mkdir</code>创建空文件夹（新目录）</p>
+<p>运用起之前<code>pwd</code>和<code>cd~</code>的知识，我们将在C:这个目录下新建一个文件夹 hello 在hello里再建立新的文件夹</p>
+<figure>
+<img src="https://img-blog.csdnimg.cn/20210104173205649.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L25ydXV1,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述" /><figcaption aria-hidden="true">在这里插入图片描述</figcaption>
+</figure>
+<p>创建一个名字包含空格的目录，方法为：键入 <code>mkdir "hello world"</code></p>
+<p><img src="https://img-blog.csdnimg.cn/20210104173221257.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L25ydXV1,size_16,color_FFFFFF,t_70#pic_center" /></p>
+<hr />
+<h2 id="更改目录cd">更改目录<code>cd</code></h2>
+<ul>
 <li>利用<code>cd</code>可以更改访问的目录</li>
 <li><code>cd ..</code>为返回该目录的上一层</li>
 <li><code>cd ..\ ..\</code>返回上一层的上一层、</li>
 </ul>
 <p>利用我们上一步新建好的目录来实现这些操作：</p>
-<p><img src="https://img-blog.csdnimg.cn/20210104173249372.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L25ydXV1,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<hr>
-<h2 id="列出目录内容-ls"><a href="#列出目录内容-ls" class="headerlink" title="列出目录内容 ls"></a>列出目录内容 <code>ls</code></h2><ul>
+<figure>
+<img src="https://img-blog.csdnimg.cn/20210104173249372.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L25ydXV1,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述" /><figcaption aria-hidden="true">在这里插入图片描述</figcaption>
+</figure>
+<hr />
+<h2 id="列出目录内容-ls">列出目录内容 <code>ls</code></h2>
+<ul>
 <li>键入<code>ls</code>可查看该目录下的内容</li>
 <li><code>dir -R</code>可查看该目录下所有内容</li>
 </ul>
-<p><img src="https://img-blog.csdnimg.cn/20210104173304437.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L25ydXV1,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<hr>
-<h2 id="删除目录rmidr"><a href="#删除目录rmidr" class="headerlink" title="删除目录rmidr"></a>删除目录<code>rmidr</code></h2><p>利用<code>rmdir</code>命令删除空目录</p>
+<figure>
+<img src="https://img-blog.csdnimg.cn/20210104173304437.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L25ydXV1,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述" /><figcaption aria-hidden="true">在这里插入图片描述</figcaption>
+</figure>
+<hr />
+<h2 id="删除目录rmidr">删除目录<code>rmidr</code></h2>
+<p>利用<code>rmdir</code>命令删除空目录</p>
 <p>删除掉一个空目录很简单，只需要先移动到你要删除的目录的上一层 然后键入<code>rmdir &lt;dir&gt;</code>就可以删除掉这个空目录。</p>
-<p><img src="https://img-blog.csdnimg.cn/20210104173329782.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L25ydXV1,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<figure>
+<img src="https://img-blog.csdnimg.cn/20210104173329782.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L25ydXV1,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述" /><figcaption aria-hidden="true">在这里插入图片描述</figcaption>
+</figure>
 <p>注：</p>
 <blockquote>
-<p>如果删除的目录非空，在键入<code>rmdir</code>后 会有提示出现  <img src="https://img-blog.csdnimg.cn/20210104173350355.png#pic_center" alt="在这里插入图片描述"></p>
+<p>如果删除的目录非空，在键入<code>rmdir</code>后 会有提示出现 <img src="https://img-blog.csdnimg.cn/20210104173350355.png#pic_center" alt="在这里插入图片描述" /></p>
 </blockquote>
-<hr>
-<h2 id="多个目录切换pushd和popd"><a href="#多个目录切换pushd和popd" class="headerlink" title="多个目录切换pushd和popd"></a>多个目录切换<code>pushd</code>和<code>popd</code></h2><p>pushd和popd一般成对出现，pushd保存当前的位置并转到一个新位置，popd为回到先前保存的位置。</p>
+<hr />
+<h2 id="多个目录切换pushd和popd">多个目录切换<code>pushd</code>和<code>popd</code></h2>
+<p>pushd和popd一般成对出现，pushd保存当前的位置并转到一个新位置，popd为回到先前保存的位置。</p>
 <p>生动形象一些pushd和popd就是传送门，pushd把你传送到你去的新位置，popd把你送回之前的位置。</p>
-<p><img src="https://img-blog.csdnimg.cn/20210104173407503.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L25ydXV1,size_16,color_FFFFFF,t_70#pic_center" alt=""></p>
-<hr>
-<h2 id="创建空文件-New-Item"><a href="#创建空文件-New-Item" class="headerlink" title="创建空文件 New-Item"></a>创建空文件 <code>New-Item</code></h2><p>windows中利用<code>New-item</code>创建空文件或者新目录。</p>
-<p><img src="https://img-blog.csdnimg.cn/20210104173445687.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L25ydXV1,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<hr>
-<h2 id="复制文件cp"><a href="#复制文件cp" class="headerlink" title="复制文件cp"></a>复制文件<code>cp</code></h2><p>cp命令即copy，将文件从一个地方copy到另一个地方。</p>
+<p><img src="https://img-blog.csdnimg.cn/20210104173407503.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L25ydXV1,size_16,color_FFFFFF,t_70#pic_center" /></p>
+<hr />
+<h2 id="创建空文件-new-item">创建空文件 <code>New-Item</code></h2>
+<p>windows中利用<code>New-item</code>创建空文件或者新目录。</p>
+<figure>
+<img src="https://img-blog.csdnimg.cn/20210104173445687.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L25ydXV1,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述" /><figcaption aria-hidden="true">在这里插入图片描述</figcaption>
+</figure>
+<hr />
+<h2 id="复制文件cp">复制文件<code>cp</code></h2>
+<p>cp命令即copy，将文件从一个地方copy到另一个地方。</p>
 <p><code>cp -r</code>可复制非空目录</p>
-<p><img src="https://img-blog.csdnimg.cn/20210104173505994.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L25ydXV1,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<p><img src="https://img-blog.csdnimg.cn/20210104173521908.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L25ydXV1,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<hr>
-<h2 id="移动文件-mv"><a href="#移动文件-mv" class="headerlink" title="移动文件 mv"></a>移动文件 <code>mv</code></h2><p> 移动文件或者重命名文件，<code>mv</code>后跟原来的名字以及新名字就可以了。</p>
-<p><img src="https://img-blog.csdnimg.cn/20210104173536144.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L25ydXV1,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<hr>
-<h2 id="浏览文件-more"><a href="#浏览文件-more" class="headerlink" title="浏览文件 more"></a>浏览文件 <code>more</code></h2><p>进行该练习前的准备：</p>
+<figure>
+<img src="https://img-blog.csdnimg.cn/20210104173505994.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L25ydXV1,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述" /><figcaption aria-hidden="true">在这里插入图片描述</figcaption>
+</figure>
+<figure>
+<img src="https://img-blog.csdnimg.cn/20210104173521908.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L25ydXV1,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述" /><figcaption aria-hidden="true">在这里插入图片描述</figcaption>
+</figure>
+<hr />
+<h2 id="移动文件-mv">移动文件 <code>mv</code></h2>
+<p>移动文件或者重命名文件，<code>mv</code>后跟原来的名字以及新名字就可以了。</p>
+<figure>
+<img src="https://img-blog.csdnimg.cn/20210104173536144.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L25ydXV1,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述" /><figcaption aria-hidden="true">在这里插入图片描述</figcaption>
+</figure>
+<hr />
+<h2 id="浏览文件-more">浏览文件 <code>more</code></h2>
+<p>进行该练习前的准备：</p>
 <ul>
 <li>利用文本编辑器新建一个内容非空的<code>.txt</code>文件</li>
 <li>将该<code>.txt</code>文件保存到桌面，命名为<code>test.txt</code></li>
 <li>用你之前学过的命令把其复制到当前的工作目录 <code>hello</code>目录下</li>
 </ul>
-<p><img src="https://img-blog.csdnimg.cn/20210104173551107.png#pic_center" alt="在这里插入图片描述"></p>
-<hr>
-<h2 id="stream-文件显示cat"><a href="#stream-文件显示cat" class="headerlink" title="stream 文件显示cat"></a>stream 文件显示<code>cat</code></h2><p>利用我们上一步新建的<code>test.txt</code>文件来继续进行操作。</p>
-<p><img src="https://img-blog.csdnimg.cn/20210104173604443.png#pic_center" alt="在这里插入图片描述"></p>
+<figure>
+<img src="https://img-blog.csdnimg.cn/20210104173551107.png#pic_center" alt="在这里插入图片描述" /><figcaption aria-hidden="true">在这里插入图片描述</figcaption>
+</figure>
+<hr />
+<h2 id="stream-文件显示cat">stream 文件显示<code>cat</code></h2>
+<p>利用我们上一步新建的<code>test.txt</code>文件来继续进行操作。</p>
+<figure>
+<img src="https://img-blog.csdnimg.cn/20210104173604443.png#pic_center" alt="在这里插入图片描述" /><figcaption aria-hidden="true">在这里插入图片描述</figcaption>
+</figure>
 <p>是不是发现<code>cat</code>命令和我们上一节学到的<code>more</code>很像呢，二者的区别在于：</p>
 <ul>
-<li><p>如果读取的文件较长时，<code>more</code>指令是“分段”显示的，你可以进行翻页</p>
-</li>
-<li><p>而<code>cat</code>指令是直接读取文件，然后把文件内容一次性全部显示出来</p>
-</li>
+<li><p>如果读取的文件较长时，<code>more</code>指令是“分段”显示的，你可以进行翻页</p></li>
+<li><p>而<code>cat</code>指令是直接读取文件，然后把文件内容一次性全部显示出来</p></li>
 </ul>
 <blockquote>
 <p>额外的任务：</p>
-<ol>
+<ol type="1">
 <li>将test文件增添一些内容，尽量越多越好，然后再用<code>more</code>和 <code>cat</code>分别读取文件，看看差别在哪里</li>
 <li>再在hello目录下新建一个<code>test2.txt</code>，尝试键入 <code>cat test.txt test2.txt</code>会发生什么</li>
 </ol>
 </blockquote>
-<hr>
-<h2 id="移除文件rm"><a href="#移除文件rm" class="headerlink" title="移除文件rm"></a>移除文件<code>rm</code></h2><p><img src="https://img-blog.csdnimg.cn/20210104173629506.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L25ydXV1,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<hr />
+<h2 id="移除文件rm">移除文件<code>rm</code></h2>
+<figure>
+<img src="https://img-blog.csdnimg.cn/20210104173629506.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L25ydXV1,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述" /><figcaption aria-hidden="true">在这里插入图片描述</figcaption>
+</figure>
 <blockquote>
 <p>注意区分和<code>rmdir</code>和区别</p>
 <p>以及我们之前利用<code>rmdir</code>删除一个非空文件夹时会有提示，而现在利用<code>rm</code>,则算是深入到一个非空文件夹的内部，删掉其中的文件。</p>
-<p>额外任务</p>
-<p>删除掉我们学习用的hello文件夹里的所有东西，<strong>请一定用powershell来执行</strong> </p>
 </blockquote>
-<hr>
-<h2 id="退出终端-exit"><a href="#退出终端-exit" class="headerlink" title="退出终端 exit"></a>退出终端 <code>exit</code></h2><p>键入<code>exit</code>即可退出终端</p>
-<p><img src="https://img-blog.csdnimg.cn/20210104173648570.png#pic_center" alt="在这里插入图片描述"></p>
-<hr>
-<h2 id="命令符含义表"><a href="#命令符含义表" class="headerlink" title="命令符含义表"></a>命令符含义表</h2><p>可以尝试记忆，但是本人不建议死记硬背，要用的时候进行查找就可以了。</p>
-<div class="table-container">
+<blockquote>
+<p>额外任务</p>
+<p>删除掉我们学习用的hello文件夹里的所有东西，<strong>请一定用powershell来执行</strong></p>
+</blockquote>
+<hr />
+<h2 id="退出终端-exit">退出终端 <code>exit</code></h2>
+<p>键入<code>exit</code>即可退出终端</p>
+<figure>
+<img src="https://img-blog.csdnimg.cn/20210104173648570.png#pic_center" alt="在这里插入图片描述" /><figcaption aria-hidden="true">在这里插入图片描述</figcaption>
+</figure>
+<hr />
+<h2 id="命令符含义表">命令符含义表</h2>
+<p>可以尝试记忆，但是本人不建议死记硬背，要用的时候进行查找就可以了。</p>
 <table>
 <thead>
-<tr>
-<th style="text-align:center">命令符</th>
-<th style="text-align:center">含义</th>
+<tr class="header">
+<th style="text-align: center;">命令符</th>
+<th style="text-align: center;">含义</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:center">pwd</td>
-<td style="text-align:center">打印工作内容</td>
+<tr class="odd">
+<td style="text-align: center;">pwd</td>
+<td style="text-align: center;">打印工作内容</td>
 </tr>
-<tr>
-<td style="text-align:center">hostname</td>
-<td style="text-align:center">计算机网络运营商名称</td>
+<tr class="even">
+<td style="text-align: center;">hostname</td>
+<td style="text-align: center;">计算机网络运营商名称</td>
 </tr>
-<tr>
-<td style="text-align:center">mkdir</td>
-<td style="text-align:center">创建目录</td>
+<tr class="odd">
+<td style="text-align: center;">mkdir</td>
+<td style="text-align: center;">创建目录</td>
 </tr>
-<tr>
-<td style="text-align:center">cd</td>
-<td style="text-align:center">切换目录</td>
+<tr class="even">
+<td style="text-align: center;">cd</td>
+<td style="text-align: center;">切换目录</td>
 </tr>
-<tr>
-<td style="text-align:center">ls</td>
-<td style="text-align:center">列出目录</td>
+<tr class="odd">
+<td style="text-align: center;">ls</td>
+<td style="text-align: center;">列出目录</td>
 </tr>
-<tr>
-<td style="text-align:center">rmdir</td>
-<td style="text-align:center">删除目录</td>
+<tr class="even">
+<td style="text-align: center;">rmdir</td>
+<td style="text-align: center;">删除目录</td>
 </tr>
-<tr>
-<td style="text-align:center">pushd</td>
-<td style="text-align:center">前往新目录地址</td>
+<tr class="odd">
+<td style="text-align: center;">pushd</td>
+<td style="text-align: center;">前往新目录地址</td>
 </tr>
-<tr>
-<td style="text-align:center">popd</td>
-<td style="text-align:center">返回原目录地址</td>
+<tr class="even">
+<td style="text-align: center;">popd</td>
+<td style="text-align: center;">返回原目录地址</td>
 </tr>
-<tr>
-<td style="text-align:center">cp</td>
-<td style="text-align:center">复制文件或目录</td>
+<tr class="odd">
+<td style="text-align: center;">cp</td>
+<td style="text-align: center;">复制文件或目录</td>
 </tr>
-<tr>
-<td style="text-align:center">robocopy</td>
-<td style="text-align:center">超强复制</td>
+<tr class="even">
+<td style="text-align: center;">robocopy</td>
+<td style="text-align: center;">超强复制</td>
 </tr>
-<tr>
-<td style="text-align:center">mv</td>
-<td style="text-align:center">移动文件或目录</td>
+<tr class="odd">
+<td style="text-align: center;">mv</td>
+<td style="text-align: center;">移动文件或目录</td>
 </tr>
-<tr>
-<td style="text-align:center">more</td>
-<td style="text-align:center">在文件中翻页</td>
+<tr class="even">
+<td style="text-align: center;">more</td>
+<td style="text-align: center;">在文件中翻页</td>
 </tr>
-<tr>
-<td style="text-align:center">type</td>
-<td style="text-align:center">打印整个文件</td>
+<tr class="odd">
+<td style="text-align: center;">type</td>
+<td style="text-align: center;">打印整个文件</td>
 </tr>
-<tr>
-<td style="text-align:center">forfiles</td>
-<td style="text-align:center">在多个文件执行命令</td>
+<tr class="even">
+<td style="text-align: center;">forfiles</td>
+<td style="text-align: center;">在多个文件执行命令</td>
 </tr>
-<tr>
-<td style="text-align:center">dir -r</td>
-<td style="text-align:center">查找文件</td>
+<tr class="odd">
+<td style="text-align: center;">dir -r</td>
+<td style="text-align: center;">查找文件</td>
 </tr>
-<tr>
-<td style="text-align:center">select-stirng</td>
-<td style="text-align:center">在文件中查找内容</td>
+<tr class="even">
+<td style="text-align: center;">select-stirng</td>
+<td style="text-align: center;">在文件中查找内容</td>
 </tr>
-<tr>
-<td style="text-align:center">help</td>
-<td style="text-align:center">帮助手册</td>
+<tr class="odd">
+<td style="text-align: center;">help</td>
+<td style="text-align: center;">帮助手册</td>
 </tr>
-<tr>
-<td style="text-align:center">helpctr</td>
-<td style="text-align:center">查找合适的帮助内容</td>
+<tr class="even">
+<td style="text-align: center;">helpctr</td>
+<td style="text-align: center;">查找合适的帮助内容</td>
 </tr>
-<tr>
-<td style="text-align:center">env</td>
-<td style="text-align:center">查看环境</td>
+<tr class="odd">
+<td style="text-align: center;">env</td>
+<td style="text-align: center;">查看环境</td>
 </tr>
-<tr>
-<td style="text-align:center">echo</td>
-<td style="text-align:center">打印参数值</td>
+<tr class="even">
+<td style="text-align: center;">echo</td>
+<td style="text-align: center;">打印参数值</td>
 </tr>
-<tr>
-<td style="text-align:center">set</td>
-<td style="text-align:center">输出/设置新环境变量</td>
+<tr class="odd">
+<td style="text-align: center;">set</td>
+<td style="text-align: center;">输出/设置新环境变量</td>
 </tr>
-<tr>
-<td style="text-align:center">exit</td>
-<td style="text-align:center">退出终端</td>
+<tr class="even">
+<td style="text-align: center;">exit</td>
+<td style="text-align: center;">退出终端</td>
 </tr>
-<tr>
-<td style="text-align:center">runas</td>
-<td style="text-align:center">获得root权限</td>
+<tr class="odd">
+<td style="text-align: center;">runas</td>
+<td style="text-align: center;">获得root权限</td>
 </tr>
 </tbody>
 </table>
-</div>
 
     </div>
 
@@ -551,7 +598,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B4%E4%BD%93%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">整体概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="nav-number">2.</span> <span class="nav-text">准备工作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%87%E7%BA%A7powershell%E7%9A%84%E4%B8%A4%E7%A7%8D%E5%8A%9E%E6%B3%95"><span class="nav-number">2.1.</span> <span class="nav-text">升级powershell的两种办法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%88%E7%AB%AF%E5%86%85%E9%83%A8%E5%8D%87%E7%BA%A7"><span class="nav-number">2.1.1.</span> <span class="nav-text">终端内部升级</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%98%E7%BD%91%E4%B8%8B%E8%BD%BD%E6%9B%B4%E6%96%B0"><span class="nav-number">2.1.2.</span> <span class="nav-text">官网下载更新</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%93%E5%8D%B0%E5%B7%A5%E4%BD%9C%E7%9B%AE%E5%BD%95pwd"><span class="nav-number">3.</span> <span class="nav-text">打印工作目录pwd</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9E%E5%88%B0home%E7%9B%AE%E5%BD%95cd"><span class="nav-number">4.</span> <span class="nav-text">回到home目录cd ~</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E7%9B%AE%E5%BD%95mkdir"><span class="nav-number">5.</span> <span class="nav-text">创建目录mkdir</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9B%B4%E6%94%B9%E7%9B%AE%E5%BD%95cd"><span class="nav-number">6.</span> <span class="nav-text">更改目录cd</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%97%E5%87%BA%E7%9B%AE%E5%BD%95%E5%86%85%E5%AE%B9-ls"><span class="nav-number">7.</span> <span class="nav-text">列出目录内容 ls</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E7%9B%AE%E5%BD%95rmidr"><span class="nav-number">8.</span> <span class="nav-text">删除目录rmidr</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E4%B8%AA%E7%9B%AE%E5%BD%95%E5%88%87%E6%8D%A2pushd%E5%92%8Cpopd"><span class="nav-number">9.</span> <span class="nav-text">多个目录切换pushd和popd</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E7%A9%BA%E6%96%87%E4%BB%B6-New-Item"><span class="nav-number">10.</span> <span class="nav-text">创建空文件 New-Item</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%8D%E5%88%B6%E6%96%87%E4%BB%B6cp"><span class="nav-number">11.</span> <span class="nav-text">复制文件cp</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A7%BB%E5%8A%A8%E6%96%87%E4%BB%B6-mv"><span class="nav-number">12.</span> <span class="nav-text">移动文件 mv</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8F%E8%A7%88%E6%96%87%E4%BB%B6-more"><span class="nav-number">13.</span> <span class="nav-text">浏览文件 more</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#stream-%E6%96%87%E4%BB%B6%E6%98%BE%E7%A4%BAcat"><span class="nav-number">14.</span> <span class="nav-text">stream 文件显示cat</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A7%BB%E9%99%A4%E6%96%87%E4%BB%B6rm"><span class="nav-number">15.</span> <span class="nav-text">移除文件rm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%80%E5%87%BA%E7%BB%88%E7%AB%AF-exit"><span class="nav-number">16.</span> <span class="nav-text">退出终端 exit</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E7%AC%A6%E5%90%AB%E4%B9%89%E8%A1%A8"><span class="nav-number">17.</span> <span class="nav-text">命令符含义表</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B4%E4%BD%93%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">整体概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="nav-number">2.</span> <span class="nav-text">准备工作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%87%E7%BA%A7powershell%E7%9A%84%E4%B8%A4%E7%A7%8D%E5%8A%9E%E6%B3%95"><span class="nav-number">2.1.</span> <span class="nav-text">升级powershell的两种办法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%88%E7%AB%AF%E5%86%85%E9%83%A8%E5%8D%87%E7%BA%A7"><span class="nav-number">2.1.1.</span> <span class="nav-text">终端内部升级</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%98%E7%BD%91%E4%B8%8B%E8%BD%BD%E6%9B%B4%E6%96%B0"><span class="nav-number">2.1.2.</span> <span class="nav-text">官网下载更新</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%93%E5%8D%B0%E5%B7%A5%E4%BD%9C%E7%9B%AE%E5%BD%95pwd"><span class="nav-number">3.</span> <span class="nav-text">打印工作目录pwd</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9E%E5%88%B0home%E7%9B%AE%E5%BD%95cd"><span class="nav-number">4.</span> <span class="nav-text">回到home目录cd ~</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E7%9B%AE%E5%BD%95mkdir"><span class="nav-number">5.</span> <span class="nav-text">创建目录mkdir</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9B%B4%E6%94%B9%E7%9B%AE%E5%BD%95cd"><span class="nav-number">6.</span> <span class="nav-text">更改目录cd</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%97%E5%87%BA%E7%9B%AE%E5%BD%95%E5%86%85%E5%AE%B9-ls"><span class="nav-number">7.</span> <span class="nav-text">列出目录内容 ls</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E7%9B%AE%E5%BD%95rmidr"><span class="nav-number">8.</span> <span class="nav-text">删除目录rmidr</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E4%B8%AA%E7%9B%AE%E5%BD%95%E5%88%87%E6%8D%A2pushd%E5%92%8Cpopd"><span class="nav-number">9.</span> <span class="nav-text">多个目录切换pushd和popd</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E7%A9%BA%E6%96%87%E4%BB%B6-new-item"><span class="nav-number">10.</span> <span class="nav-text">创建空文件 New-Item</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%8D%E5%88%B6%E6%96%87%E4%BB%B6cp"><span class="nav-number">11.</span> <span class="nav-text">复制文件cp</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A7%BB%E5%8A%A8%E6%96%87%E4%BB%B6-mv"><span class="nav-number">12.</span> <span class="nav-text">移动文件 mv</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8F%E8%A7%88%E6%96%87%E4%BB%B6-more"><span class="nav-number">13.</span> <span class="nav-text">浏览文件 more</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#stream-%E6%96%87%E4%BB%B6%E6%98%BE%E7%A4%BAcat"><span class="nav-number">14.</span> <span class="nav-text">stream 文件显示cat</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A7%BB%E9%99%A4%E6%96%87%E4%BB%B6rm"><span class="nav-number">15.</span> <span class="nav-text">移除文件rm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%80%E5%87%BA%E7%BB%88%E7%AB%AF-exit"><span class="nav-number">16.</span> <span class="nav-text">退出终端 exit</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E7%AC%A6%E5%90%AB%E4%B9%89%E8%A1%A8"><span class="nav-number">17.</span> <span class="nav-text">命令符含义表</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
