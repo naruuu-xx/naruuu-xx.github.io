@@ -29,7 +29,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-08-20T05:25:04.000Z">
 <meta property="article:modified_time" content="2021-10-30T10:57:53.460Z">
-<meta property="article:author" content="久远">
+<meta property="article:author" content="久远Forever">
 <meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary">
 
@@ -101,7 +101,7 @@
       <h1 class="site-title">久远's blog</h1>
       <span class="logo-line-after"><i></i></span>
     </a>
-      <p class="site-subtitle" itemprop="description">随便写写</p>
+      <p class="site-subtitle" itemprop="description">目前定位为技术博客，只发计算机相关的东西。</p>
   </div>
 
   <div class="site-nav-right">
@@ -157,7 +157,7 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="久远">
+      <meta itemprop="name" content="久远Forever">
       <meta itemprop="description" content="">
     </span>
 
@@ -207,7 +207,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="【java】不规则数组实现杨辉三角"><a href="#【java】不规则数组实现杨辉三角" class="headerlink" title="【java】不规则数组实现杨辉三角"></a>【java】不规则数组实现杨辉三角</h1><p>参考：java核心技术卷一</p>
+        <h1 id="java不规则数组实现杨辉三角">【java】不规则数组实现杨辉三角</h1>
+<p>参考：java核心技术卷一</p>
 <p>构造不规则数组，及每一行长度不同，从而达到杨辉三角的效果。</p>
 <p>显示效果：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*NMAX=10;</span></span><br><span class="line"><span class="comment">   1</span></span><br><span class="line"><span class="comment">   1   1</span></span><br><span class="line"><span class="comment">   1   2   1</span></span><br><span class="line"><span class="comment">   1   3   3   1</span></span><br><span class="line"><span class="comment">   1   4   6   4   1</span></span><br><span class="line"><span class="comment">   1   5  10  10   5   1</span></span><br><span class="line"><span class="comment">   1   6  15  20  15   6   1</span></span><br><span class="line"><span class="comment">   1   7  21  35  35  21   7   1</span></span><br><span class="line"><span class="comment">   1   8  28  56  70  56  28   8   1</span></span><br><span class="line"><span class="comment">   1   9  36  84 126 126  84  36   9   1</span></span><br><span class="line"><span class="comment">   1  10  45 120 210 252 210 120  45  10   1</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">NMAX=15;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">   1</span></span><br><span class="line"><span class="comment">   1   1</span></span><br><span class="line"><span class="comment">   1   2   1</span></span><br><span class="line"><span class="comment">   1   3   3   1</span></span><br><span class="line"><span class="comment">   1   4   6   4   1</span></span><br><span class="line"><span class="comment">   1   5  10  10   5   1</span></span><br><span class="line"><span class="comment">   1   6  15  20  15   6   1</span></span><br><span class="line"><span class="comment">   1   7  21  35  35  21   7   1</span></span><br><span class="line"><span class="comment">   1   8  28  56  70  56  28   8   1</span></span><br><span class="line"><span class="comment">   1   9  36  84 126 126  84  36   9   1</span></span><br><span class="line"><span class="comment">   1  10  45 120 210 252 210 120  45  10   1</span></span><br><span class="line"><span class="comment">   1  11  55 165 330 462 462 330 165  55  11   1</span></span><br><span class="line"><span class="comment">   1  12  66 220 495 792 924 792 495 220  66  12   1</span></span><br><span class="line"><span class="comment">   1  13  78 286 7151287171617161287 715 286  78  13   1</span></span><br><span class="line"><span class="comment">   1  14  91 3641001200230033432300320021001 364  91  14   1</span></span><br><span class="line"><span class="comment">   1  15 105 45513653003500564356435500530031365 455 105  15   1</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
@@ -298,13 +299,13 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E3%80%90java%E3%80%91%E4%B8%8D%E8%A7%84%E5%88%99%E6%95%B0%E7%BB%84%E5%AE%9E%E7%8E%B0%E6%9D%A8%E8%BE%89%E4%B8%89%E8%A7%92"><span class="nav-number">1.</span> <span class="nav-text">【java】不规则数组实现杨辉三角</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#java%E4%B8%8D%E8%A7%84%E5%88%99%E6%95%B0%E7%BB%84%E5%AE%9E%E7%8E%B0%E6%9D%A8%E8%BE%89%E4%B8%89%E8%A7%92"><span class="nav-number">1.</span> <span class="nav-text">【java】不规则数组实现杨辉三角</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">久远</p>
+  <p class="site-author-name" itemprop="name">久远Forever</p>
   <div class="site-description" itemprop="description"></div>
 </div>
 <div class="site-state-wrap motion-element">
@@ -328,6 +329,14 @@
       </div>
   </nav>
 </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/naruuu-xx" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;naruuu-xx" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:parasitenruuu@gmail.com" title="E-Mail → mailto:parasitenruuu@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
 
 
 
@@ -354,7 +363,7 @@
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">久远</span>
+  <span class="author" itemprop="copyrightHolder">久远Forever</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
   </div>
@@ -388,6 +397,8 @@
 <script src="/js/next-boot.js"></script>
 
 
+  <script defer src="/lib/three/three.min.js"></script>
+    <script defer src="/lib/three/three-waves.min.js"></script>
 
 
   
