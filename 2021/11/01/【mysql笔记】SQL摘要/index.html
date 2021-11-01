@@ -20,20 +20,20 @@
     var CONFIG = {"hostname":"naruuu-xx.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="力扣刷题题解记录。">
+  <meta name="description" content="10月份在图灵社区买了一本sql基础教程，然后进行了阅读并记了一些笔记，持续更新。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【java】【leetcode】两数之和 三种解法 暴力、滑窗、哈希表">
-<meta property="og:url" content="https://naruuu-xx.github.io/2021/10/31/%E3%80%90java%E3%80%91%E3%80%90leetcode%E3%80%91%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C%20%E4%B8%89%E7%A7%8D%E8%A7%A3%E6%B3%95%20%E6%9A%B4%E5%8A%9B%E3%80%81%E6%BB%91%E7%AA%97%E3%80%81%E5%93%88%E5%B8%8C%E8%A1%A8/index.html">
+<meta property="og:title" content="【mysql笔记】SQL摘要">
+<meta property="og:url" content="https://naruuu-xx.github.io/2021/11/01/%E3%80%90mysql%E7%AC%94%E8%AE%B0%E3%80%91SQL%E6%91%98%E8%A6%81/index.html">
 <meta property="og:site_name" content="久远&#39;s blog">
-<meta property="og:description" content="力扣刷题题解记录。">
+<meta property="og:description" content="10月份在图灵社区买了一本sql基础教程，然后进行了阅读并记了一些笔记，持续更新。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-10-30T16:00:00.000Z">
-<meta property="article:modified_time" content="2021-11-01T08:29:09.026Z">
+<meta property="article:published_time" content="2021-10-31T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-11-01T11:21:37.744Z">
 <meta property="article:author" content="久远Forever">
-<meta property="article:tag" content="leetcode">
+<meta property="article:tag" content="数据库">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://naruuu-xx.github.io/2021/10/31/%E3%80%90java%E3%80%91%E3%80%90leetcode%E3%80%91%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C%20%E4%B8%89%E7%A7%8D%E8%A7%A3%E6%B3%95%20%E6%9A%B4%E5%8A%9B%E3%80%81%E6%BB%91%E7%AA%97%E3%80%81%E5%93%88%E5%B8%8C%E8%A1%A8/">
+<link rel="canonical" href="https://naruuu-xx.github.io/2021/11/01/%E3%80%90mysql%E7%AC%94%E8%AE%B0%E3%80%91SQL%E6%91%98%E8%A6%81/">
 
 
 <script id="page-configurations">
@@ -46,7 +46,7 @@
   };
 </script>
 
-  <title>【java】【leetcode】两数之和 三种解法 暴力、滑窗、哈希表 | 久远's blog</title>
+  <title>【mysql笔记】SQL摘要 | 久远's blog</title>
   
 
 
@@ -155,7 +155,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://naruuu-xx.github.io/2021/10/31/%E3%80%90java%E3%80%91%E3%80%90leetcode%E3%80%91%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C%20%E4%B8%89%E7%A7%8D%E8%A7%A3%E6%B3%95%20%E6%9A%B4%E5%8A%9B%E3%80%81%E6%BB%91%E7%AA%97%E3%80%81%E5%93%88%E5%B8%8C%E8%A1%A8/">
+    <link itemprop="mainEntityOfPage" href="https://naruuu-xx.github.io/2021/11/01/%E3%80%90mysql%E7%AC%94%E8%AE%B0%E3%80%91SQL%E6%91%98%E8%A6%81/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -168,7 +168,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          【java】【leetcode】两数之和 三种解法 暴力、滑窗、哈希表
+          【mysql笔记】SQL摘要
         </h1>
 
         <div class="post-meta">
@@ -177,28 +177,22 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2021-10-31 00:00:00" itemprop="dateCreated datePublished" datetime="2021-10-31T00:00:00+08:00">2021-10-31</time>
+              <time title="创建时间：2021-11-01 00:00:00 / 修改时间：19:21:37" itemprop="dateCreated datePublished" datetime="2021-11-01T00:00:00+08:00">2021-11-01</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-11-01 16:29:09" itemprop="dateModified" datetime="2021-11-01T16:29:09+08:00">2021-11-01</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/leetcode/" itemprop="url" rel="index"><span itemprop="name">leetcode</span></a>
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
                 </span>
             </span>
 
           
-            <div class="post-description">力扣刷题题解记录。</div>
+            <div class="post-description">10月份在图灵社区买了一本sql基础教程，然后进行了阅读并记了一些笔记，持续更新。</div>
 
         </div>
       </header>
@@ -209,22 +203,53 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>题目链接：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/two-sum/">1.两数之和</a></p>
-<h2 id="解法一双层循环">解法一：双层循环</h2>
-<h3 id="解题思路">解题思路</h3>
-<p>观察函数块返回类型为<code>int[]</code> 引入<code>int[]</code> 对象 <code>result</code> 。 双层循环，i 从 0 开始，j 在 i 前面，二者相加判断，不等于 target 就继续循环。 等于 target 就将 i , j 放进 result 内。 返回 result 。</p>
-<h3 id="代码">代码</h3>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] twoSum(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target) &#123;</span><br><span class="line">         <span class="keyword">int</span>[] result=<span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">2</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt; nums.length;i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j= i+<span class="number">1</span>;j&lt; nums.length;j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(nums[i]+nums[j]==target)&#123;</span><br><span class="line">                    result[<span class="number">0</span>]=i;</span><br><span class="line">                    result[<span class="number">1</span>]=j;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="解法二-优化解法一">解法二: 优化解法一</h2>
-<h3 id="解题思路-1">解题思路</h3>
-<p>由解法一可知，j 和 i 有关系，j 总是在 i 的后一位，那么我们是否可以根据这个条件将代码简化呢？ 将 i,j 设为 0 , 1 .当下标元素相加等于 target 时，返回长度为 2 元素为 i , j 的一维数组。 下标元素相加不等于 target 时，移动 j 的位置，直到 j 到达数组长度。 此时说明在 i 这个位置的元素后的任意一个数和它相加，都得不到 target ，我们将 i 的位置后移，j 也随之后移。</p>
-<h3 id="代码-1">代码</h3>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] twoSum(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target) &#123;</span><br><span class="line">        <span class="keyword">int</span> i=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> j=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> max=nums.length-<span class="number">1</span>;</span><br><span class="line">       <span class="keyword">while</span>(nums[i]+nums[j]!=target)&#123;</span><br><span class="line">            <span class="keyword">if</span>(j==max)&#123;</span><br><span class="line">                i++;</span><br><span class="line">                j=i;</span><br><span class="line">            &#125;</span><br><span class="line">        j++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;i,j&#125;;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="解法三-使用哈希表">解法三 使用哈希表</h2>
-<h3 id="解题思路-2">解题思路</h3>
-<p>使用哈希表来存储数组元素。只需一层循环。 if 条件要点为：哈希表 maps 中是否存在有 target-nums[i] 这个值。 如果没有，则将 nums[i] 的值放入表中。</p>
-<h3 id="代码-2">代码</h3>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] twoSum(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target) &#123;</span><br><span class="line">        HashMap&lt;Integer,Integer&gt; maps=<span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.length;++i)&#123;</span><br><span class="line">            <span class="keyword">if</span>(maps.containsKey(target-nums[i]))&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;maps.get(target-nums[i]),i&#125;;</span><br><span class="line">            &#125;</span><br><span class="line">            maps.put(nums[i],i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <h1 id="sql摘要">SQL摘要</h1>
+<h2 id="标准sql">标准SQL</h2>
+<p>SQL 是用来操作关系数据库的语言。它原本是为了提高数据库查询效率而开发的语言，但是现在不仅可以进行数据查询，就连数据的插入和删除等操作也基本上都可以通过 SQL 来完成了。</p>
+<p>国际标准化组织（ISO）为 SQL 制定了相应的标准，以此为基准的SQL 称为标准 SQL（相关信息请参考专栏——标准 SQL 和特定的 SQL）。以前，完全基于标准 SQL 的 RDBMS 很少，通常需要根据不同的 RDBMS来编写特定的 SQL 语句。这样一来，就会造成能够在 Oracle 中使用的SQL 语句却无法在 SQL Server 中使用，反之亦然。近来，对标准 SQL 的支持取得了一些进展，因此希望准备学习 SQL 的读者们能够从现在开始就牢记标准 SQL 的书写方式。</p>
+<h2 id="sql语句及其种类">SQL语句及其种类</h2>
+<p>SQL 用关键字、表名、列名等组合而成的一条语句（SQL 语句）来描述操作的内容。关键字是指那些含义或使用方法已事先定义好的英语单词，存在包含“对表进行查询”或者“参考这个表”等各种意义的关键字。根据对 RDBMS 赋予的指令种类的不同，SQL 语句可以分为以下三类。</p>
+<ul>
+<li>DDL</li>
+</ul>
+<p>DDL（Data Definition Language，数据定义语言）  用来创建或者删除存储数据用的数据库以及数据库中的表等对象。DDL 包含以下几种指令。</p>
+<p>CREATE：创建数据库和表等对象</p>
+<p>DROP：删除数据库和表等对象</p>
+<p>ALTER：修改数据库和表等对象的结构</p>
+<ul>
+<li>DML</li>
+</ul>
+<p>DML（Data Manipulation Language，数据操纵语言）用来查询或者变更表中的记录。DML包含以下几种指令。</p>
+<p>SELECT：查询表中的数据</p>
+<p>INSERT：向表中插入新数据</p>
+<p>UPDATE：更新表中的数据</p>
+<p>DELETE：删除表中的数据</p>
+<ul>
+<li>DCL</li>
+</ul>
+<p>DCL（Data Control Language，数据控制语言）  用来确认或者取消对数据库中的数据进行的变更。除此之外，还可以对 RDBMS 的用户是否有权限操作数据库中的对象（数据库表等）进行设定。DCL 包含以下几种指令。</p>
+<p>COMMIT：确认对数据库中的数据进行的变更</p>
+<p>ROLLBACK：取消对数据库中的数据进行的变更</p>
+<p>GRANT：赋予用户操作权限</p>
+<p>REVOKE：取消用户的操作权限</p>
+<p>然而在实际操作当中，我们面临的情况基本都是增删改查，因此 DML 是我们平常重点要掌握的。</p>
+<h2 id="sql的基本书写规则">SQL的基本书写规则</h2>
+<ul>
+<li>SQL 语句以 ; 为结尾。</li>
+</ul>
+<p>一条 SQL 语句可以描述一个数据库操作。在 RDBMS 当中，SQL 语句也是逐条执行的。众所周知，我们在句子的句尾加注标点表示结束，中文句子以句号（。）结尾，英文以点号（.）结尾，而 SQL 语句则使用分号（;）结尾。</p>
+<ul>
+<li>SQL 语句不区分大小写。</li>
+</ul>
+<p>SQL不区分关键字的大小写。例如，不管写成 SELECT 还是 select，解释都是一样的。表名和列名也是如此。但是插入到表中的数据是区分大小写的。例如，在操作过程中，数据Computer、COMPUTER 或 computer，三者是不一样的。</p>
+<ul>
+<li>常数的书写方式是固定的</li>
+</ul>
+<p>SQL 语句常常需要直接书写字符串、日期或者数字。例如，书写向表中插入字符串、日期或者数字等数据的 SQL 语句。 在 SQL 语句中直接书写的字符串、日期或者数字等称为常数。 SQL 语句中含有字符串的时候，需要像 'abc' 这样，使用单引号（'）将字符串括起来，用来标识这是一个字符串。 SQL 语句中含有日期的时候，同样需要使用单引号将其括起来。日期的格式有很多种（'26 Jan 2010' 或者 '10/01/26' 等）。 在 SQL 语句中书写数字的时候，不需要使用任何符号标识，直接写成 1000 这样的数字即可。</p>
+<ul>
+<li>单词需要用半角空格或者换行来分隔</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> test # 正确的写法</span><br><span class="line">CREATETABLE test # 错误的写法</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span>product #错误的写法</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -234,7 +259,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/leetcode/" rel="tag"># leetcode</a>
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag"># 数据库</a>
           </div>
 
         
@@ -243,12 +268,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021/10/30/%E3%80%90%E4%B9%85%E8%BF%9C%E8%AE%B2%E7%AE%97%E6%B3%95%E3%80%91%E4%BB%80%E4%B9%88%E6%98%AF%E7%A9%BA%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6/" rel="prev" title="【久远讲算法】什么是空间复杂度">
-      <i class="fa fa-chevron-left"></i> 【久远讲算法】什么是空间复杂度
+    <a href="/2021/11/01/%E3%80%90mysql%E7%AC%94%E8%AE%B0%E3%80%91%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E7%BB%93%E6%9E%84/" rel="prev" title="【mysql笔记】数据库的结构">
+      <i class="fa fa-chevron-left"></i> 【mysql笔记】数据库的结构
     </a></div>
       <div class="post-nav-item">
-    <a href="/2021/10/31/%E3%80%90java%E3%80%91%E3%80%90leetcode%E3%80%911423.%20%E5%8F%AF%E8%8E%B7%E5%BE%97%E7%9A%84%E6%9C%80%E5%A4%A7%E7%82%B9%E6%95%B0%20%E6%BB%91%E7%AA%97/" rel="next" title="【java】【leetcode】1423.可获得的最大点数">
-      【java】【leetcode】1423.可获得的最大点数 <i class="fa fa-chevron-right"></i>
+    <a href="/2021/11/01/%E3%80%90mysql%E7%AC%94%E8%AE%B0%E3%80%91%E4%BB%80%E4%B9%88%E6%98%AF%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="next" title="【mysql笔记】什么是数据库">
+      【mysql笔记】什么是数据库 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -308,7 +333,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E6%B3%95%E4%B8%80%E5%8F%8C%E5%B1%82%E5%BE%AA%E7%8E%AF"><span class="nav-number">1.</span> <span class="nav-text">解法一：双层循环</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF"><span class="nav-number">1.1.</span> <span class="nav-text">解题思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-number">1.2.</span> <span class="nav-text">代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E6%B3%95%E4%BA%8C-%E4%BC%98%E5%8C%96%E8%A7%A3%E6%B3%95%E4%B8%80"><span class="nav-number">2.</span> <span class="nav-text">解法二: 优化解法一</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF-1"><span class="nav-number">2.1.</span> <span class="nav-text">解题思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81-1"><span class="nav-number">2.2.</span> <span class="nav-text">代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E6%B3%95%E4%B8%89-%E4%BD%BF%E7%94%A8%E5%93%88%E5%B8%8C%E8%A1%A8"><span class="nav-number">3.</span> <span class="nav-text">解法三 使用哈希表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF-2"><span class="nav-number">3.1.</span> <span class="nav-text">解题思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81-2"><span class="nav-number">3.2.</span> <span class="nav-text">代码</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#sql%E6%91%98%E8%A6%81"><span class="nav-number">1.</span> <span class="nav-text">SQL摘要</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%87%E5%87%86sql"><span class="nav-number">1.1.</span> <span class="nav-text">标准SQL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sql%E8%AF%AD%E5%8F%A5%E5%8F%8A%E5%85%B6%E7%A7%8D%E7%B1%BB"><span class="nav-number">1.2.</span> <span class="nav-text">SQL语句及其种类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sql%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%B9%A6%E5%86%99%E8%A7%84%E5%88%99"><span class="nav-number">1.3.</span> <span class="nav-text">SQL的基本书写规则</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
