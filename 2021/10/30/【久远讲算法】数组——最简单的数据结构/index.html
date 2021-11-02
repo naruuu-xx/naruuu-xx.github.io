@@ -19,7 +19,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"naruuu-xx.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"naruuu-xx.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="首发于公众号的算法文章，讲解关于数组的一些内容。">
@@ -271,8 +271,7 @@
 <p>前面两篇文章，我们对算法以及时空复杂度进行了详细的讲解，但是，这其实是远远不够的，时空复杂度只是我们算法学习中的冰山一角，下面让我们通过数组的学习来正式打开算法与数据结构的大门吧！</p>
 <p>以下是我之后文章的具体走向，感兴趣的小伙伴可以跟着路线进行自学哦！基础篇暂定走向为：数组→链表→栈和队列→树→递归</p>
 <p>基础篇更完以后我将会开启力扣刷题套路篇哦，带大家一起提高对编程语言以及算法的熟练度。</p>
-<h2 id="什么是数组">什么是数组</h2>
-<p>关于数组，虽然它是数据结构世界里最常用以及最简单的，但是之前仍有同学向我反馈：数组难以理解！那我们就来对数组进行详细的讲解，帮助大家解惑。</p>
+<h2 id="什么是数组"><a href="#什么是数组" class="headerlink" title="什么是数组"></a>什么是数组</h2><p>关于数组，虽然它是数据结构世界里最常用以及最简单的，但是之前仍有同学向我反馈：数组难以理解！那我们就来对数组进行详细的讲解，帮助大家解惑。</p>
 <p>首先我们在此声明，python 本身的库中其实是没有数组这个内置类型的，但存在有列表 ( list ) 这个内置类型，列表和数组在长相以及实际应用上是相似的，因此我尝试拿列表来进行数组相关知识的讲解。（实际上在 python 的 numpy 库中是存在有数组这样一个数据结构的，之后我们会专门写一篇文章来分析数组和列表的异同。）</p>
 <p>在计算机科学中，数组数据结构，简称数组，英文名为 array ，是由相同类型的元素的集合所组成的数据结构，分配一块连续的内存来存储。利用元素的索引可以计算出该元素对应的存储地址。</p>
 <p>是不是看完这一长串理论，已经开始晕了？那我们现在提炼这段话并就来用现实生活的例子来解析这段话，带大家认识到底什么是数组。</p>
@@ -283,38 +282,35 @@
 <li>利用元素的索引可以计算出该元素对应的存储地址。士兵每天训练时要进行有序的排队，当喊道第几号士兵时，可以通过这位士兵的回答，得知他的各种信息，例如执行任务期间，住在哪片区域具体哪个位置。我们从平常计数报数都是从 1 开始，而计算机默认是从 0 开始，这点要记清楚，以防之后进行和数组相关的操作产生混乱。</li>
 </ul>
 <p>因此我们可知，数组就如同一列整齐的士兵，他们都是正规的军人，他们在队伍里有指定的位置，且通过叫号，可以知晓他们的讯息。正如军队里的士兵存在编号一样，数组中的每一个元素也有着自己的下标，只不过这个下标从 0 开始，一直到数组长度 -1。</p>
-<p>数组一般用来存储具有 "一对一" 逻辑关系数据的线性存储结构，即是在内存中顺序存储，因此可以很好地实现逻辑上的顺序表。</p>
+<p>数组一般用来存储具有 “一对一” 逻辑关系数据的线性存储结构，即是在内存中顺序存储，因此可以很好地实现逻辑上的顺序表。</p>
 <p>数组在内存中的顺序存储，具体是什么样子呢？</p>
 <p>内存是由一个个连续的内存单元组成的，每一个内存单元都有自己的地址。在这些内存单元中，有些被其他数据占用了，有些是空闲的。数组中的每一个元素，都存储在小小的内存单元中，并且元素之间紧密排列，既不能打乱元素的存储顺序，也不能跳过某个存储单元进行存储。</p>
 <p>这就像是宿舍分配的床位，每个宿舍有几个指定的床位，床位号一般都是连续的，每个床位号对应一个学生，这些学生可能有人每天都在宿舍住，有的可能搬出去住。床位号都是按顺序来的，进行安排时也不会考虑跳过哪个号进行床位分配。</p>
 <p>理论性的介绍先告一段落，单单了解数组的理论知识还远远不够，接下来我们将系统性的介绍数组在编程中的使用。</p>
-<h2 id="数组的使用">数组的使用</h2>
-<p>任何数据结构的操作基本离不开，增删改查这四种情况。接下来就让我给大家介绍数组的增删改查怎么实现。</p>
-<h3 id="数组元素的查询">数组元素的查询</h3>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 初始化</span></span><br><span class="line">String[] array = <span class="keyword">new</span> String[]&#123;<span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;green&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>, <span class="string">&#x27;yellow&#x27;</span>, <span class="string">&#x27;white&#x27;</span>, <span class="string">&#x27;black&#x27;</span>&#125;;</span><br><span class="line"><span class="comment">// 通过下标进行索引</span></span><br><span class="line">System.out.println(array[<span class="number">0</span>]);</span><br><span class="line">System.out.println(array[<span class="number">1</span>]);</span><br><span class="line">System.out.println(array[<span class="number">2</span>]);</span><br></pre></td></tr></table></figure>
+<h2 id="数组的使用"><a href="#数组的使用" class="headerlink" title="数组的使用"></a>数组的使用</h2><p>任何数据结构的操作基本离不开，增删改查这四种情况。接下来就让我给大家介绍数组的增删改查怎么实现。</p>
+<h3 id="数组元素的查询"><a href="#数组元素的查询" class="headerlink" title="数组元素的查询"></a>数组元素的查询</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 初始化</span></span><br><span class="line">String[] array = <span class="keyword">new</span> String[]&#123;<span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;green&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>, <span class="string">&#x27;yellow&#x27;</span>, <span class="string">&#x27;white&#x27;</span>, <span class="string">&#x27;black&#x27;</span>&#125;;</span><br><span class="line"><span class="comment">// 通过下标进行索引</span></span><br><span class="line">System.out.println(array[<span class="number">0</span>]);</span><br><span class="line">System.out.println(array[<span class="number">1</span>]);</span><br><span class="line">System.out.println(array[<span class="number">2</span>]);</span><br></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">list_array=[<span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;green&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>, <span class="string">&#x27;yellow&#x27;</span>, <span class="string">&#x27;white&#x27;</span>, <span class="string">&#x27;black&#x27;</span>]</span><br><span class="line"><span class="built_in">print</span>( list_array[<span class="number">0</span>] )<span class="comment">#red</span></span><br><span class="line"><span class="built_in">print</span>( list_array[<span class="number">1</span>] )<span class="comment">#green</span></span><br><span class="line"><span class="built_in">print</span>( list_array[<span class="number">2</span>] )<span class="comment">#blue</span></span><br></pre></td></tr></table></figure>
 <p>对 python 代码进行讲解：</p>
 <p>我们新建了一个长度为 6 的数组，并查询数组 list_array 下标为 0，1，2的元素，并将他们打印出来。</p>
 <p>对于数组来说，读取元素是最简单的操作。由于数组在内存中顺序存储，所以只要给出一个数组下标，就可以读取到对应的数组元素。</p>
-<p>例如我们当前新建的list_array数组，我们要读取数组下标为 3 的元素，就写作 array_list[3]；读取的元素即为 yellow ，读取数组下标为 5 的元素，就写作 array_list[5]，读取的数组为 black ，需要注意的是，输入的下标必须在数组的长度范围之内，否则会出现数组越界。</p>
+<p>例如我们当前新建的list_array数组，我们要读取数组下标为 3 的元素，就写作 array_list[3]；读取的元素即为  yellow ，读取数组下标为 5 的元素，就写作 array_list[5]，读取的数组为 black ，需要注意的是，输入的下标必须在数组的长度范围之内，否则会出现数组越界。</p>
 <ul>
 <li><p>tips:</p>
-<p>在 python 中，使用 list 进行数组的新建，然后索引时，它其实是不会报错的，这也是数组和列表的一大区别，其实本质还是因为列表类似于动态数组，我们在别的编程语言中使用的数组，明确而言是有指定的长度的， 超越指定的长度时，它会进行越界报错，而动态数组的长度是没有准确规定，只要不超出内存，即可在数组末尾一直添加元素，这点是不是和python中的列表很像呢？</p></li>
+<p>  在 python 中，使用 list 进行数组的新建，然后索引时，它其实是不会报错的，这也是数组和列表的一大区别，其实本质还是因为列表类似于动态数组，我们在别的编程语言中使用的数组，明确而言是有指定的长度的， 超越指定的长度时，它会进行越界报错，而动态数组的长度是没有准确规定，只要不超出内存，即可在数组末尾一直添加元素，这点是不是和python中的列表很像呢？</p>
+</li>
 </ul>
-<h3 id="数组元素的更改">数组元素的更改</h3>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String[] array = <span class="keyword">new</span> String[]&#123;<span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;green&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>, <span class="string">&#x27;yellow&#x27;</span>, <span class="string">&#x27;white&#x27;</span>, <span class="string">&#x27;black&#x27;</span>&#125;;</span><br><span class="line">array[<span class="number">0</span>] = <span class="string">&#x27;orange&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="数组元素的更改"><a href="#数组元素的更改" class="headerlink" title="数组元素的更改"></a>数组元素的更改</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String[] array = <span class="keyword">new</span> String[]&#123;<span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;green&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>, <span class="string">&#x27;yellow&#x27;</span>, <span class="string">&#x27;white&#x27;</span>, <span class="string">&#x27;black&#x27;</span>&#125;;</span><br><span class="line">array[<span class="number">0</span>] = <span class="string">&#x27;orange&#x27;</span>;</span><br></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">list_array=[<span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;green&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>, <span class="string">&#x27;yellow&#x27;</span>, <span class="string">&#x27;white&#x27;</span>, <span class="string">&#x27;black&#x27;</span>]</span><br><span class="line">list_array[<span class="number">0</span>] = <span class="string">&#x27;orange&#x27;</span> </span><br></pre></td></tr></table></figure>
 <p>对 python 代码进行讲解：</p>
-<p>依旧是我们的 list_array ,现在我想把第一位的红色变成橘色，那么我们直接使用下标索引，找到 'red' ,然后将其赋值为 'orange' 即可。</p>
-<p>要把数组中某一个元素的值改为一个新值，也是非常简单的操作。我们直接利用下标索引到它，然后将其赋值为新的值就可以了。</p>
-<h3 id="时间复杂度分析">时间复杂度分析</h3>
-<p>我们根据索引就可以查询到元素的位置，若想要更改直接覆盖掉它的值即可。因此数组元素的修改和查找的时间复杂度均为 <span class="math inline">\(O(1)\)</span>。</p>
+<p>依旧是我们的 list_array  ,现在我想把第一位的红色变成橘色，那么我们直接使用下标索引，找到 ‘red’ ,然后将其赋值为 ‘orange’ 即可。</p>
+<p> 要把数组中某一个元素的值改为一个新值，也是非常简单的操作。我们直接利用下标索引到它，然后将其赋值为新的值就可以了。</p>
+<h3 id="时间复杂度分析"><a href="#时间复杂度分析" class="headerlink" title="时间复杂度分析"></a>时间复杂度分析</h3><p>我们根据索引就可以查询到元素的位置，若想要更改直接覆盖掉它的值即可。因此数组元素的修改和查找的时间复杂度均为   $O(1)$。</p>
 <ul>
 <li><p>tips:</p>
-<p>关于时间复杂度的讲解，参考我之前的文章：</p></li>
+<p>  关于时间复杂度的讲解，参考我之前的文章： </p>
+</li>
 </ul>
-<h3 id="数组元素的插入">数组元素的插入</h3>
-<p>数组元素的插入分为以下几种：</p>
+<h3 id="数组元素的插入"><a href="#数组元素的插入" class="headerlink" title="数组元素的插入"></a>数组元素的插入</h3><p>数组元素的插入分为以下几种：</p>
 <ul>
 <li>尾部插入</li>
 <li>中间插入</li>
@@ -329,7 +325,7 @@
 <li>中间插入</li>
 </ul>
 <p>而进行中间的插入时，我们就要考虑这些：</p>
-<ol type="1">
+<ol>
 <li>确认数组本身是否还有空余的位置。如果没有空余的位置，那么我们就要进行超范围插入了。如果有空余的位置，我们进行下面的操作。</li>
 <li>挪位置。先为了给这个元素让出一个位置，这个元素指定的位置之后的元素都要向后移动一个位置，不然的话，是没有位置留给插入的那个元素的。</li>
 <li>将元素放进腾出的那个位置。原来的元素进行挪位操作后，该元素进行赋值归位，这样元素就插入成功了。</li>
@@ -352,17 +348,16 @@
 <ul>
 <li>列表中的 insert 方法</li>
 </ul>
-<p>列表中的 insert 方法，对应数组中的中间插入，只需要一步调用方法，即可完成 java 中那么多的判断以及元素的插入，可见 python 的强大。又因为列表本身可以视为动态数组，其实对于长度的要求并没有数组那么苛刻，它是可以随意插入元素的，无需担心长度，容量问题。</p>
+<p>列表中的 insert 方法，对应数组中的中间插入，只需要一步调用方法，即可完成 java 中那么多的判断以及元素的插入，可见 python 的强大。又因为列表本身可以视为动态数组，其实对于长度的要求并没有数组那么苛刻，它是可以随意插入元素的，无需担心长度，容量问题。 </p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">list_array = [<span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;green&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>]</span><br><span class="line">list_array.insert(<span class="number">0</span>, <span class="string">&#x27;black&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span> (<span class="string">&#x27;列表插入元素后为 : &#x27;</span>, list_array)</span><br><span class="line"><span class="comment">#更新后的列表为 [&#x27;black&#x27;, &#x27;red&#x27;, &#x27;green&#x27;, &#x27;blue&#x27;]</span></span><br></pre></td></tr></table></figure>
 <p>对 python 代码进行讲解：</p>
-<p>对新生成的列表使用 insert 方法，insert 方法有两个参数，第一个参数为，我们要将元素插入到列表的哪个位置，第二个参数为元素内容。该段代码即为使用 insert 方法将 'black' 插入到列表的头部。</p>
+<p>对新生成的列表使用 insert 方法，insert 方法有两个参数，第一个参数为，我们要将元素插入到列表的哪个位置，第二个参数为元素内容。该段代码即为使用 insert 方法将 ‘black’ 插入到列表的头部。</p>
 <ul>
 <li>列表中的 extend 方法</li>
 </ul>
 <p>列表中的 extend 方法，用于在列表末尾一次性追加另一个序列中的多个值（用新列表扩展原来的列表）。可以视为是数组扩容的一种特殊情况。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">list_array = [<span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;green&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>]</span><br><span class="line">list2=<span class="built_in">list</span>(<span class="built_in">range</span>(<span class="number">5</span>)) <span class="comment"># 创建 0-4 的列表</span></span><br><span class="line">list1.extend(list2)  <span class="comment"># 扩展列表</span></span><br><span class="line"><span class="built_in">print</span> (<span class="string">&quot;扩展后的列表：&quot;</span>, list1)</span><br><span class="line"><span class="comment">#扩展后的列表： [&#x27;red&#x27;, &#x27;green&#x27;, &#x27;blue&#x27;, 0, 1, 2, 3, 4]</span></span><br></pre></td></tr></table></figure>
-<h3 id="数组元素的删除">数组元素的删除</h3>
-<p>数组的删除操作和插入操作的过程相反，如果是在数组的最后删除元素，那么直接去除元素即可，但是如果是在头部或者数组的中间删除元素，那么其后的元素都需要向前挪动 1 位。</p>
+<h3 id="数组元素的删除"><a href="#数组元素的删除" class="headerlink" title="数组元素的删除"></a>数组元素的删除</h3><p>数组的删除操作和插入操作的过程相反，如果是在数组的最后删除元素，那么直接去除元素即可，但是如果是在头部或者数组的中间删除元素，那么其后的元素都需要向前挪动 1 位。</p>
 <p>删除简单的地方在于，我们无需关心下标是否会越界，容量是肯定不会超过申请的大小的。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">delete</span><span class="params">(<span class="keyword">int</span> index)</span>  </span>&#123;</span><br><span class="line">    <span class="comment">//判断访问下标是否超出范围</span></span><br><span class="line">    <span class="keyword">if</span>(index&lt;<span class="number">0</span> || index&gt;=size)&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;超出数组实际元素范围！&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> deleted= array[index];</span><br><span class="line">    <span class="comment">//从左向右循环，将元素逐个向左挪1位</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=index; i&lt;size-<span class="number">1</span>; i++)&#123;</span><br><span class="line">        array[i] = array[i+<span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    size--;</span><br><span class="line">    <span class="keyword">return</span> deleted;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p>python 列表中有两种方法和数组的删除操作匹配，即 pop 和 remove 方法。</p>
@@ -372,25 +367,23 @@
 <p>pop() 函数用于移除列表中的一个元素（默认最后一个元素），并且返回该元素的值。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">list1 = [<span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;green&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>]</span><br><span class="line">list1.pop()</span><br><span class="line"><span class="built_in">print</span> (<span class="string">&quot;列表现在为 : &quot;</span>, list1)</span><br><span class="line"><span class="comment">#列表现在为 :  [&#x27;red&#x27;, &#x27;green&#x27;]</span></span><br><span class="line">list1.pop(<span class="number">1</span>)</span><br><span class="line"><span class="built_in">print</span> (<span class="string">&quot;列表现在为 : &quot;</span>, list1)</span><br><span class="line"><span class="comment">#列表现在为 :  [&#x27;red&#x27;]</span></span><br></pre></td></tr></table></figure>
 <p>对 python 代码进行讲解：</p>
-<p>新建一个 list1 列表，我们对其使用 pop() ，那么 list1 列表中最后一个元素被移除，这个元素即为 'blue' ，然后继续对 list1 使用 pop 操作，此时 list1 中最后一个元素为 'green'，将其移除， list1 中最后只有 'red' 一个元素了。</p>
+<p>新建一个 list1 列表，我们对其使用 pop() ，那么 list1 列表中最后一个元素被移除，这个元素即为 ‘blue’ ，然后继续对 list1 使用 pop 操作，此时 list1 中最后一个元素为 ‘green’，将其移除， list1 中最后只有 ‘red’ 一个元素了。</p>
 <ul>
 <li>列表中的 remove 方法</li>
 </ul>
 <p>remove() 函数用于移除列表中某个值的第一个匹配项。即当列表中有一样的元素的时候，使用 remove 删除这个元素， remove 将会删除下标较小的。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">list1 = [<span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;green&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>]</span><br><span class="line">list1.remove(<span class="string">&#x27;red&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span> (<span class="string">&quot;列表现在为 : &quot;</span>, list1)</span><br><span class="line"><span class="comment"># 列表现在为 :  [&#x27;green&#x27;,&#x27;blue&#x27;]</span></span><br><span class="line">list1.remove(<span class="string">&#x27;green&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span> (<span class="string">&quot;列表现在为 : &quot;</span>, list1)</span><br><span class="line"><span class="comment"># 列表现在为 :  [&#x27;blue&#x27;]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 有重复元素的情况</span></span><br><span class="line">list2 = [<span class="string">&#x27;red&#x27;</span>,<span class="string">&#x27;red&#x27;</span>,<span class="string">&#x27;green&#x27;</span>,<span class="string">&#x27;blue&#x27;</span>,<span class="string">&#x27;blue&#x27;</span>]</span><br><span class="line">list2.remove(<span class="string">&#x27;red&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;列表现在为：&quot;</span>,list2)</span><br><span class="line"><span class="comment"># 列表现在为： [&#x27;red&#x27;, &#x27;green&#x27;, &#x27;blue&#x27;, &#x27;blue&#x27;]</span></span><br><span class="line">list2.remove(<span class="string">&#x27;green&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;列表现在为：&quot;</span>,list2)</span><br><span class="line"><span class="comment"># 列表现在为： [&#x27;red&#x27;, &#x27;blue&#x27;, &#x27;blue&#x27;]</span></span><br></pre></td></tr></table></figure>
 <p>对 python 代码进行讲解：</p>
-<p>新建一个 list2 列表，我们对其使用 remove('red') ，那么 list2 列表中第一个 'red' 将会被移除，然后继续对 list2 使用 remove 操作，这次我们移除列表中第一个 'blue' ，打印列表可以发现，我们原列表中的 0 号位的 'red' 和 3 号位的 'blue' 都被删掉了，而剩下的 'red' 和 'blue' 没有被移除。</p>
-<h3 id="时间复杂度分析-1">时间复杂度分析</h3>
-<p>数组的插入，我们首先要考虑数组的长度和容量，如果容量空余，我们在插入前还要为元素腾出位置，因此我们在此的时间复杂度 为 <span class="math inline">\(O(n)\)</span> , 如果元素的容量已满，我们要扩容数组，那么这个操作的时间复杂度仍为 <span class="math inline">\(O(n)\)</span> ，综合考虑，数组的插入操作时间复杂度为 <span class="math inline">\(O(n)\)</span> .</p>
-<p>数组的删除，无需考虑数组的长度和容量问题，只需要在删除元素之后，改变其它元素的位置即可，因此数组的删除操作消耗的时间在此的时间复杂度为 <span class="math inline">\(O(n)\)</span> .</p>
-<h2 id="数组的优势和劣势">数组的优势和劣势</h2>
-<p>数组的优势体现在查询和修改元素上，我们只需要知道元素的数组下标即可对其进行查询和修改，非常的方便。而这种特性也被二分查找法充分的利用了。</p>
+<p>新建一个 list2 列表，我们对其使用 remove(‘red’) ，那么 list2 列表中第一个 ‘red’ 将会被移除，然后继续对 list2 使用 remove 操作，这次我们移除列表中第一个 ‘blue’ ，打印列表可以发现，我们原列表中的 0 号位的 ‘red’ 和 3 号位的 ‘blue’ 都被删掉了，而剩下的 ‘red’ 和 ‘blue’ 没有被移除。  </p>
+<h3 id="时间复杂度分析-1"><a href="#时间复杂度分析-1" class="headerlink" title="时间复杂度分析"></a>时间复杂度分析</h3><p>数组的插入，我们首先要考虑数组的长度和容量，如果容量空余，我们在插入前还要为元素腾出位置，因此我们在此的时间复杂度 为  $O(n)$ , 如果元素的容量已满，我们要扩容数组，那么这个操作的时间复杂度仍为 $O(n)$ ，综合考虑，数组的插入操作时间复杂度为 $O(n)$ .</p>
+<p>数组的删除，无需考虑数组的长度和容量问题，只需要在删除元素之后，改变其它元素的位置即可，因此数组的删除操作消耗的时间在此的时间复杂度为  $O(n)$ .</p>
+<h2 id="数组的优势和劣势"><a href="#数组的优势和劣势" class="headerlink" title="数组的优势和劣势"></a>数组的优势和劣势</h2><p>数组的优势体现在查询和修改元素上，我们只需要知道元素的数组下标即可对其进行查询和修改，非常的方便。而这种特性也被二分查找法充分的利用了。</p>
 <p>数组的劣势体现在它的插入操作和删除操作上，当插入一个元素或者删除一个元素时，其他的元素都需要改变，这极大地影响了程序的运行效率。</p>
 <p>总之数组适用于，查找，修改较多，插入，删除较少的场景下。我们下周要讲的链表则和它的情况相反。</p>
 <blockquote>
 <p>流沙团队联合AI悦创|久远·推出辅导班啦，包括「Python 语言辅导班、C++ 辅导班、java 辅导班、算法/数据结构辅导班、少儿编程、pygame 游戏开发」，全部都是一对一教学：一对一辅导 + 一对一答疑 + 布置作业 + 项目实践等。QQ、微信在线，随时响应！</p>
 </blockquote>
-<p><img src="新建文本文档.assets/202110302224870.jpg" /></p>
+<p><img src="新建文本文档.assets/202110302224870.jpg" alt=""></p>
 
     </div>
 
@@ -409,12 +402,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021/10/30/%E3%80%90%E8%B6%85%E8%AF%A6%E7%BB%86%E3%80%91gitee+picgo%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A%E6%90%AD%E5%BB%BA+%E5%90%84%E7%A7%8D%E6%8F%92%E4%BB%B6%E5%AE%89%E8%A3%85bug%E5%A4%84%E7%90%86/" rel="prev" title="【超详细】gitee+picgo个人图床搭建+各种插件安装bug处理">
-      <i class="fa fa-chevron-left"></i> 【超详细】gitee+picgo个人图床搭建+各种插件安装bug处理
+    <a href="/2021/10/30/%E3%80%90%E4%B9%85%E8%BF%9C%E8%AE%B2%E7%AE%97%E6%B3%95%E3%80%91%E4%BB%80%E4%B9%88%E6%98%AF%E7%A9%BA%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6/" rel="prev" title="【久远讲算法】什么是空间复杂度">
+      <i class="fa fa-chevron-left"></i> 【久远讲算法】什么是空间复杂度
     </a></div>
       <div class="post-nav-item">
-    <a href="/2021/10/30/%E3%80%90%E4%B9%85%E8%BF%9C%E8%AE%B2%E7%AE%97%E6%B3%95%E3%80%91%E9%93%BE%E8%A1%A8%E2%80%94%E5%AE%9E%E7%8E%B0%E6%97%A0%E5%BA%8F%E5%88%97%E8%A1%A8/" rel="next" title="【久远讲算法】链表—实现无序列表">
-      【久远讲算法】链表—实现无序列表 <i class="fa fa-chevron-right"></i>
+    <a href="/2021/10/31/%E3%80%90java%E3%80%91%E3%80%90leetcode%E3%80%91%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C%20%E4%B8%89%E7%A7%8D%E8%A7%A3%E6%B3%95%20%E6%9A%B4%E5%8A%9B%E3%80%81%E6%BB%91%E7%AA%97%E3%80%81%E5%93%88%E5%B8%8C%E8%A1%A8/" rel="next" title="【java】【leetcode】两数之和 三种解法 暴力、滑窗、哈希表">
+      【java】【leetcode】两数之和 三种解法 暴力、滑窗、哈希表 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -560,7 +553,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">久远Forever</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
   </div>
 
         
@@ -606,7 +599,7 @@
 <script src="/js/motion.js"></script>
 
 
-<script src="/js/schemes/muse.js"></script>
+<script src="/js/schemes/pisces.js"></script>
 
 
 <script src="/js/next-boot.js"></script>

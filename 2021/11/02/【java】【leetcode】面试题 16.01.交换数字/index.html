@@ -19,7 +19,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"naruuu-xx.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"naruuu-xx.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="力扣刷题题解记录。">
@@ -277,36 +277,35 @@
 <li><code>numbers.length == 2</code></li>
 <li><code>-2147483647 &lt;= numbers[i] &lt;= 2147483647</code></li>
 </ul>
-<hr />
+<hr>
 <p>使用临时变量进行数组元素交换的操作，代码为:</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">temp = numbers[<span class="number">0</span>];</span><br><span class="line">numbers[<span class="number">0</span>] = numbers[<span class="number">1</span>];</span><br><span class="line">numbers[<span class="number">1</span>] = temp;</span><br></pre></td></tr></table></figure>
 <p>不使用临时变量进行元素交换，加法操作：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">numbers[<span class="number">0</span>] = numbers[<span class="number">1</span>] + numbers[<span class="number">0</span>];</span><br><span class="line">numbers[<span class="number">1</span>] = numbers[<span class="number">0</span>] - numbers[<span class="number">1</span>];</span><br><span class="line">numbers[<span class="number">0</span>] = numbers[<span class="number">0</span>] - numbers[<span class="number">1</span>];</span><br></pre></td></tr></table></figure>
 <p>我们要交换元素的位置，思路为：</p>
-<p>假设现在的数组为 numbers[] = {1,2}，我们的最终目的是将数组变为 {2,1}</p>
+<p>假设现在的数组为 numbers[] = {1,2}，我们的最终目的是将数组变为 {2,1} </p>
 <p>先将元素全都堆在 0 号位，这时 numbers 中的元素变为 {3,2} ，为了让 1 号位的元素变为1，那么我们用利用当前 0 号位的所有元素之和减去 1 号位的2，即可得到 1 ，然后直接让 0 号位的元素总和减去我们刚才算得的 1 就可以了。</p>
 <p>减法也是类似的操作。</p>
 <p>减法操作：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">numbers[0] = numbers[1] - numbers[0];</span><br><span class="line">numbers[1] = numbers[0] + numbers[1];</span><br><span class="line">numbers[0] = numbers[0] - numbers[1];</span><br></pre></td></tr></table></figure>
 <p>神奇的位运算操作</p>
 <p>异或运算公式：</p>
-<ol type="1">
-<li><strong>归零律</strong>： <span class="math inline">\(a \bigoplus a = 0\)</span></li>
-<li><strong>恒等律</strong>：<span class="math inline">\(a \bigoplus 0 = a\)</span></li>
-<li><strong>交换律</strong>： <span class="math inline">\(a\bigoplus b = b \bigoplus a\)</span></li>
-<li><strong>结合律</strong>：<span class="math inline">\(a \bigoplus b \bigoplus c = a \bigoplus (b \bigoplus c) = (a \bigoplus b) \bigoplus c\)</span></li>
-<li><strong>自反</strong>：<span class="math inline">\(a \bigoplus b \bigoplus a = b\)</span></li>
+<ol>
+<li><strong>归零律</strong>： $a \bigoplus a = 0$</li>
+<li><strong>恒等律</strong>：$a \bigoplus 0 = a$</li>
+<li><strong>交换律</strong>： $a\bigoplus b = b \bigoplus a$</li>
+<li><strong>结合律</strong>：$a \bigoplus b \bigoplus c = a \bigoplus (b \bigoplus c) = (a \bigoplus b) \bigoplus c$</li>
+<li><strong>自反</strong>：$a \bigoplus b \bigoplus a = b$</li>
 </ol>
 <p>根据第五条自反公式我们可以进行元素的换位操作</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">numbers[<span class="number">0</span>] ^= numbers[<span class="number">1</span>];</span><br><span class="line">numbers[<span class="number">1</span>] ^= numbers[<span class="number">0</span>];</span><br><span class="line">numbers[<span class="number">0</span>] ^= numbers[<span class="number">1</span>];</span><br></pre></td></tr></table></figure>
 <p>这三行代码到底具体做了什么呢？我们来展开看看。</p>
-<p>第一行代码令 0 号位元素与 1 号位元素进行异或运算得出来的数组元素为：<span class="math inline">\(1 \bigoplus 2\)</span> , 2.</p>
-<p>第二行代码让 1 号位元素与 0 号位元素进行异或运算得出来的数组元素为：<span class="math inline">\(1 \bigoplus 2\)</span> , <span class="math inline">\(1 \bigoplus 2 \bigoplus 2\)</span>. 化简一下即为：<span class="math inline">\(1 \bigoplus 2\)</span> , 1.</p>
-<p>第三行代码让 0 号位元素与 1 号位元素进行异或运算的出来的数组元素为：<span class="math inline">\(1 \bigoplus 2 \bigoplus 1\)</span> , 1.化简一下即为：2 , 1.</p>
+<p>第一行代码令 0 号位元素与 1 号位元素进行异或运算得出来的数组元素为：$1 \bigoplus 2$ , 2.</p>
+<p>第二行代码让 1 号位元素与 0 号位元素进行异或运算得出来的数组元素为：$1 \bigoplus 2$ , $1 \bigoplus 2 \bigoplus 2$. 化简一下即为：$1 \bigoplus 2$ , 1.</p>
+<p>第三行代码让 0 号位元素与 1 号位元素进行异或运算的出来的数组元素为：$1 \bigoplus 2 \bigoplus 1$ , 1.化简一下即为：2 , 1.</p>
 <p>即可完成我们的交换操作。</p>
 <p>题目完整代码：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">int</span>[] swapNumbers(<span class="keyword">int</span>[] numbers) &#123;</span><br><span class="line">    numbers[<span class="number">0</span>] ^= numbers[<span class="number">1</span>];</span><br><span class="line">    numbers[<span class="number">1</span>] ^= numbers[<span class="number">0</span>];</span><br><span class="line">    numbers[<span class="number">0</span>] ^= numbers[<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">return</span> numbers;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
     </div>
 
     
@@ -324,8 +323,8 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021/11/01/%E3%80%90mysql%E7%AC%94%E8%AE%B0%E3%80%91%E4%BB%80%E4%B9%88%E6%98%AF%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="prev" title="【mysql笔记】什么是数据库">
-      <i class="fa fa-chevron-left"></i> 【mysql笔记】什么是数据库
+    <a href="/2021/11/01/%E3%80%90mysql%E7%AC%94%E8%AE%B0%E3%80%91SQL%E6%91%98%E8%A6%81/" rel="prev" title="【mysql笔记】SQL摘要">
+      <i class="fa fa-chevron-left"></i> 【mysql笔记】SQL摘要
     </a></div>
       <div class="post-nav-item"></div>
     </div>
@@ -471,7 +470,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">久远Forever</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
   </div>
 
         
@@ -517,7 +516,7 @@
 <script src="/js/motion.js"></script>
 
 
-<script src="/js/schemes/muse.js"></script>
+<script src="/js/schemes/pisces.js"></script>
 
 
 <script src="/js/next-boot.js"></script>
