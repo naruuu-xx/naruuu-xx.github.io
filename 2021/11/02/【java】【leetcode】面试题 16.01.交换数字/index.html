@@ -275,35 +275,36 @@
 <li><code>numbers.length == 2</code></li>
 <li><code>-2147483647 &lt;= numbers[i] &lt;= 2147483647</code></li>
 </ul>
-<hr>
+<hr />
 <p>使用临时变量进行数组元素交换的操作，代码为:</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">temp = numbers[<span class="number">0</span>];</span><br><span class="line">numbers[<span class="number">0</span>] = numbers[<span class="number">1</span>];</span><br><span class="line">numbers[<span class="number">1</span>] = temp;</span><br></pre></td></tr></table></figure>
 <p>不使用临时变量进行元素交换，加法操作：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">numbers[<span class="number">0</span>] = numbers[<span class="number">1</span>] + numbers[<span class="number">0</span>];</span><br><span class="line">numbers[<span class="number">1</span>] = numbers[<span class="number">0</span>] - numbers[<span class="number">1</span>];</span><br><span class="line">numbers[<span class="number">0</span>] = numbers[<span class="number">0</span>] - numbers[<span class="number">1</span>];</span><br></pre></td></tr></table></figure>
 <p>我们要交换元素的位置，思路为：</p>
-<p>假设现在的数组为 numbers[] = {1,2}，我们的最终目的是将数组变为 {2,1} </p>
+<p>假设现在的数组为 numbers[] = {1,2}，我们的最终目的是将数组变为 {2,1}</p>
 <p>先将元素全都堆在 0 号位，这时 numbers 中的元素变为 {3,2} ，为了让 1 号位的元素变为1，那么我们用利用当前 0 号位的所有元素之和减去 1 号位的2，即可得到 1 ，然后直接让 0 号位的元素总和减去我们刚才算得的 1 就可以了。</p>
 <p>减法也是类似的操作。</p>
 <p>减法操作：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">numbers[0] = numbers[1] - numbers[0];</span><br><span class="line">numbers[1] = numbers[0] + numbers[1];</span><br><span class="line">numbers[0] = numbers[0] - numbers[1];</span><br></pre></td></tr></table></figure>
 <p>神奇的位运算操作</p>
 <p>异或运算公式：</p>
-<ol>
-<li><strong>归零律</strong>： $a \bigoplus a = 0$</li>
-<li><strong>恒等律</strong>：$a \bigoplus 0 = a$</li>
-<li><strong>交换律</strong>： $a\bigoplus b = b \bigoplus a$</li>
-<li><strong>结合律</strong>：$a \bigoplus b \bigoplus c = a \bigoplus (b \bigoplus c) = (a \bigoplus b) \bigoplus c$</li>
-<li><strong>自反</strong>：$a \bigoplus b \bigoplus a = b$</li>
+<ol type="1">
+<li><strong>归零律</strong>： <span class="math inline">\(a \bigoplus a = 0\)</span></li>
+<li><strong>恒等律</strong>：<span class="math inline">\(a \bigoplus 0 = a\)</span></li>
+<li><strong>交换律</strong>： <span class="math inline">\(a\bigoplus b = b \bigoplus a\)</span></li>
+<li><strong>结合律</strong>：<span class="math inline">\(a \bigoplus b \bigoplus c = a \bigoplus (b \bigoplus c) = (a \bigoplus b) \bigoplus c\)</span></li>
+<li><strong>自反</strong>：<span class="math inline">\(a \bigoplus b \bigoplus a = b\)</span></li>
 </ol>
 <p>根据第五条自反公式我们可以进行元素的换位操作</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">numbers[<span class="number">0</span>] ^= numbers[<span class="number">1</span>];</span><br><span class="line">numbers[<span class="number">1</span>] ^= numbers[<span class="number">0</span>];</span><br><span class="line">numbers[<span class="number">0</span>] ^= numbers[<span class="number">1</span>];</span><br></pre></td></tr></table></figure>
 <p>这三行代码到底具体做了什么呢？我们来展开看看。</p>
-<p>第一行代码令 0 号位元素与 1 号位元素进行异或运算得出来的数组元素为：$1 \bigoplus 2$ , 2.</p>
-<p>第二行代码让 1 号位元素与 0 号位元素进行异或运算得出来的数组元素为：$1 \bigoplus 2$ , $1 \bigoplus 2 \bigoplus 2$. 化简一下即为：$1 \bigoplus 2$ , 1.</p>
-<p>第三行代码让 0 号位元素与 1 号位元素进行异或运算的出来的数组元素为：$1 \bigoplus 2 \bigoplus 1$ , 1.化简一下即为：2 , 1.</p>
+<p>第一行代码令 0 号位元素与 1 号位元素进行异或运算得出来的数组元素为：<span class="math inline">\(1 \bigoplus 2\)</span> , 2.</p>
+<p>第二行代码让 1 号位元素与 0 号位元素进行异或运算得出来的数组元素为：<span class="math inline">\(1 \bigoplus 2\)</span> , <span class="math inline">\(1 \bigoplus 2 \bigoplus 2\)</span>. 化简一下即为：<span class="math inline">\(1 \bigoplus 2\)</span> , 1.</p>
+<p>第三行代码让 0 号位元素与 1 号位元素进行异或运算的出来的数组元素为：<span class="math inline">\(1 \bigoplus 2 \bigoplus 1\)</span> , 1.化简一下即为：2 , 1.</p>
 <p>即可完成我们的交换操作。</p>
 <p>题目完整代码：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">int</span>[] swapNumbers(<span class="keyword">int</span>[] numbers) &#123;</span><br><span class="line">    numbers[<span class="number">0</span>] ^= numbers[<span class="number">1</span>];</span><br><span class="line">    numbers[<span class="number">1</span>] ^= numbers[<span class="number">0</span>];</span><br><span class="line">    numbers[<span class="number">0</span>] ^= numbers[<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">return</span> numbers;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
     </div>
 
     
@@ -324,7 +325,10 @@
     <a href="/2021/11/01/%E3%80%90mysql%E7%AC%94%E8%AE%B0%E3%80%91SQL%E6%91%98%E8%A6%81/" rel="prev" title="【mysql笔记】SQL摘要">
       <i class="fa fa-chevron-left"></i> 【mysql笔记】SQL摘要
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2021/11/03/%E3%80%90java%E3%80%91%E3%80%90leetcode%E3%80%91%E9%9D%A2%E8%AF%95%E9%A2%98%2008%2004.%E5%B9%82%E9%9B%86/" rel="next" title="【java】【leetcode】面试题 08 04.幂集">
+      【java】【leetcode】面试题 08 04.幂集 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -398,7 +402,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">18</span>
+          <span class="site-state-item-count">19</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
