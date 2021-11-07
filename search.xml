@@ -1,22 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>BFS和DFS</title>
-    <url>/2021/08/20/BFS%E5%92%8CDFS/</url>
-    <content><![CDATA[<h1 id="javadfs和bfs">【java】DFS和BFS</h1>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**二叉树构造参考力扣</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * public class TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode left;</span></span><br><span class="line"><span class="comment"> *     TreeNode right;</span></span><br><span class="line"><span class="comment"> *     TreeNode() &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int val) &#123; this.val = val; &#125;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int val, TreeNode left, TreeNode right) &#123;</span></span><br><span class="line"><span class="comment"> *         this.val = val;</span></span><br><span class="line"><span class="comment"> *         this.left = left;</span></span><br><span class="line"><span class="comment"> *         this.right = right;</span></span><br><span class="line"><span class="comment"> *     &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">//DFS 递归实现</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(TreeNode root)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(root==<span class="keyword">null</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    dfs(root.left);</span><br><span class="line">    dfs(root.right);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//BFS 队列实现</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">bfs</span><span class="params">(TreeNode root)</span></span>&#123;</span><br><span class="line">    Queue&lt;TreeNode&gt;queue =<span class="keyword">new</span> ArrayDeque&lt;&gt;();</span><br><span class="line">    queue.add(root);</span><br><span class="line">    <span class="keyword">while</span>(!queue.isEmpty())&#123;</span><br><span class="line">        TreeNode node = queue.poll();</span><br><span class="line">        <span class="keyword">if</span>(node.left!=<span class="keyword">null</span>)&#123;</span><br><span class="line">            queue.add(node.left);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(node.right!=<span class="keyword">null</span>)&#123;</span><br><span class="line">            queue.add(node.right);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<hr />
-]]></content>
-      <categories>
-        <category>java</category>
-        <category>data structure</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>data structure</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>JavaSwing贪吃蛇实现</title>
     <url>/2021/08/11/JavaSwing%E8%B4%AA%E5%90%83%E8%9B%87%E5%AE%9E%E7%8E%B0/</url>
     <content><![CDATA[<h1 id="java-swing贪吃蛇">Java Swing贪吃蛇</h1>
@@ -38,6 +22,22 @@
       <tags>
         <tag>java</tag>
         <tag>Swing</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>BFS和DFS</title>
+    <url>/2021/08/20/BFS%E5%92%8CDFS/</url>
+    <content><![CDATA[<h1 id="javadfs和bfs">【java】DFS和BFS</h1>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**二叉树构造参考力扣</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * public class TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode left;</span></span><br><span class="line"><span class="comment"> *     TreeNode right;</span></span><br><span class="line"><span class="comment"> *     TreeNode() &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int val) &#123; this.val = val; &#125;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int val, TreeNode left, TreeNode right) &#123;</span></span><br><span class="line"><span class="comment"> *         this.val = val;</span></span><br><span class="line"><span class="comment"> *         this.left = left;</span></span><br><span class="line"><span class="comment"> *         this.right = right;</span></span><br><span class="line"><span class="comment"> *     &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">//DFS 递归实现</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(TreeNode root)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(root==<span class="keyword">null</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    dfs(root.left);</span><br><span class="line">    dfs(root.right);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//BFS 队列实现</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">bfs</span><span class="params">(TreeNode root)</span></span>&#123;</span><br><span class="line">    Queue&lt;TreeNode&gt;queue =<span class="keyword">new</span> ArrayDeque&lt;&gt;();</span><br><span class="line">    queue.add(root);</span><br><span class="line">    <span class="keyword">while</span>(!queue.isEmpty())&#123;</span><br><span class="line">        TreeNode node = queue.poll();</span><br><span class="line">        <span class="keyword">if</span>(node.left!=<span class="keyword">null</span>)&#123;</span><br><span class="line">            queue.add(node.left);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(node.right!=<span class="keyword">null</span>)&#123;</span><br><span class="line">            queue.add(node.right);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr />
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>data structure</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>data structure</tag>
       </tags>
   </entry>
   <entry>
@@ -475,58 +475,6 @@
       </tags>
   </entry>
   <entry>
-    <title>【java】【leetcode】面试题 16.01.交换数字</title>
-    <url>/2021/11/02/%E3%80%90java%E3%80%91%E3%80%90leetcode%E3%80%91%E9%9D%A2%E8%AF%95%E9%A2%98%2016.01.%E4%BA%A4%E6%8D%A2%E6%95%B0%E5%AD%97/</url>
-    <content><![CDATA[<p>题目链接：<a href="https://leetcode-cn.com/problems/swap-numbers-lcci/">面试题 16.01. 交换数字</a></p>
-<p>编写一个函数，不用临时变量，直接交换numbers = [a, b]中a与b的值。</p>
-<p>示例：</p>
-<blockquote>
-<p>输入: numbers = [1,2]</p>
-<p>输出: [2,1]</p>
-</blockquote>
-<p>提示：</p>
-<ul>
-<li><code>numbers.length == 2</code></li>
-<li><code>-2147483647 &lt;= numbers[i] &lt;= 2147483647</code></li>
-</ul>
-<hr />
-<p>使用临时变量进行数组元素交换的操作，代码为:</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">temp = numbers[<span class="number">0</span>];</span><br><span class="line">numbers[<span class="number">0</span>] = numbers[<span class="number">1</span>];</span><br><span class="line">numbers[<span class="number">1</span>] = temp;</span><br></pre></td></tr></table></figure>
-<p>不使用临时变量进行元素交换，加法操作：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">numbers[<span class="number">0</span>] = numbers[<span class="number">1</span>] + numbers[<span class="number">0</span>];</span><br><span class="line">numbers[<span class="number">1</span>] = numbers[<span class="number">0</span>] - numbers[<span class="number">1</span>];</span><br><span class="line">numbers[<span class="number">0</span>] = numbers[<span class="number">0</span>] - numbers[<span class="number">1</span>];</span><br></pre></td></tr></table></figure>
-<p>我们要交换元素的位置，思路为：</p>
-<p>假设现在的数组为 numbers[] = {1,2}，我们的最终目的是将数组变为 {2,1}</p>
-<p>先将元素全都堆在 0 号位，这时 numbers 中的元素变为 {3,2} ，为了让 1 号位的元素变为1，那么我们用利用当前 0 号位的所有元素之和减去 1 号位的2，即可得到 1 ，然后直接让 0 号位的元素总和减去我们刚才算得的 1 就可以了。</p>
-<p>减法也是类似的操作。</p>
-<p>减法操作：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">numbers[0] = numbers[1] - numbers[0];</span><br><span class="line">numbers[1] = numbers[0] + numbers[1];</span><br><span class="line">numbers[0] = numbers[0] - numbers[1];</span><br></pre></td></tr></table></figure>
-<p>神奇的位运算操作</p>
-<p>异或运算公式：</p>
-<ol type="1">
-<li><strong>归零律</strong>： <span class="math inline">\(a \bigoplus a = 0\)</span></li>
-<li><strong>恒等律</strong>：<span class="math inline">\(a \bigoplus 0 = a\)</span></li>
-<li><strong>交换律</strong>： <span class="math inline">\(a\bigoplus b = b \bigoplus a\)</span></li>
-<li><strong>结合律</strong>：<span class="math inline">\(a \bigoplus b \bigoplus c = a \bigoplus (b \bigoplus c) = (a \bigoplus b) \bigoplus c\)</span></li>
-<li><strong>自反</strong>：<span class="math inline">\(a \bigoplus b \bigoplus a = b\)</span></li>
-</ol>
-<p>根据第五条自反公式我们可以进行元素的换位操作</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">numbers[<span class="number">0</span>] ^= numbers[<span class="number">1</span>];</span><br><span class="line">numbers[<span class="number">1</span>] ^= numbers[<span class="number">0</span>];</span><br><span class="line">numbers[<span class="number">0</span>] ^= numbers[<span class="number">1</span>];</span><br></pre></td></tr></table></figure>
-<p>这三行代码到底具体做了什么呢？我们来展开看看。</p>
-<p>第一行代码令 0 号位元素与 1 号位元素进行异或运算得出来的数组元素为：<span class="math inline">\(1 \bigoplus 2\)</span> , 2.</p>
-<p>第二行代码让 1 号位元素与 0 号位元素进行异或运算得出来的数组元素为：<span class="math inline">\(1 \bigoplus 2\)</span> , <span class="math inline">\(1 \bigoplus 2 \bigoplus 2\)</span>. 化简一下即为：<span class="math inline">\(1 \bigoplus 2\)</span> , 1.</p>
-<p>第三行代码让 0 号位元素与 1 号位元素进行异或运算的出来的数组元素为：<span class="math inline">\(1 \bigoplus 2 \bigoplus 1\)</span> , 1.化简一下即为：2 , 1.</p>
-<p>即可完成我们的交换操作。</p>
-<p>题目完整代码：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">int</span>[] swapNumbers(<span class="keyword">int</span>[] numbers) &#123;</span><br><span class="line">    numbers[<span class="number">0</span>] ^= numbers[<span class="number">1</span>];</span><br><span class="line">    numbers[<span class="number">1</span>] ^= numbers[<span class="number">0</span>];</span><br><span class="line">    numbers[<span class="number">0</span>] ^= numbers[<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">return</span> numbers;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>leetcode</category>
-      </categories>
-      <tags>
-        <tag>leetcode</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>【mysql笔记】SQL摘要</title>
     <url>/2021/11/01/%E3%80%90mysql%E7%AC%94%E8%AE%B0%E3%80%91SQL%E6%91%98%E8%A6%81/</url>
     <content><![CDATA[<h1 id="sql摘要">SQL摘要</h1>
@@ -585,6 +533,58 @@
       </tags>
   </entry>
   <entry>
+    <title>【java】【leetcode】面试题 16.01.交换数字</title>
+    <url>/2021/11/02/%E3%80%90java%E3%80%91%E3%80%90leetcode%E3%80%91%E9%9D%A2%E8%AF%95%E9%A2%98%2016.01.%E4%BA%A4%E6%8D%A2%E6%95%B0%E5%AD%97/</url>
+    <content><![CDATA[<p>题目链接：<a href="https://leetcode-cn.com/problems/swap-numbers-lcci/">面试题 16.01. 交换数字</a></p>
+<p>编写一个函数，不用临时变量，直接交换numbers = [a, b]中a与b的值。</p>
+<p>示例：</p>
+<blockquote>
+<p>输入: numbers = [1,2]</p>
+<p>输出: [2,1]</p>
+</blockquote>
+<p>提示：</p>
+<ul>
+<li><code>numbers.length == 2</code></li>
+<li><code>-2147483647 &lt;= numbers[i] &lt;= 2147483647</code></li>
+</ul>
+<hr />
+<p>使用临时变量进行数组元素交换的操作，代码为:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">temp = numbers[<span class="number">0</span>];</span><br><span class="line">numbers[<span class="number">0</span>] = numbers[<span class="number">1</span>];</span><br><span class="line">numbers[<span class="number">1</span>] = temp;</span><br></pre></td></tr></table></figure>
+<p>不使用临时变量进行元素交换，加法操作：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">numbers[<span class="number">0</span>] = numbers[<span class="number">1</span>] + numbers[<span class="number">0</span>];</span><br><span class="line">numbers[<span class="number">1</span>] = numbers[<span class="number">0</span>] - numbers[<span class="number">1</span>];</span><br><span class="line">numbers[<span class="number">0</span>] = numbers[<span class="number">0</span>] - numbers[<span class="number">1</span>];</span><br></pre></td></tr></table></figure>
+<p>我们要交换元素的位置，思路为：</p>
+<p>假设现在的数组为 numbers[] = {1,2}，我们的最终目的是将数组变为 {2,1}</p>
+<p>先将元素全都堆在 0 号位，这时 numbers 中的元素变为 {3,2} ，为了让 1 号位的元素变为1，那么我们用利用当前 0 号位的所有元素之和减去 1 号位的2，即可得到 1 ，然后直接让 0 号位的元素总和减去我们刚才算得的 1 就可以了。</p>
+<p>减法也是类似的操作。</p>
+<p>减法操作：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">numbers[0] = numbers[1] - numbers[0];</span><br><span class="line">numbers[1] = numbers[0] + numbers[1];</span><br><span class="line">numbers[0] = numbers[0] - numbers[1];</span><br></pre></td></tr></table></figure>
+<p>神奇的位运算操作</p>
+<p>异或运算公式：</p>
+<ol type="1">
+<li><strong>归零律</strong>： <span class="math inline">\(a \bigoplus a = 0\)</span></li>
+<li><strong>恒等律</strong>：<span class="math inline">\(a \bigoplus 0 = a\)</span></li>
+<li><strong>交换律</strong>： <span class="math inline">\(a\bigoplus b = b \bigoplus a\)</span></li>
+<li><strong>结合律</strong>：<span class="math inline">\(a \bigoplus b \bigoplus c = a \bigoplus (b \bigoplus c) = (a \bigoplus b) \bigoplus c\)</span></li>
+<li><strong>自反</strong>：<span class="math inline">\(a \bigoplus b \bigoplus a = b\)</span></li>
+</ol>
+<p>根据第五条自反公式我们可以进行元素的换位操作</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">numbers[<span class="number">0</span>] ^= numbers[<span class="number">1</span>];</span><br><span class="line">numbers[<span class="number">1</span>] ^= numbers[<span class="number">0</span>];</span><br><span class="line">numbers[<span class="number">0</span>] ^= numbers[<span class="number">1</span>];</span><br></pre></td></tr></table></figure>
+<p>这三行代码到底具体做了什么呢？我们来展开看看。</p>
+<p>第一行代码令 0 号位元素与 1 号位元素进行异或运算得出来的数组元素为：<span class="math inline">\(1 \bigoplus 2\)</span> , 2.</p>
+<p>第二行代码让 1 号位元素与 0 号位元素进行异或运算得出来的数组元素为：<span class="math inline">\(1 \bigoplus 2\)</span> , <span class="math inline">\(1 \bigoplus 2 \bigoplus 2\)</span>. 化简一下即为：<span class="math inline">\(1 \bigoplus 2\)</span> , 1.</p>
+<p>第三行代码让 0 号位元素与 1 号位元素进行异或运算的出来的数组元素为：<span class="math inline">\(1 \bigoplus 2 \bigoplus 1\)</span> , 1.化简一下即为：2 , 1.</p>
+<p>即可完成我们的交换操作。</p>
+<p>题目完整代码：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">int</span>[] swapNumbers(<span class="keyword">int</span>[] numbers) &#123;</span><br><span class="line">    numbers[<span class="number">0</span>] ^= numbers[<span class="number">1</span>];</span><br><span class="line">    numbers[<span class="number">1</span>] ^= numbers[<span class="number">0</span>];</span><br><span class="line">    numbers[<span class="number">0</span>] ^= numbers[<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">return</span> numbers;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>【mysql笔记】什么是数据库</title>
     <url>/2021/11/01/%E3%80%90mysql%E7%AC%94%E8%AE%B0%E3%80%91%E4%BB%80%E4%B9%88%E6%98%AF%E6%95%B0%E6%8D%AE%E5%BA%93/</url>
     <content><![CDATA[<h2 id="数据库的定义">数据库的定义</h2>
@@ -608,37 +608,6 @@
 <li>XML数据库。最近几年，XML 作为在网络上进行交互的数据的形式逐渐普及起来。XML 数据库可以对 XML 形式的大量数据进行高速处理。</li>
 <li>键值存储系统。这是一种单纯用来保存查询所使用的主键（Key）和值（Value）的组合的数据库。具有编程语言知识的读者可以把它想象成关联数组或者散列（hash）。近年来，随着键值存储系统被应用到 Google 等需要对大量数据进行超高速查询的 Web 服务当中，它正逐渐为人们所关注。</li>
 </ul>
-]]></content>
-      <categories>
-        <category>数据库</category>
-      </categories>
-      <tags>
-        <tag>数据库</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【mysql笔记】数据库的结构</title>
-    <url>/2021/11/01/%E3%80%90mysql%E7%AC%94%E8%AE%B0%E3%80%91%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E7%BB%93%E6%9E%84/</url>
-    <content><![CDATA[<h2 id="rdbms的常见系统结构">RDBMS的常见系统结构</h2>
-<p>RDBMS最常见的系统结构为 客户端/服务器类型（C/S类型） 结构。客户端就如同委托方，而服务器就像是受托方。由于两者关系类似受托方执行委托方发出的指令，故而得名。</p>
-<h3 id="服务器">服务器</h3>
-<p>服务器是指接受请求，并对该请求进行了处理的某个程序或者安装了这种程序的设备（比如计算机）。RDBMS也是一种服务器，它能够从保存在硬盘上的数据库中读取数据并返回，还可以把数据变更为指定内容。</p>
-<h3 id="客户端">客户端</h3>
-<p>反之客户端为发送请求的程序（软件），或者安装了这类程序的设备（计算机）。访问由 RDBMS 管理的数据库，进行数据读写的程序称为 RDBMS 客户端。RDBMS 客户端将想要获取什么样的数据，或者想对哪些数据进行何种变更等信息通过 SQL 语句发送给RDBMS 服务器。RDBMS 根据该语句的内容返回所请求的数据，或者对存储在数据库中的数据进行更新。</p>
-<h2 id="现实情况的分析">现实情况的分析</h2>
-<p>服务器可以和客户端装在同一台电脑上，也可以装在不同的电脑上，然后通过网络与服务器进行连接，这样就实现了多个客户端访问服务器的情况了。</p>
-<p>而客户端并不需要均使用相同的程序，只要能将请求通过使用 SQL 语句发送到服务器就可以了。而且多个客户端可以向同一数据库发送读写请求。</p>
-<p>另外，服务器除了需要同时接收多个客户端的请求之外，还需要操作存有大量数据的数据库，因此通常都会安装在比客户端性能更优越的计算机上。操作数据量特别巨大的数据库时，还可以将多台计算机组合使用。</p>
-<h2 id="表的结构">表的结构</h2>
-<p>用来管理数据的二维表在关系数据库中简称为表。表存储在由 RDBMS 管理的数据库中，一个数据库中可以存储多个表。</p>
-<p>表的列（垂直方向）称为字段，它代表了保存在表中的数据项目。对于列的约束比Excel 更加严格，定义为数字的列只能输入数字，定义为日期的列只能输入日期（将在 1-4 节详细介绍）。与之相对，表的行（水平方向）称为记录，它相当于一条数据。商品表中总共有 8 行数据。</p>
-<p>法则：</p>
-<ul>
-<li>关系数据库必须以行为单位进行数据读写  ，请大家牢记。</li>
-<li>一个单元格中只能输入一个数据  。</li>
-</ul>
-<h2 id="rdbms的用户管理">RDBMS的用户管理</h2>
-<p>为了防止重要数据被窃读或篡改，RDBMS 只允许注册用户接触数据库。这里的用户并不是指Windows 等操作系统的注册用户，而是只能用于 RDBMS 的用户。RDBMS 允许注册多个用户。注册用户的时候除了设定用户名（账号），还需要设定密码。虽然密码并不是必需的，但为了防止重要信息的泄露，还是希望大家能够设定密码。</p>
 ]]></content>
       <categories>
         <category>数据库</category>
@@ -779,6 +748,37 @@
       </tags>
   </entry>
   <entry>
+    <title>【mysql笔记】数据库的结构</title>
+    <url>/2021/11/01/%E3%80%90mysql%E7%AC%94%E8%AE%B0%E3%80%91%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E7%BB%93%E6%9E%84/</url>
+    <content><![CDATA[<h2 id="rdbms的常见系统结构">RDBMS的常见系统结构</h2>
+<p>RDBMS最常见的系统结构为 客户端/服务器类型（C/S类型） 结构。客户端就如同委托方，而服务器就像是受托方。由于两者关系类似受托方执行委托方发出的指令，故而得名。</p>
+<h3 id="服务器">服务器</h3>
+<p>服务器是指接受请求，并对该请求进行了处理的某个程序或者安装了这种程序的设备（比如计算机）。RDBMS也是一种服务器，它能够从保存在硬盘上的数据库中读取数据并返回，还可以把数据变更为指定内容。</p>
+<h3 id="客户端">客户端</h3>
+<p>反之客户端为发送请求的程序（软件），或者安装了这类程序的设备（计算机）。访问由 RDBMS 管理的数据库，进行数据读写的程序称为 RDBMS 客户端。RDBMS 客户端将想要获取什么样的数据，或者想对哪些数据进行何种变更等信息通过 SQL 语句发送给RDBMS 服务器。RDBMS 根据该语句的内容返回所请求的数据，或者对存储在数据库中的数据进行更新。</p>
+<h2 id="现实情况的分析">现实情况的分析</h2>
+<p>服务器可以和客户端装在同一台电脑上，也可以装在不同的电脑上，然后通过网络与服务器进行连接，这样就实现了多个客户端访问服务器的情况了。</p>
+<p>而客户端并不需要均使用相同的程序，只要能将请求通过使用 SQL 语句发送到服务器就可以了。而且多个客户端可以向同一数据库发送读写请求。</p>
+<p>另外，服务器除了需要同时接收多个客户端的请求之外，还需要操作存有大量数据的数据库，因此通常都会安装在比客户端性能更优越的计算机上。操作数据量特别巨大的数据库时，还可以将多台计算机组合使用。</p>
+<h2 id="表的结构">表的结构</h2>
+<p>用来管理数据的二维表在关系数据库中简称为表。表存储在由 RDBMS 管理的数据库中，一个数据库中可以存储多个表。</p>
+<p>表的列（垂直方向）称为字段，它代表了保存在表中的数据项目。对于列的约束比Excel 更加严格，定义为数字的列只能输入数字，定义为日期的列只能输入日期（将在 1-4 节详细介绍）。与之相对，表的行（水平方向）称为记录，它相当于一条数据。商品表中总共有 8 行数据。</p>
+<p>法则：</p>
+<ul>
+<li>关系数据库必须以行为单位进行数据读写  ，请大家牢记。</li>
+<li>一个单元格中只能输入一个数据  。</li>
+</ul>
+<h2 id="rdbms的用户管理">RDBMS的用户管理</h2>
+<p>为了防止重要数据被窃读或篡改，RDBMS 只允许注册用户接触数据库。这里的用户并不是指Windows 等操作系统的注册用户，而是只能用于 RDBMS 的用户。RDBMS 允许注册多个用户。注册用户的时候除了设定用户名（账号），还需要设定密码。虽然密码并不是必需的，但为了防止重要信息的泄露，还是希望大家能够设定密码。</p>
+]]></content>
+      <categories>
+        <category>数据库</category>
+      </categories>
+      <tags>
+        <tag>数据库</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>【久远讲算法】什么是空间复杂度</title>
     <url>/2021/10/30/%E3%80%90%E4%B9%85%E8%BF%9C%E8%AE%B2%E7%AE%97%E6%B3%95%E3%80%91%E4%BB%80%E4%B9%88%E6%98%AF%E7%A9%BA%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6/</url>
     <content><![CDATA[<p>你好，我是久远，这周我们继续聊算法，接着上次的时间复杂度，我们进行关于空间复杂度的讲解。</p>
@@ -857,6 +857,80 @@
 <p>流沙团队联合AI悦创|久远·推出辅导班啦，包括「Python 语言辅导班、C++ 辅导班、java 辅导班、算法/数据结构辅导班、少儿编程、pygame 游戏开发」，全部都是一对一教学：一对一辅导 + 一对一答疑 + 布置作业 + 项目实践等。QQ、微信在线，随时响应！</p>
 </blockquote>
 <p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110302224870.jpg" /></p>
+]]></content>
+      <categories>
+        <category>data structure</category>
+      </categories>
+      <tags>
+        <tag>data structure</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【久远讲算法】栈——后进先出的数据结构</title>
+    <url>/2021/11/07/%E3%80%90%E4%B9%85%E8%BF%9C%E8%AE%B2%E7%AE%97%E6%B3%95%E3%80%91%E6%A0%88%E2%80%94%E2%80%94%E5%90%8E%E8%BF%9B%E5%85%88%E5%87%BA%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%20/</url>
+    <content><![CDATA[<p>你好我是久远，我们先来复习一下上周我们讲的知识。</p>
+<ul>
+<li>什么是链表？</li>
+</ul>
+<p>在计算机科学中，链表是一种常见的基础数据结构，是一种线性表，但是并不会按线性的顺序存储数据，而是在每一个节点里存到下一个节点的指针。</p>
+<ul>
+<li>链表的优点</li>
+</ul>
+<p>由于不必须按顺序存储，链表在插入的时候可以达到O(1)的复杂度，比数组快得多，但是查找一个节点或者访问特定编号的节点则需要O(n)的时间，而顺序表相应的时间复杂度分别是O(logn)和O(1)。使用链表结构可以克服数组链表需要预先知道数据大小的缺点，链表结构可以充分利用计算机内存空间，实现灵活的内存动态管理。但是链表失去了数组随机读取的优点，同时链表由于增加了结点的指针域，空间开销比较大。</p>
+<h2 id="什么是栈">什么是栈</h2>
+<p>栈有时也被称作堆栈或者堆叠。栈是有序集合，它的添加，移除操作总是发生在同一端，设这一端为顶端，则未执行操作的一端为底端。 栈中的元素离底端越近，代表其在栈中的时间越长，最新添加的元素将被最先移除。这种排序原则被称作 LIFO（last-in first-out），即后进先出。它提供了一种基于在集合中的时间来排序的方式。最近添加的元素靠近顶端，旧元素则靠近底端。</p>
+<p>生活中的例子：</p>
+<p>在我们的生活中也很常见关于栈的例子，假设我们有一个放羽毛球的球桶，我们只能从桶的上面取出球，底部是不能取的，靠近开口的球，更先被取到。</p>
+<p>既然有取出的先后，那么我们的栈也算是有顺序的，我们依旧使用列表来实现栈的一些操作。</p>
+<p>举例来说，对于列表[1, 5, 3, 7, 8, 6]，只需要考虑将它的哪一边视为栈的顶端。一旦确定了顶端，所有的操作就可以利用 append 和pop 等列表方法来实现。</p>
+<p>在这里我们视列表的尾部为栈顶，因此当进行 push 操作时，新的元素会被添加到列表的尾部。pop 操作同样会修改这一端。</p>
+<h2 id="栈的操作">栈的操作</h2>
+<p>我们前面已经介绍了栈的基本情况，既然我们要实现栈的操作，那我们肯定要新建一个栈，有了这个栈，我们肯定要做一些彰显出栈特性的事情————出栈，入栈。还有我们常见的操作，判断是否为空，判断栈的大小等等。</p>
+<p>以下是我们要实现的方法：</p>
+<ul>
+<li>Stack()创建一个空栈。不传任何参数，返回空栈。</li>
+<li>push(item)将一个元素添加到栈的顶端。它需要一个参数 item，且无返回值。</li>
+<li>pop()将栈顶端的元素移除。它不需要参数，但会返回顶端的元素，并且修改栈的内容。</li>
+<li>peek()返回栈顶端的元素，但是并不移除该元素。它不需要参数，也不会修改栈的内容。</li>
+<li>isEmpty()检查栈是否为空。它不需要参数，且会返回一个布尔值。</li>
+<li>size()返回栈中元素的数目。它不需要参数，且会返回一个整数。</li>
+</ul>
+<h3 id="栈的定义">栈的定义</h3>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Stack</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.items = []</span><br></pre></td></tr></table></figure>
+<p>定义一个 stack 类来告诉计算机，我们现在定义了一个全新的类型叫做 stack ，每个类有一个定义方法即 <strong>init</strong>() ,我们使用 <strong>init</strong> 方法来定义栈的一些属性。我们新建一个栈，栈中最重要的就是元素，多个元素构成栈，而一开始当我们没有向栈中放入任何元素时，栈是空的，因此有 self.items = []，我们定义了一个空栈来作为栈的初始化。</p>
+<h3 id="栈是否为空">栈是否为空</h3>
+<p>既然栈存在，我们就可以进行栈有无的判断，我们也像之前的数据结构类型一样，引入 isEmpty() 方法来判断栈中是否有元素，没有元素则为空栈，返回 true ；包含有元素，则说明栈不为空，返回 false。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">isEmpty</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> self.items == []</span><br></pre></td></tr></table></figure>
+<h3 id="栈的大小">栈的大小</h3>
+<p>栈的大小实际上就是判断栈中有多少元素，而我们使用列表来进行栈的实现，因此我们只需要使用 len() 方法计算引入的列表的长度即可判断栈中元素的多少了，即栈的大小。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">size</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">len</span>(self.items)</span><br></pre></td></tr></table></figure>
+<h3 id="入栈操作">入栈操作</h3>
+<p>现在我们既可以判断栈中是否有元素，又可以判断栈的大小了，那么接下来就要实现栈最主要的两个操作了，入栈和出栈。</p>
+<p>进行入栈操作我们就要想到，既然要把元素加入到栈中，那么我们就要传入一个参数去表示要加入到栈中的元素，然后将这个参数加入到栈中即可。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">push</span>(<span class="params">self, item</span>):</span></span><br><span class="line">        self.items.append(item)</span><br></pre></td></tr></table></figure>
+<p>我们传入一个 item 参数，为我们要加入到栈中的元素，然后将其加入到我们引入的 items 列表中即可完成栈中元素的加入了。</p>
+<h3 id="出栈操作">出栈操作</h3>
+<p>既然有元素加入到栈中，那我们就可以将元素从栈中删除，因此我们有了出栈的操作，出栈操作一般的思维是这样的：我们让栈顶的元素弹出，同时也要告诉大家，我弹出的是哪个元素。</p>
+<p>因此要返回弹出的那个元素。</p>
+<p>代码实现为：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">pop</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> self.items.pop()</span><br></pre></td></tr></table></figure>
+<p>使用列表中的 pop方法，返回列表末尾的那个元素，并将该元素从列表中删除，实现出栈。</p>
+<h3 id="查看栈顶">查看栈顶</h3>
+<p>我们的栈操作中通常还包含一项查看栈顶元素的操作，因为我们在此将引入的列表末尾视为栈顶，因此我们只需要返回所引入的列表的最后一个元素即可。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">peek</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span>  self.items[<span class="built_in">len</span>(self.items)-<span class="number">1</span>]</span><br></pre></td></tr></table></figure>
+<p>整体的代码如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Stack</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.items = []</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isEmpty</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> self.items == []</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">size</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">len</span>(self.items)</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">push</span>(<span class="params">self, item</span>):</span></span><br><span class="line">        self.items.append(item)</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">pop</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> self.items.pop()</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">peek</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span>  self.items[<span class="built_in">len</span>(self.items)-<span class="number">1</span>]</span><br></pre></td></tr></table></figure>
+<h2 id="总结">总结</h2>
+<p>恭喜你又学完了一个知识点，栈是一个后进先出的数据类型，它有两个非常主要的操作，进栈和出栈：</p>
+<ul>
+<li>进栈：将资料放入栈的顶端，栈的顶端移到新放入的资料。</li>
+<li>出栈：将堆栈顶端资料移除，堆栈顶端移到移除后的下一笔资料。</li>
+</ul>
+<p>它可以用数组或者链表来实现，而由于 python 的特殊性，我们常使用列表来实现栈的操作。</p>
+<p>与栈相对的有队列，队列是一种先进先出的数据类型，我们下次会进行讲解。</p>
+<blockquote>
+<p>流沙团队联合AI悦创|久远·推出辅导班啦，包括「Python 语言辅导班、C++ 辅导班、java 辅导班、算法/数据结构辅导班、少儿编程、pygame 游戏开发」，全部都是一对一教学：一对一辅导 + 一对一答疑 + 布置作业 + 项目实践等。QQ、微信在线，随时响应！</p>
+</blockquote>
 ]]></content>
       <categories>
         <category>data structure</category>
