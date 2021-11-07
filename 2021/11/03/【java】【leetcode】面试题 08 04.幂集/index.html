@@ -266,15 +266,14 @@
         <p>题目链接： <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/power-set-lcci/">幂集</a></p>
 <p>题目描述：幂集。编写一种方法，返回某集合的所有子集。集合中<strong>不包含重复的元素</strong>。</p>
 <p>说明：解集不能包含重复的子集。</p>
-<p>&gt;<br>&gt;</p>
 <blockquote>
 <p>输入： nums = [1,2,3]</p>
 <p>输出：</p>
 <p>[</p>
-<p>[3],<br>     [1],<br>     [2],<br>     [1,2,3],<br>       [1,3],<br>     [2,3],<br>     [1,2],<br>     []</p>
+<p>[3], [1], [2], [1,2,3], [1,3], [2,3], [1,2], []</p>
 <p>]</p>
 </blockquote>
-<hr>
+<hr />
 <p>非递归模拟实现：</p>
 <p>假设 nums = [1,2,3]</p>
 <p>那么 nums 的幂集包括有：</p>
@@ -284,6 +283,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; subsets(<span class="keyword">int</span>[] nums) &#123;</span><br><span class="line">        List&lt;List&lt;Integer&gt;&gt; res = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        res.add(<span class="keyword">new</span> ArrayList&lt;&gt;());</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> num : nums)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>, j = res.size();i &lt; j ;i++)&#123;</span><br><span class="line">                List&lt;Integer&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;(res.get(i));</span><br><span class="line">               list.add(num);</span><br><span class="line">               res.add(list);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p>位运算实现：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> List&lt;List&lt;Integer&gt;&gt; subsets(<span class="keyword">int</span>[] nums) &#123;</span><br><span class="line">    <span class="comment">//子集的长度是2的nums.length次方，这里通过移位计算</span></span><br><span class="line">    <span class="keyword">int</span> length = <span class="number">1</span> &lt;&lt; nums.length;</span><br><span class="line">    List&lt;List&lt;Integer&gt;&gt; res = <span class="keyword">new</span> ArrayList&lt;&gt;(length);</span><br><span class="line">    <span class="comment">//遍历从0到length中间的所有数字，根据数字中1的位置来找子集</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; length; i++) &#123;</span><br><span class="line">        List&lt;Integer&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; nums.length; j++) &#123;</span><br><span class="line">            <span class="comment">//如果数字i的某一个位置是1，就把数组中对</span></span><br><span class="line">            <span class="comment">//应的数字添加到集合</span></span><br><span class="line">            <span class="keyword">if</span> (((i &gt;&gt; j) &amp; <span class="number">1</span>) == <span class="number">1</span>)</span><br><span class="line">                list.add(nums[j]);</span><br><span class="line">        &#125;</span><br><span class="line">        res.add(list);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
     </div>
 
     
@@ -304,7 +304,10 @@
     <a href="/2021/11/02/%E3%80%90java%E3%80%91%E3%80%90leetcode%E3%80%91%E9%9D%A2%E8%AF%95%E9%A2%98%2016.01.%E4%BA%A4%E6%8D%A2%E6%95%B0%E5%AD%97/" rel="prev" title="【java】【leetcode】面试题 16.01.交换数字">
       <i class="fa fa-chevron-left"></i> 【java】【leetcode】面试题 16.01.交换数字
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2021/11/07/%E3%80%90%E4%B9%85%E8%BF%9C%E8%AE%B2%E7%AE%97%E6%B3%95%E3%80%91%E6%A0%88%E2%80%94%E5%90%8E%E8%BF%9B%E5%85%88%E5%87%BA%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="next" title="【久远讲算法】栈——后进先出的数据结构">
+      【久远讲算法】栈——后进先出的数据结构 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -378,7 +381,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-count">20</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
