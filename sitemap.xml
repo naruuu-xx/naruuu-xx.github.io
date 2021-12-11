@@ -210,14 +210,14 @@
   </url>
   
   <url>
-    <loc>https://naruuu-xx.github.io/tags/data-structure/</loc>
+    <loc>https://naruuu-xx.github.io/tags/Swing/</loc>
     <lastmod>2021-12-11</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://naruuu-xx.github.io/tags/Swing/</loc>
+    <loc>https://naruuu-xx.github.io/tags/data-structure/</loc>
     <lastmod>2021-12-11</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -268,6 +268,13 @@
   </url>
   
   <url>
+    <loc>https://naruuu-xx.github.io/categories/java/Swing/</loc>
+    <lastmod>2021-12-11</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://naruuu-xx.github.io/categories/java/data-structure/</loc>
     <lastmod>2021-12-11</lastmod>
     <changefreq>daily</changefreq>
@@ -275,7 +282,7 @@
   </url>
   
   <url>
-    <loc>https://naruuu-xx.github.io/categories/leetcode/</loc>
+    <loc>https://naruuu-xx.github.io/categories/java/leetcode/</loc>
     <lastmod>2021-12-11</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -289,14 +296,7 @@
   </url>
   
   <url>
-    <loc>https://naruuu-xx.github.io/categories/java/Swing/</loc>
-    <lastmod>2021-12-11</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://naruuu-xx.github.io/categories/java/leetcode/</loc>
+    <loc>https://naruuu-xx.github.io/categories/leetcode/</loc>
     <lastmod>2021-12-11</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
