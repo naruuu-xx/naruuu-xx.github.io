@@ -24,20 +24,20 @@
     var CONFIG = {"hostname":"naruuu-xx.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="关于本人：厦门某不知名本科学院在读生，数学专业。 擅长 java 和数据结构，熟悉 python ，对计算机方面的东西非常的感兴趣，学习能力强，持续学习者。人菜瘾大。喜欢自己研究和学习计算机方面的知识。 给别人答过疑，讲过课，但是学技术写文章才是本人的最爱。 每天静下心来学习和写作是本人认为最重要的事。 业余爱好相关：小众漫画爱好者，电影解说爱好者，日本文学爱好者。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="about">
-<meta property="og:url" content="https://naruuu-xx.github.io/about/index.html">
+  <meta name="description" content="家人们好久不见，最近忙着复习和弄别的事情，所以停了一段时间写博客，时间不多了... 咱得继续冲刺了... 概念 接口不是类，是对类的一组需求描述，这些类要遵从接口描述的统一格式进行定义。 如果类遵从某个特定接口，那么就履行这项服务。 实例：Arrays类中的 sort 方法可以对对象数组进行排序，但是前提是 对象所属的类必须实现了 Comparable 接口。 Comparable 接口">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【面向就业式复习】【java基础】接口">
+<meta property="og:url" content="https://naruuu-xx.github.io/2021/12/11/%E3%80%90%E9%9D%A2%E5%90%91%E5%B0%B1%E4%B8%9A%E5%BC%8F%E5%A4%8D%E4%B9%A0%E3%80%91%E3%80%90java%E5%9F%BA%E7%A1%80%E3%80%91%E6%8E%A5%E5%8F%A3/index.html">
 <meta property="og:site_name" content="久远&#39;s blog">
-<meta property="og:description" content="关于本人：厦门某不知名本科学院在读生，数学专业。 擅长 java 和数据结构，熟悉 python ，对计算机方面的东西非常的感兴趣，学习能力强，持续学习者。人菜瘾大。喜欢自己研究和学习计算机方面的知识。 给别人答过疑，讲过课，但是学技术写文章才是本人的最爱。 每天静下心来学习和写作是本人认为最重要的事。 业余爱好相关：小众漫画爱好者，电影解说爱好者，日本文学爱好者。">
+<meta property="og:description" content="家人们好久不见，最近忙着复习和弄别的事情，所以停了一段时间写博客，时间不多了... 咱得继续冲刺了... 概念 接口不是类，是对类的一组需求描述，这些类要遵从接口描述的统一格式进行定义。 如果类遵从某个特定接口，那么就履行这项服务。 实例：Arrays类中的 sort 方法可以对对象数组进行排序，但是前提是 对象所属的类必须实现了 Comparable 接口。 Comparable 接口">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-07-20T09:04:01.000Z">
-<meta property="article:modified_time" content="2021-11-01T11:50:35.657Z">
+<meta property="article:published_time" content="2021-12-11T12:52:26.000Z">
+<meta property="article:modified_time" content="2021-12-11T12:55:32.543Z">
 <meta property="article:author" content="久远Forever">
-<meta property="article:tag" content="java 数据结构 数据库 leetcode">
+<meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://naruuu-xx.github.io/about/">
+<link rel="canonical" href="https://naruuu-xx.github.io/2021/12/11/%E3%80%90%E9%9D%A2%E5%90%91%E5%B0%B1%E4%B8%9A%E5%BC%8F%E5%A4%8D%E4%B9%A0%E3%80%91%E3%80%90java%E5%9F%BA%E7%A1%80%E3%80%91%E6%8E%A5%E5%8F%A3/">
 
 
 <script id="page-configurations">
@@ -45,13 +45,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>about | 久远's blog
-</title>
+  <title>【面向就业式复习】【java基础】接口 | 久远's blog</title>
   
 
 
@@ -201,48 +200,127 @@
       <div class="main-inner">
         <div class="content-wrap">
           
-  
-  
 
-          <div class="content page posts-expand">
+          <div class="content post posts-expand">
             
 
     
-    
-    
-    <div class="post-block" lang="zh-CN">
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://naruuu-xx.github.io/2021/12/11/%E3%80%90%E9%9D%A2%E5%90%91%E5%B0%B1%E4%B8%9A%E5%BC%8F%E5%A4%8D%E4%B9%A0%E3%80%91%E3%80%90java%E5%9F%BA%E7%A1%80%E3%80%91%E6%8E%A5%E5%8F%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="久远Forever">
+      <meta itemprop="description" content="编程爱好者~ 啥都感兴趣啥都写~">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="久远's blog">
+    </span>
       <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【面向就业式复习】【java基础】接口
+        </h1>
 
-<h1 class="post-title" itemprop="name headline">about
-</h1>
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
 
-<div class="post-meta">
+              <time title="创建时间：2021-12-11 20:52:26 / 修改时间：20:55:32" itemprop="dateCreated datePublished" datetime="2021-12-11T20:52:26+08:00">2021-12-11</time>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>家人们好久不见，最近忙着复习和弄别的事情，所以停了一段时间写博客，时间不多了... 咱得继续冲刺了...</p>
+<h2 id="概念">概念</h2>
+<p>接口不是类，是对类的一组需求描述，这些类要遵从接口描述的统一格式进行定义。</p>
+<p>如果类遵从某个特定接口，那么就履行这项服务。</p>
+<p>实例：Arrays类中的 sort 方法可以对对象数组进行排序，但是前提是 对象所属的类必须实现了 Comparable 接口。</p>
+<p>Comparable 接口的代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Comparable</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(Object other)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这就是说，任何实现 Comparable 接口的类都需要包含 compareTo 方法，并且这个方法的参数必须是一个 Object 对象，返回一个整型数值。</p>
+<p>接口中的所有方法皆属于public 因此在接口中声明方法时，不必提供关键字public。</p>
+<p>为了类实现一个接口，通常需要下面两个步骤：</p>
+<ol type="1">
+<li>将类声明为实现给定的接口。（需要使用关键字implements）</li>
+<li>对接口中的所有方法进行定义。</li>
+</ol>
+<h2 id="接口的特性">接口的特性</h2>
+<ul>
+<li>接口不是类，不能使用 new 实例化接口。</li>
+<li>虽然不能构造接口对象，但是可以声明接口变量。</li>
+<li>接口变量必须引用实现了接口的类对象。</li>
+<li>可以使用 instanceof 检查一个对象是否实现了某个接口。</li>
+<li>接口也可以被继承。</li>
+<li>虽然接口中不能包含实例域和静态方法，但可以包含常量。</li>
+</ul>
+<p>接口中的方法都自动地被设置为 public—样，接口中的域将被自动设为 public static final。</p>
+<h2 id="接口与抽象类">接口与抽象类</h2>
+<p>关于抽象类：每个类只能拓展一个类。Java 不支持多继承。一个类只能有一个超类。</p>
+<p>但是接口可以提供多重继承。</p>
+<h2 id="接口相关的面试题">接口相关的面试题：</h2>
+<ul>
+<li>接口和抽象类的区别是什么？</li>
+</ul>
+<ol type="1">
+<li>接⼝的方法默认是 public ，所有⽅法在接⼝中不能有实现(Java 8 开始接口方法可以有默认实现），而抽象类可以有非抽象的方法。</li>
+<li>接⼝中除了 static 、 final 变量，不能有其他变量，而抽象类中则不⼀定。</li>
+<li>⼀个类可以实现多个接口，但只能实现⼀个抽象类。接口自己本身可以通过 extends 关键字扩展多个接口。</li>
+<li>接口方法默认修饰符是 public ，抽象⽅法可以有 public 、protected 和 default 这些修饰符（抽象方法就是为了被重写所以不能使用 private 关键字修饰！）。</li>
+<li>从设计层面来说，抽象是对类的抽象，是⼀种模板设计，而接口是对行为的抽象，是⼀种行为的规范。</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/java/" rel="tag"># java</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/11/07/%E3%80%90%E4%B9%85%E8%BF%9C%E8%AE%B2%E7%AE%97%E6%B3%95%E3%80%91%E6%A0%88%E2%80%94%E5%90%8E%E8%BF%9B%E5%85%88%E5%87%BA%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="prev" title="【久远讲算法】栈——后进先出的数据结构">
+      <i class="fa fa-chevron-left"></i> 【久远讲算法】栈——后进先出的数据结构
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
   
 
-</div>
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
-          <p>关于本人：厦门某不知名本科学院在读生，数学专业。</p>
-<p>擅长 java 和数据结构，熟悉 python ，对计算机方面的东西非常的感兴趣，学习能力强，持续学习者。人菜瘾大。喜欢自己研究和学习计算机方面的知识。</p>
-<p>给别人答过疑，讲过课，但是学技术写文章才是本人的最爱。</p>
-<p>每天静下心来学习和写作是本人认为最重要的事。</p>
-<p>业余爱好相关：小众漫画爱好者，电影解说爱好者，日本文学爱好者。</p>
-
-      </div>
-      
-      
-      
-    </div>
-    
-
-    
-    
-    
 
 
           </div>
@@ -293,6 +371,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A5%E5%8F%A3%E7%9A%84%E7%89%B9%E6%80%A7"><span class="nav-number">2.</span> <span class="nav-text">接口的特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A5%E5%8F%A3%E4%B8%8E%E6%8A%BD%E8%B1%A1%E7%B1%BB"><span class="nav-number">3.</span> <span class="nav-text">接口与抽象类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A5%E5%8F%A3%E7%9B%B8%E5%85%B3%E7%9A%84%E9%9D%A2%E8%AF%95%E9%A2%98"><span class="nav-number">4.</span> <span class="nav-text">接口相关的面试题：</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

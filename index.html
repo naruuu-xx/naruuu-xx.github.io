@@ -205,6 +205,102 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://naruuu-xx.github.io/2021/12/11/%E3%80%90%E9%9D%A2%E5%90%91%E5%B0%B1%E4%B8%9A%E5%BC%8F%E5%A4%8D%E4%B9%A0%E3%80%91%E3%80%90java%E5%9F%BA%E7%A1%80%E3%80%91%E6%8E%A5%E5%8F%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="久远Forever">
+      <meta itemprop="description" content="编程爱好者~ 啥都感兴趣啥都写~">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="久远's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/12/11/%E3%80%90%E9%9D%A2%E5%90%91%E5%B0%B1%E4%B8%9A%E5%BC%8F%E5%A4%8D%E4%B9%A0%E3%80%91%E3%80%90java%E5%9F%BA%E7%A1%80%E3%80%91%E6%8E%A5%E5%8F%A3/" class="post-title-link" itemprop="url">【面向就业式复习】【java基础】接口</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-12-11 20:52:26 / 修改时间：20:55:32" itemprop="dateCreated datePublished" datetime="2021-12-11T20:52:26+08:00">2021-12-11</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>家人们好久不见，最近忙着复习和弄别的事情，所以停了一段时间写博客，时间不多了... 咱得继续冲刺了...</p>
+<h2 id="概念">概念</h2>
+<p>接口不是类，是对类的一组需求描述，这些类要遵从接口描述的统一格式进行定义。</p>
+<p>如果类遵从某个特定接口，那么就履行这项服务。</p>
+<p>实例：Arrays类中的 sort 方法可以对对象数组进行排序，但是前提是 对象所属的类必须实现了 Comparable 接口。</p>
+<p>Comparable 接口的代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Comparable</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(Object other)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这就是说，任何实现 Comparable 接口的类都需要包含 compareTo 方法，并且这个方法的参数必须是一个 Object 对象，返回一个整型数值。</p>
+<p>接口中的所有方法皆属于public 因此在接口中声明方法时，不必提供关键字public。</p>
+<p>为了类实现一个接口，通常需要下面两个步骤：</p>
+<ol type="1">
+<li>将类声明为实现给定的接口。（需要使用关键字implements）</li>
+<li>对接口中的所有方法进行定义。</li>
+</ol>
+<h2 id="接口的特性">接口的特性</h2>
+<ul>
+<li>接口不是类，不能使用 new 实例化接口。</li>
+<li>虽然不能构造接口对象，但是可以声明接口变量。</li>
+<li>接口变量必须引用实现了接口的类对象。</li>
+<li>可以使用 instanceof 检查一个对象是否实现了某个接口。</li>
+<li>接口也可以被继承。</li>
+<li>虽然接口中不能包含实例域和静态方法，但可以包含常量。</li>
+</ul>
+<p>接口中的方法都自动地被设置为 public—样，接口中的域将被自动设为 public static final。</p>
+<h2 id="接口与抽象类">接口与抽象类</h2>
+<p>关于抽象类：每个类只能拓展一个类。Java 不支持多继承。一个类只能有一个超类。</p>
+<p>但是接口可以提供多重继承。</p>
+<h2 id="接口相关的面试题">接口相关的面试题：</h2>
+<ul>
+<li>接口和抽象类的区别是什么？</li>
+</ul>
+<ol type="1">
+<li>接⼝的方法默认是 public ，所有⽅法在接⼝中不能有实现(Java 8 开始接口方法可以有默认实现），而抽象类可以有非抽象的方法。</li>
+<li>接⼝中除了 static 、 final 变量，不能有其他变量，而抽象类中则不⼀定。</li>
+<li>⼀个类可以实现多个接口，但只能实现⼀个抽象类。接口自己本身可以通过 extends 关键字扩展多个接口。</li>
+<li>接口方法默认修饰符是 public ，抽象⽅法可以有 public 、protected 和 default 这些修饰符（抽象方法就是为了被重写所以不能使用 private 关键字修饰！）。</li>
+<li>从设计层面来说，抽象是对类的抽象，是⼀种模板设计，而接口是对行为的抽象，是⼀种行为的规范。</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://naruuu-xx.github.io/2021/11/07/%E3%80%90%E4%B9%85%E8%BF%9C%E8%AE%B2%E7%AE%97%E6%B3%95%E3%80%91%E6%A0%88%E2%80%94%E5%90%8E%E8%BF%9B%E5%85%88%E5%87%BA%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -430,81 +526,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://naruuu-xx.github.io/2021/11/01/%E3%80%90mysql%E7%AC%94%E8%AE%B0%E3%80%91SQL%E6%91%98%E8%A6%81/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="久远Forever">
-      <meta itemprop="description" content="编程爱好者~ 啥都感兴趣啥都写~">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="久远's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/11/01/%E3%80%90mysql%E7%AC%94%E8%AE%B0%E3%80%91SQL%E6%91%98%E8%A6%81/" class="post-title-link" itemprop="url">【mysql笔记】SQL摘要</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-11-01 00:00:00 / 修改时间：19:21:37" itemprop="dateCreated datePublished" datetime="2021-11-01T00:00:00+08:00">2021-11-01</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>10月份在图灵社区买了一本sql基础教程，然后进行了阅读并记了一些笔记，持续更新。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/11/01/%E3%80%90mysql%E7%AC%94%E8%AE%B0%E3%80%91SQL%E6%91%98%E8%A6%81/">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://naruuu-xx.github.io/2021/11/01/%E3%80%90mysql%E7%AC%94%E8%AE%B0%E3%80%91%E4%BB%80%E4%B9%88%E6%98%AF%E6%95%B0%E6%8D%AE%E5%BA%93/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -580,6 +601,81 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://naruuu-xx.github.io/2021/11/01/%E3%80%90mysql%E7%AC%94%E8%AE%B0%E3%80%91SQL%E6%91%98%E8%A6%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="久远Forever">
+      <meta itemprop="description" content="编程爱好者~ 啥都感兴趣啥都写~">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="久远's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/11/01/%E3%80%90mysql%E7%AC%94%E8%AE%B0%E3%80%91SQL%E6%91%98%E8%A6%81/" class="post-title-link" itemprop="url">【mysql笔记】SQL摘要</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-11-01 00:00:00 / 修改时间：19:21:37" itemprop="dateCreated datePublished" datetime="2021-11-01T00:00:00+08:00">2021-11-01</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>10月份在图灵社区买了一本sql基础教程，然后进行了阅读并记了一些笔记，持续更新。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/11/01/%E3%80%90mysql%E7%AC%94%E8%AE%B0%E3%80%91SQL%E6%91%98%E8%A6%81/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://naruuu-xx.github.io/2021/11/01/%E3%80%90mysql%E7%AC%94%E8%AE%B0%E3%80%91%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E7%BB%93%E6%9E%84/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -632,87 +728,6 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021/11/01/%E3%80%90mysql%E7%AC%94%E8%AE%B0%E3%80%91%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E7%BB%93%E6%9E%84/">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://naruuu-xx.github.io/2021/10/31/%E3%80%90java%E3%80%91%E3%80%90leetcode%E3%80%91%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C%20%E4%B8%89%E7%A7%8D%E8%A7%A3%E6%B3%95%20%E6%9A%B4%E5%8A%9B%E3%80%81%E6%BB%91%E7%AA%97%E3%80%81%E5%93%88%E5%B8%8C%E8%A1%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="久远Forever">
-      <meta itemprop="description" content="编程爱好者~ 啥都感兴趣啥都写~">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="久远's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/10/31/%E3%80%90java%E3%80%91%E3%80%90leetcode%E3%80%91%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C%20%E4%B8%89%E7%A7%8D%E8%A7%A3%E6%B3%95%20%E6%9A%B4%E5%8A%9B%E3%80%81%E6%BB%91%E7%AA%97%E3%80%81%E5%93%88%E5%B8%8C%E8%A1%A8/" class="post-title-link" itemprop="url">【java】【leetcode】两数之和 三种解法 暴力、滑窗、哈希表</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-10-31 00:00:00" itemprop="dateCreated datePublished" datetime="2021-10-31T00:00:00+08:00">2021-10-31</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-11-01 16:29:09" itemprop="dateModified" datetime="2021-11-01T16:29:09+08:00">2021-11-01</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/leetcode/" itemprop="url" rel="index"><span itemprop="name">leetcode</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>力扣刷题题解记录。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/10/31/%E3%80%90java%E3%80%91%E3%80%90leetcode%E3%80%91%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C%20%E4%B8%89%E7%A7%8D%E8%A7%A3%E6%B3%95%20%E6%9A%B4%E5%8A%9B%E3%80%81%E6%BB%91%E7%AA%97%E3%80%81%E5%93%88%E5%B8%8C%E8%A1%A8/">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -817,6 +832,87 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://naruuu-xx.github.io/2021/10/31/%E3%80%90java%E3%80%91%E3%80%90leetcode%E3%80%91%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C%20%E4%B8%89%E7%A7%8D%E8%A7%A3%E6%B3%95%20%E6%9A%B4%E5%8A%9B%E3%80%81%E6%BB%91%E7%AA%97%E3%80%81%E5%93%88%E5%B8%8C%E8%A1%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="久远Forever">
+      <meta itemprop="description" content="编程爱好者~ 啥都感兴趣啥都写~">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="久远's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/10/31/%E3%80%90java%E3%80%91%E3%80%90leetcode%E3%80%91%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C%20%E4%B8%89%E7%A7%8D%E8%A7%A3%E6%B3%95%20%E6%9A%B4%E5%8A%9B%E3%80%81%E6%BB%91%E7%AA%97%E3%80%81%E5%93%88%E5%B8%8C%E8%A1%A8/" class="post-title-link" itemprop="url">【java】【leetcode】两数之和 三种解法 暴力、滑窗、哈希表</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-10-31 00:00:00" itemprop="dateCreated datePublished" datetime="2021-10-31T00:00:00+08:00">2021-10-31</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-11-01 16:29:09" itemprop="dateModified" datetime="2021-11-01T16:29:09+08:00">2021-11-01</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/leetcode/" itemprop="url" rel="index"><span itemprop="name">leetcode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>力扣刷题题解记录。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/10/31/%E3%80%90java%E3%80%91%E3%80%90leetcode%E3%80%91%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C%20%E4%B8%89%E7%A7%8D%E8%A7%A3%E6%B3%95%20%E6%9A%B4%E5%8A%9B%E3%80%81%E6%BB%91%E7%AA%97%E3%80%81%E5%93%88%E5%B8%8C%E8%A1%A8/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://naruuu-xx.github.io/2021/10/30/%E3%80%90%E4%B9%85%E8%BF%9C%E8%AE%B2%E7%AE%97%E6%B3%95%E3%80%91%E4%BB%80%E4%B9%88%E6%98%AF%E7%A9%BA%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -888,85 +984,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://naruuu-xx.github.io/2021/10/30/%E3%80%90%E4%B9%85%E8%BF%9C%E8%AE%B2%E7%AE%97%E6%B3%95%E3%80%91%E6%95%B0%E7%BB%84%E2%80%94%E2%80%94%E6%9C%80%E7%AE%80%E5%8D%95%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="久远Forever">
-      <meta itemprop="description" content="编程爱好者~ 啥都感兴趣啥都写~">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="久远's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/10/30/%E3%80%90%E4%B9%85%E8%BF%9C%E8%AE%B2%E7%AE%97%E6%B3%95%E3%80%91%E6%95%B0%E7%BB%84%E2%80%94%E2%80%94%E6%9C%80%E7%AE%80%E5%8D%95%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="post-title-link" itemprop="url">【久远讲算法】数组——最简单的数据结构</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-10-30 00:00:00 / 修改时间：22:45:02" itemprop="dateCreated datePublished" datetime="2021-10-30T00:00:00+08:00">2021-10-30</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/data-structure/" itemprop="url" rel="index"><span itemprop="name">data structure</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>首发于公众号的算法文章，讲解关于数组的一些内容。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/10/30/%E3%80%90%E4%B9%85%E8%BF%9C%E8%AE%B2%E7%AE%97%E6%B3%95%E3%80%91%E6%95%B0%E7%BB%84%E2%80%94%E2%80%94%E6%9C%80%E7%AE%80%E5%8D%95%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1034,7 +1055,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-count">21</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

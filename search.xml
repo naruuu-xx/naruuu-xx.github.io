@@ -95,6 +95,28 @@
       </tags>
   </entry>
   <entry>
+    <title>【java】【leetcode】1423.可获得的最大点数</title>
+    <url>/2021/10/31/%E3%80%90java%E3%80%91%E3%80%90leetcode%E3%80%911423.%20%E5%8F%AF%E8%8E%B7%E5%BE%97%E7%9A%84%E6%9C%80%E5%A4%A7%E7%82%B9%E6%95%B0%20%E6%BB%91%E7%AA%97/</url>
+    <content><![CDATA[<p>原题链接在此附上：<a href="https://leetcode-cn.com/problems/maximum-points-you-can-obtain-from-cards/">1423. 可获得的最大点数</a></p>
+<p>这题有点意思，和我们平常做题思维不太一样，所谓滑窗，我觉得我们一般都会优先考虑划结果范围那个窗，但是这个题是反着来的，你要确定的结果是数组头部和尾部元素的最大和，并不适合我们直接进行滑窗操作，于是这道题的思路就变成了逆向操作，既然不能直接滑窗，就间接来，要求解头部和尾部元素的最大和，那是不是直接求整体的和然后减去数组中间元素最小和就是左右两端的最大和了？ 所以我们写代码时要确定的几件事事情便是：</p>
+<p><strong>我们要划多大的窗？</strong></p>
+<p>已知我们要求前后k个数之和最大值 设：数组长度为 n ，窗口大小为size 那我们的滑窗大小即为，n-k（求解出n-k个数的最小和）。</p>
+<p><strong>那这个窗口要从哪开始划呢？</strong></p>
+<p>因为数组是无序的，我们没有办法去直接判断从哪边开始划，我们要确定出来一个区间，相加的值是最小的。</p>
+<p><strong>具体要怎么确定？</strong></p>
+<p>从头开始，前确定前 n-k 个数的和。 设我们滑窗区间之和为 sum ，首先计算出数组元素 0 下标到下标 n-k-1 的和。 此时设最小和为 minsum ， minisum 默认值和 sum 相同。 我们现在只是确认了数组前 n-k 个数的和，无法保证这个和是最小的，所以我们要开始遍历进行判断。</p>
+<p><strong>怎么判断和筛选区间呢？</strong></p>
+<p>现在我们的窗口大小已经确定为 n-k 了，剩下的工作就是滑动窗口，确定窗口内加起来的数和最小。 所以我们要遍历数组剩下的位置，即 n-k 到 n 。 然后我们要做的就是：窗口向右移动的同时，窗口大小是固定的，有新的数字加入窗口中，那么我就要舍弃最左边的数字，这样才能保证我们的窗口大小不变。 然后确定新加进来的数与剔除掉最左部的数之后的和与最小和的关系。 如果它比较小，它将代替旧的最小和成为新的最小和。否则则继续遍历。 最终我们还差一步操作，我们求得是中间的最小和，不是题目要求的两端最大和。 所以我们需要 求解整个数组的元素之和，然后减去中间的最小和，即为最终结果。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxScore</span><span class="params">(<span class="keyword">int</span>[] cardPoints, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = cardPoints.length; <span class="comment">// 确定数组长度</span></span><br><span class="line">    <span class="keyword">int</span> size = n - k; <span class="comment">// 确定滑窗区间</span></span><br><span class="line">    <span class="keyword">int</span> sum = <span class="number">0</span>; <span class="comment">// 滑窗区间总和</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i =<span class="number">0</span>; i &lt;size; i++)&#123;</span><br><span class="line">        sum += cardPoints[i]; <span class="comment">// 先确定区间内的元素个数</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> minsum = sum; <span class="comment">// 最小和先默认为区间总和</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = size; i &lt; n; i++)&#123;</span><br><span class="line">      </span><br><span class="line">        sum += cardPoints[i]-cardPoints[i-size]; <span class="comment">// 窗口滑动的同时，窗口区间总和会变化</span></span><br><span class="line">        minsum = Math.min(sum,minsum); <span class="comment">// 寻找滑窗区间最小和</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> Arrays.stream(cardPoints).sum()-minsum; <span class="comment">// 使用 stream.sum 求解数组之和然后利用数组总和减去中间滑窗区间的最小和即可确认边界最大和。</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>powershell 命令行快速入门</title>
     <url>/2021/07/19/powershell%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/</url>
     <content><![CDATA[<blockquote>
@@ -422,19 +444,49 @@
       </tags>
   </entry>
   <entry>
-    <title>【java】【leetcode】1423.可获得的最大点数</title>
-    <url>/2021/10/31/%E3%80%90java%E3%80%91%E3%80%90leetcode%E3%80%911423.%20%E5%8F%AF%E8%8E%B7%E5%BE%97%E7%9A%84%E6%9C%80%E5%A4%A7%E7%82%B9%E6%95%B0%20%E6%BB%91%E7%AA%97/</url>
-    <content><![CDATA[<p>原题链接在此附上：<a href="https://leetcode-cn.com/problems/maximum-points-you-can-obtain-from-cards/">1423. 可获得的最大点数</a></p>
-<p>这题有点意思，和我们平常做题思维不太一样，所谓滑窗，我觉得我们一般都会优先考虑划结果范围那个窗，但是这个题是反着来的，你要确定的结果是数组头部和尾部元素的最大和，并不适合我们直接进行滑窗操作，于是这道题的思路就变成了逆向操作，既然不能直接滑窗，就间接来，要求解头部和尾部元素的最大和，那是不是直接求整体的和然后减去数组中间元素最小和就是左右两端的最大和了？ 所以我们写代码时要确定的几件事事情便是：</p>
-<p><strong>我们要划多大的窗？</strong></p>
-<p>已知我们要求前后k个数之和最大值 设：数组长度为 n ，窗口大小为size 那我们的滑窗大小即为，n-k（求解出n-k个数的最小和）。</p>
-<p><strong>那这个窗口要从哪开始划呢？</strong></p>
-<p>因为数组是无序的，我们没有办法去直接判断从哪边开始划，我们要确定出来一个区间，相加的值是最小的。</p>
-<p><strong>具体要怎么确定？</strong></p>
-<p>从头开始，前确定前 n-k 个数的和。 设我们滑窗区间之和为 sum ，首先计算出数组元素 0 下标到下标 n-k-1 的和。 此时设最小和为 minsum ， minisum 默认值和 sum 相同。 我们现在只是确认了数组前 n-k 个数的和，无法保证这个和是最小的，所以我们要开始遍历进行判断。</p>
-<p><strong>怎么判断和筛选区间呢？</strong></p>
-<p>现在我们的窗口大小已经确定为 n-k 了，剩下的工作就是滑动窗口，确定窗口内加起来的数和最小。 所以我们要遍历数组剩下的位置，即 n-k 到 n 。 然后我们要做的就是：窗口向右移动的同时，窗口大小是固定的，有新的数字加入窗口中，那么我就要舍弃最左边的数字，这样才能保证我们的窗口大小不变。 然后确定新加进来的数与剔除掉最左部的数之后的和与最小和的关系。 如果它比较小，它将代替旧的最小和成为新的最小和。否则则继续遍历。 最终我们还差一步操作，我们求得是中间的最小和，不是题目要求的两端最大和。 所以我们需要 求解整个数组的元素之和，然后减去中间的最小和，即为最终结果。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxScore</span><span class="params">(<span class="keyword">int</span>[] cardPoints, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = cardPoints.length; <span class="comment">// 确定数组长度</span></span><br><span class="line">    <span class="keyword">int</span> size = n - k; <span class="comment">// 确定滑窗区间</span></span><br><span class="line">    <span class="keyword">int</span> sum = <span class="number">0</span>; <span class="comment">// 滑窗区间总和</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i =<span class="number">0</span>; i &lt;size; i++)&#123;</span><br><span class="line">        sum += cardPoints[i]; <span class="comment">// 先确定区间内的元素个数</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> minsum = sum; <span class="comment">// 最小和先默认为区间总和</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = size; i &lt; n; i++)&#123;</span><br><span class="line">      </span><br><span class="line">        sum += cardPoints[i]-cardPoints[i-size]; <span class="comment">// 窗口滑动的同时，窗口区间总和会变化</span></span><br><span class="line">        minsum = Math.min(sum,minsum); <span class="comment">// 寻找滑窗区间最小和</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> Arrays.stream(cardPoints).sum()-minsum; <span class="comment">// 使用 stream.sum 求解数组之和然后利用数组总和减去中间滑窗区间的最小和即可确认边界最大和。</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    <title>【java】【leetcode】面试题 16.01.交换数字</title>
+    <url>/2021/11/02/%E3%80%90java%E3%80%91%E3%80%90leetcode%E3%80%91%E9%9D%A2%E8%AF%95%E9%A2%98%2016.01.%E4%BA%A4%E6%8D%A2%E6%95%B0%E5%AD%97/</url>
+    <content><![CDATA[<p>题目链接：<a href="https://leetcode-cn.com/problems/swap-numbers-lcci/">面试题 16.01. 交换数字</a></p>
+<p>编写一个函数，不用临时变量，直接交换numbers = [a, b]中a与b的值。</p>
+<p>示例：</p>
+<blockquote>
+<p>输入: numbers = [1,2]</p>
+<p>输出: [2,1]</p>
+</blockquote>
+<p>提示：</p>
+<ul>
+<li><code>numbers.length == 2</code></li>
+<li><code>-2147483647 &lt;= numbers[i] &lt;= 2147483647</code></li>
+</ul>
+<hr />
+<p>使用临时变量进行数组元素交换的操作，代码为:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">temp = numbers[<span class="number">0</span>];</span><br><span class="line">numbers[<span class="number">0</span>] = numbers[<span class="number">1</span>];</span><br><span class="line">numbers[<span class="number">1</span>] = temp;</span><br></pre></td></tr></table></figure>
+<p>不使用临时变量进行元素交换，加法操作：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">numbers[<span class="number">0</span>] = numbers[<span class="number">1</span>] + numbers[<span class="number">0</span>];</span><br><span class="line">numbers[<span class="number">1</span>] = numbers[<span class="number">0</span>] - numbers[<span class="number">1</span>];</span><br><span class="line">numbers[<span class="number">0</span>] = numbers[<span class="number">0</span>] - numbers[<span class="number">1</span>];</span><br></pre></td></tr></table></figure>
+<p>我们要交换元素的位置，思路为：</p>
+<p>假设现在的数组为 numbers[] = {1,2}，我们的最终目的是将数组变为 {2,1}</p>
+<p>先将元素全都堆在 0 号位，这时 numbers 中的元素变为 {3,2} ，为了让 1 号位的元素变为1，那么我们用利用当前 0 号位的所有元素之和减去 1 号位的2，即可得到 1 ，然后直接让 0 号位的元素总和减去我们刚才算得的 1 就可以了。</p>
+<p>减法也是类似的操作。</p>
+<p>减法操作：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">numbers[0] = numbers[1] - numbers[0];</span><br><span class="line">numbers[1] = numbers[0] + numbers[1];</span><br><span class="line">numbers[0] = numbers[0] - numbers[1];</span><br></pre></td></tr></table></figure>
+<p>神奇的位运算操作</p>
+<p>异或运算公式：</p>
+<ol type="1">
+<li><strong>归零律</strong>： <span class="math inline">\(a \bigoplus a = 0\)</span></li>
+<li><strong>恒等律</strong>：<span class="math inline">\(a \bigoplus 0 = a\)</span></li>
+<li><strong>交换律</strong>： <span class="math inline">\(a\bigoplus b = b \bigoplus a\)</span></li>
+<li><strong>结合律</strong>：<span class="math inline">\(a \bigoplus b \bigoplus c = a \bigoplus (b \bigoplus c) = (a \bigoplus b) \bigoplus c\)</span></li>
+<li><strong>自反</strong>：<span class="math inline">\(a \bigoplus b \bigoplus a = b\)</span></li>
+</ol>
+<p>根据第五条自反公式我们可以进行元素的换位操作</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">numbers[<span class="number">0</span>] ^= numbers[<span class="number">1</span>];</span><br><span class="line">numbers[<span class="number">1</span>] ^= numbers[<span class="number">0</span>];</span><br><span class="line">numbers[<span class="number">0</span>] ^= numbers[<span class="number">1</span>];</span><br></pre></td></tr></table></figure>
+<p>这三行代码到底具体做了什么呢？我们来展开看看。</p>
+<p>第一行代码令 0 号位元素与 1 号位元素进行异或运算得出来的数组元素为：<span class="math inline">\(1 \bigoplus 2\)</span> , 2.</p>
+<p>第二行代码让 1 号位元素与 0 号位元素进行异或运算得出来的数组元素为：<span class="math inline">\(1 \bigoplus 2\)</span> , <span class="math inline">\(1 \bigoplus 2 \bigoplus 2\)</span>. 化简一下即为：<span class="math inline">\(1 \bigoplus 2\)</span> , 1.</p>
+<p>第三行代码让 0 号位元素与 1 号位元素进行异或运算的出来的数组元素为：<span class="math inline">\(1 \bigoplus 2 \bigoplus 1\)</span> , 1.化简一下即为：2 , 1.</p>
+<p>即可完成我们的交换操作。</p>
+<p>题目完整代码：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">int</span>[] swapNumbers(<span class="keyword">int</span>[] numbers) &#123;</span><br><span class="line">    numbers[<span class="number">0</span>] ^= numbers[<span class="number">1</span>];</span><br><span class="line">    numbers[<span class="number">1</span>] ^= numbers[<span class="number">0</span>];</span><br><span class="line">    numbers[<span class="number">0</span>] ^= numbers[<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">return</span> numbers;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>leetcode</category>
@@ -472,6 +524,38 @@
       </categories>
       <tags>
         <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【mysql笔记】什么是数据库</title>
+    <url>/2021/11/01/%E3%80%90mysql%E7%AC%94%E8%AE%B0%E3%80%91%E4%BB%80%E4%B9%88%E6%98%AF%E6%95%B0%E6%8D%AE%E5%BA%93/</url>
+    <content><![CDATA[<h2 id="数据库的定义">数据库的定义</h2>
+<p>现在所有地区的图书馆都配备了计算机，实现了图书的自动查询。使用该系统，可以通过检索书名或出版年份快速查找出希望借阅的图书的所在位置，以及是否已经借出等信息。正是因为拥有了可以保存图书名称、出版年份以及保管位置和外借情况等信息，并且可以按需查询的设备，才使这一切成为可能。</p>
+<p>像这样将大量数据保存起来，通过计算机加工而成的可以进行高效访问的数据集合称为数据库（Database，DB）。</p>
+<p>将姓名、住址、电话号码、邮箱地址、爱好和家庭构成等数据保存到数据库中，就可以随时迅速获取想要的信息了。用来管理数据库的计算机系统称为数据库管理系统（Database Management System，DBMS）。</p>
+<h2 id="dbms的重要性">DBMS的重要性</h2>
+<p>用普通的文本以及电子表格储存数据存在有以下的弊端：</p>
+<ul>
+<li>无法多人共享数据。保存在计算机里的文件可以设置为多人共享和编辑，但是无法同时对某个地方进行修改，比如网上商城，当某个用户购买商品的时候，其他用户就无法购买。</li>
+<li>无法提供操作大量数据所需的格式。当我们想要瞬间存入大量数据时，要将数据按各种格式分类。而文本文件和电子表格无法提供相应的格式。</li>
+<li>无法应对突发事故。当文件被误删或者电脑硬盘出现故障无法开机读取时，很有可能造成数据丢失，同时数据还可能被他人轻易窃取。</li>
+</ul>
+<p>DBMS 克服了这些不足，<strong>实现了多个用户同时安全简单地操作大量数据</strong> 。这也是我们使用DBMS的原因。</p>
+<h2 id="dbms的分类">DBMS的分类</h2>
+<p>DBMS主要通过数据的保存格式进行分类，主要分为以下五种类型。</p>
+<ul>
+<li>层次数据库。最早的数据库之一，它把数据通过层次结构（树状结构）的形式表示出来。但是随着关系数据库的出现和普及，现在已经很少使用了。</li>
+<li>关系数据库。现在应用最广泛的数据库。关系数据库在 1969 年诞生，可谓历史悠久。和 Excel 工作表一样，它也采用由行和列组成的二维表来管理数据，所以简单易懂。同时，它还使用专门的 SQL（Structured Query Language，结构化查询语言）对数据进行操作。</li>
+<li>面向对象数据库。编程语言中有面向对象的编程语言。面向对象数据库即为 将对数据的各种操作集合成对象来进行存储和管理。</li>
+<li>XML数据库。最近几年，XML 作为在网络上进行交互的数据的形式逐渐普及起来。XML 数据库可以对 XML 形式的大量数据进行高速处理。</li>
+<li>键值存储系统。这是一种单纯用来保存查询所使用的主键（Key）和值（Value）的组合的数据库。具有编程语言知识的读者可以把它想象成关联数组或者散列（hash）。近年来，随着键值存储系统被应用到 Google 等需要对大量数据进行超高速查询的 Web 服务当中，它正逐渐为人们所关注。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>数据库</category>
+      </categories>
+      <tags>
+        <tag>数据库</tag>
       </tags>
   </entry>
   <entry>
@@ -530,90 +614,6 @@
       </categories>
       <tags>
         <tag>数据库</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【mysql笔记】什么是数据库</title>
-    <url>/2021/11/01/%E3%80%90mysql%E7%AC%94%E8%AE%B0%E3%80%91%E4%BB%80%E4%B9%88%E6%98%AF%E6%95%B0%E6%8D%AE%E5%BA%93/</url>
-    <content><![CDATA[<h2 id="数据库的定义">数据库的定义</h2>
-<p>现在所有地区的图书馆都配备了计算机，实现了图书的自动查询。使用该系统，可以通过检索书名或出版年份快速查找出希望借阅的图书的所在位置，以及是否已经借出等信息。正是因为拥有了可以保存图书名称、出版年份以及保管位置和外借情况等信息，并且可以按需查询的设备，才使这一切成为可能。</p>
-<p>像这样将大量数据保存起来，通过计算机加工而成的可以进行高效访问的数据集合称为数据库（Database，DB）。</p>
-<p>将姓名、住址、电话号码、邮箱地址、爱好和家庭构成等数据保存到数据库中，就可以随时迅速获取想要的信息了。用来管理数据库的计算机系统称为数据库管理系统（Database Management System，DBMS）。</p>
-<h2 id="dbms的重要性">DBMS的重要性</h2>
-<p>用普通的文本以及电子表格储存数据存在有以下的弊端：</p>
-<ul>
-<li>无法多人共享数据。保存在计算机里的文件可以设置为多人共享和编辑，但是无法同时对某个地方进行修改，比如网上商城，当某个用户购买商品的时候，其他用户就无法购买。</li>
-<li>无法提供操作大量数据所需的格式。当我们想要瞬间存入大量数据时，要将数据按各种格式分类。而文本文件和电子表格无法提供相应的格式。</li>
-<li>无法应对突发事故。当文件被误删或者电脑硬盘出现故障无法开机读取时，很有可能造成数据丢失，同时数据还可能被他人轻易窃取。</li>
-</ul>
-<p>DBMS 克服了这些不足，<strong>实现了多个用户同时安全简单地操作大量数据</strong> 。这也是我们使用DBMS的原因。</p>
-<h2 id="dbms的分类">DBMS的分类</h2>
-<p>DBMS主要通过数据的保存格式进行分类，主要分为以下五种类型。</p>
-<ul>
-<li>层次数据库。最早的数据库之一，它把数据通过层次结构（树状结构）的形式表示出来。但是随着关系数据库的出现和普及，现在已经很少使用了。</li>
-<li>关系数据库。现在应用最广泛的数据库。关系数据库在 1969 年诞生，可谓历史悠久。和 Excel 工作表一样，它也采用由行和列组成的二维表来管理数据，所以简单易懂。同时，它还使用专门的 SQL（Structured Query Language，结构化查询语言）对数据进行操作。</li>
-<li>面向对象数据库。编程语言中有面向对象的编程语言。面向对象数据库即为 将对数据的各种操作集合成对象来进行存储和管理。</li>
-<li>XML数据库。最近几年，XML 作为在网络上进行交互的数据的形式逐渐普及起来。XML 数据库可以对 XML 形式的大量数据进行高速处理。</li>
-<li>键值存储系统。这是一种单纯用来保存查询所使用的主键（Key）和值（Value）的组合的数据库。具有编程语言知识的读者可以把它想象成关联数组或者散列（hash）。近年来，随着键值存储系统被应用到 Google 等需要对大量数据进行超高速查询的 Web 服务当中，它正逐渐为人们所关注。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>数据库</category>
-      </categories>
-      <tags>
-        <tag>数据库</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【java】【leetcode】面试题 16.01.交换数字</title>
-    <url>/2021/11/02/%E3%80%90java%E3%80%91%E3%80%90leetcode%E3%80%91%E9%9D%A2%E8%AF%95%E9%A2%98%2016.01.%E4%BA%A4%E6%8D%A2%E6%95%B0%E5%AD%97/</url>
-    <content><![CDATA[<p>题目链接：<a href="https://leetcode-cn.com/problems/swap-numbers-lcci/">面试题 16.01. 交换数字</a></p>
-<p>编写一个函数，不用临时变量，直接交换numbers = [a, b]中a与b的值。</p>
-<p>示例：</p>
-<blockquote>
-<p>输入: numbers = [1,2]</p>
-<p>输出: [2,1]</p>
-</blockquote>
-<p>提示：</p>
-<ul>
-<li><code>numbers.length == 2</code></li>
-<li><code>-2147483647 &lt;= numbers[i] &lt;= 2147483647</code></li>
-</ul>
-<hr />
-<p>使用临时变量进行数组元素交换的操作，代码为:</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">temp = numbers[<span class="number">0</span>];</span><br><span class="line">numbers[<span class="number">0</span>] = numbers[<span class="number">1</span>];</span><br><span class="line">numbers[<span class="number">1</span>] = temp;</span><br></pre></td></tr></table></figure>
-<p>不使用临时变量进行元素交换，加法操作：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">numbers[<span class="number">0</span>] = numbers[<span class="number">1</span>] + numbers[<span class="number">0</span>];</span><br><span class="line">numbers[<span class="number">1</span>] = numbers[<span class="number">0</span>] - numbers[<span class="number">1</span>];</span><br><span class="line">numbers[<span class="number">0</span>] = numbers[<span class="number">0</span>] - numbers[<span class="number">1</span>];</span><br></pre></td></tr></table></figure>
-<p>我们要交换元素的位置，思路为：</p>
-<p>假设现在的数组为 numbers[] = {1,2}，我们的最终目的是将数组变为 {2,1}</p>
-<p>先将元素全都堆在 0 号位，这时 numbers 中的元素变为 {3,2} ，为了让 1 号位的元素变为1，那么我们用利用当前 0 号位的所有元素之和减去 1 号位的2，即可得到 1 ，然后直接让 0 号位的元素总和减去我们刚才算得的 1 就可以了。</p>
-<p>减法也是类似的操作。</p>
-<p>减法操作：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">numbers[0] = numbers[1] - numbers[0];</span><br><span class="line">numbers[1] = numbers[0] + numbers[1];</span><br><span class="line">numbers[0] = numbers[0] - numbers[1];</span><br></pre></td></tr></table></figure>
-<p>神奇的位运算操作</p>
-<p>异或运算公式：</p>
-<ol type="1">
-<li><strong>归零律</strong>： <span class="math inline">\(a \bigoplus a = 0\)</span></li>
-<li><strong>恒等律</strong>：<span class="math inline">\(a \bigoplus 0 = a\)</span></li>
-<li><strong>交换律</strong>： <span class="math inline">\(a\bigoplus b = b \bigoplus a\)</span></li>
-<li><strong>结合律</strong>：<span class="math inline">\(a \bigoplus b \bigoplus c = a \bigoplus (b \bigoplus c) = (a \bigoplus b) \bigoplus c\)</span></li>
-<li><strong>自反</strong>：<span class="math inline">\(a \bigoplus b \bigoplus a = b\)</span></li>
-</ol>
-<p>根据第五条自反公式我们可以进行元素的换位操作</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">numbers[<span class="number">0</span>] ^= numbers[<span class="number">1</span>];</span><br><span class="line">numbers[<span class="number">1</span>] ^= numbers[<span class="number">0</span>];</span><br><span class="line">numbers[<span class="number">0</span>] ^= numbers[<span class="number">1</span>];</span><br></pre></td></tr></table></figure>
-<p>这三行代码到底具体做了什么呢？我们来展开看看。</p>
-<p>第一行代码令 0 号位元素与 1 号位元素进行异或运算得出来的数组元素为：<span class="math inline">\(1 \bigoplus 2\)</span> , 2.</p>
-<p>第二行代码让 1 号位元素与 0 号位元素进行异或运算得出来的数组元素为：<span class="math inline">\(1 \bigoplus 2\)</span> , <span class="math inline">\(1 \bigoplus 2 \bigoplus 2\)</span>. 化简一下即为：<span class="math inline">\(1 \bigoplus 2\)</span> , 1.</p>
-<p>第三行代码让 0 号位元素与 1 号位元素进行异或运算的出来的数组元素为：<span class="math inline">\(1 \bigoplus 2 \bigoplus 1\)</span> , 1.化简一下即为：2 , 1.</p>
-<p>即可完成我们的交换操作。</p>
-<p>题目完整代码：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">int</span>[] swapNumbers(<span class="keyword">int</span>[] numbers) &#123;</span><br><span class="line">    numbers[<span class="number">0</span>] ^= numbers[<span class="number">1</span>];</span><br><span class="line">    numbers[<span class="number">1</span>] ^= numbers[<span class="number">0</span>];</span><br><span class="line">    numbers[<span class="number">0</span>] ^= numbers[<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">return</span> numbers;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>leetcode</category>
-      </categories>
-      <tags>
-        <tag>leetcode</tag>
       </tags>
   </entry>
   <entry>
@@ -1171,6 +1171,52 @@
       </categories>
       <tags>
         <tag>技术杂谈</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【面向就业式复习】【java基础】接口</title>
+    <url>/2021/12/11/%E3%80%90%E9%9D%A2%E5%90%91%E5%B0%B1%E4%B8%9A%E5%BC%8F%E5%A4%8D%E4%B9%A0%E3%80%91%E3%80%90java%E5%9F%BA%E7%A1%80%E3%80%91%E6%8E%A5%E5%8F%A3/</url>
+    <content><![CDATA[<p>家人们好久不见，最近忙着复习和弄别的事情，所以停了一段时间写博客，时间不多了... 咱得继续冲刺了...</p>
+<h2 id="概念">概念</h2>
+<p>接口不是类，是对类的一组需求描述，这些类要遵从接口描述的统一格式进行定义。</p>
+<p>如果类遵从某个特定接口，那么就履行这项服务。</p>
+<p>实例：Arrays类中的 sort 方法可以对对象数组进行排序，但是前提是 对象所属的类必须实现了 Comparable 接口。</p>
+<p>Comparable 接口的代码：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Comparable</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(Object other)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这就是说，任何实现 Comparable 接口的类都需要包含 compareTo 方法，并且这个方法的参数必须是一个 Object 对象，返回一个整型数值。</p>
+<p>接口中的所有方法皆属于public 因此在接口中声明方法时，不必提供关键字public。</p>
+<p>为了类实现一个接口，通常需要下面两个步骤：</p>
+<ol type="1">
+<li>将类声明为实现给定的接口。（需要使用关键字implements）</li>
+<li>对接口中的所有方法进行定义。</li>
+</ol>
+<h2 id="接口的特性">接口的特性</h2>
+<ul>
+<li>接口不是类，不能使用 new 实例化接口。</li>
+<li>虽然不能构造接口对象，但是可以声明接口变量。</li>
+<li>接口变量必须引用实现了接口的类对象。</li>
+<li>可以使用 instanceof 检查一个对象是否实现了某个接口。</li>
+<li>接口也可以被继承。</li>
+<li>虽然接口中不能包含实例域和静态方法，但可以包含常量。</li>
+</ul>
+<p>接口中的方法都自动地被设置为 public—样，接口中的域将被自动设为 public static final。</p>
+<h2 id="接口与抽象类">接口与抽象类</h2>
+<p>关于抽象类：每个类只能拓展一个类。Java 不支持多继承。一个类只能有一个超类。</p>
+<p>但是接口可以提供多重继承。</p>
+<h2 id="接口相关的面试题">接口相关的面试题：</h2>
+<ul>
+<li>接口和抽象类的区别是什么？</li>
+</ul>
+<ol type="1">
+<li>接⼝的方法默认是 public ，所有⽅法在接⼝中不能有实现(Java 8 开始接口方法可以有默认实现），而抽象类可以有非抽象的方法。</li>
+<li>接⼝中除了 static 、 final 变量，不能有其他变量，而抽象类中则不⼀定。</li>
+<li>⼀个类可以实现多个接口，但只能实现⼀个抽象类。接口自己本身可以通过 extends 关键字扩展多个接口。</li>
+<li>接口方法默认修饰符是 public ，抽象⽅法可以有 public 、protected 和 default 这些修饰符（抽象方法就是为了被重写所以不能使用 private 关键字修饰！）。</li>
+<li>从设计层面来说，抽象是对类的抽象，是⼀种模板设计，而接口是对行为的抽象，是⼀种行为的规范。</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>java</tag>
       </tags>
   </entry>
   <entry>
