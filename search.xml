@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>BFS和DFS</title>
+    <url>/2021/08/20/BFS%E5%92%8CDFS/</url>
+    <content><![CDATA[<h1 id="javadfs和bfs">【java】DFS和BFS</h1>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**二叉树构造参考力扣</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * public class TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode left;</span></span><br><span class="line"><span class="comment"> *     TreeNode right;</span></span><br><span class="line"><span class="comment"> *     TreeNode() &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int val) &#123; this.val = val; &#125;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int val, TreeNode left, TreeNode right) &#123;</span></span><br><span class="line"><span class="comment"> *         this.val = val;</span></span><br><span class="line"><span class="comment"> *         this.left = left;</span></span><br><span class="line"><span class="comment"> *         this.right = right;</span></span><br><span class="line"><span class="comment"> *     &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">//DFS 递归实现</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(TreeNode root)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(root==<span class="keyword">null</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    dfs(root.left);</span><br><span class="line">    dfs(root.right);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//BFS 队列实现</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">bfs</span><span class="params">(TreeNode root)</span></span>&#123;</span><br><span class="line">    Queue&lt;TreeNode&gt;queue =<span class="keyword">new</span> ArrayDeque&lt;&gt;();</span><br><span class="line">    queue.add(root);</span><br><span class="line">    <span class="keyword">while</span>(!queue.isEmpty())&#123;</span><br><span class="line">        TreeNode node = queue.poll();</span><br><span class="line">        <span class="keyword">if</span>(node.left!=<span class="keyword">null</span>)&#123;</span><br><span class="line">            queue.add(node.left);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(node.right!=<span class="keyword">null</span>)&#123;</span><br><span class="line">            queue.add(node.right);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr />
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>data structure</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>data structure</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>JavaSwing贪吃蛇实现</title>
     <url>/2021/08/11/JavaSwing%E8%B4%AA%E5%90%83%E8%9B%87%E5%AE%9E%E7%8E%B0/</url>
     <content><![CDATA[<h1 id="java-swing贪吃蛇">Java Swing贪吃蛇</h1>
@@ -22,42 +38,6 @@
       <tags>
         <tag>java</tag>
         <tag>Swing</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>BFS和DFS</title>
-    <url>/2021/08/20/BFS%E5%92%8CDFS/</url>
-    <content><![CDATA[<h1 id="javadfs和bfs">【java】DFS和BFS</h1>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**二叉树构造参考力扣</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * public class TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode left;</span></span><br><span class="line"><span class="comment"> *     TreeNode right;</span></span><br><span class="line"><span class="comment"> *     TreeNode() &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int val) &#123; this.val = val; &#125;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int val, TreeNode left, TreeNode right) &#123;</span></span><br><span class="line"><span class="comment"> *         this.val = val;</span></span><br><span class="line"><span class="comment"> *         this.left = left;</span></span><br><span class="line"><span class="comment"> *         this.right = right;</span></span><br><span class="line"><span class="comment"> *     &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">//DFS 递归实现</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(TreeNode root)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(root==<span class="keyword">null</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    dfs(root.left);</span><br><span class="line">    dfs(root.right);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//BFS 队列实现</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">bfs</span><span class="params">(TreeNode root)</span></span>&#123;</span><br><span class="line">    Queue&lt;TreeNode&gt;queue =<span class="keyword">new</span> ArrayDeque&lt;&gt;();</span><br><span class="line">    queue.add(root);</span><br><span class="line">    <span class="keyword">while</span>(!queue.isEmpty())&#123;</span><br><span class="line">        TreeNode node = queue.poll();</span><br><span class="line">        <span class="keyword">if</span>(node.left!=<span class="keyword">null</span>)&#123;</span><br><span class="line">            queue.add(node.left);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(node.right!=<span class="keyword">null</span>)&#123;</span><br><span class="line">            queue.add(node.right);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<hr />
-]]></content>
-      <categories>
-        <category>java</category>
-        <category>data structure</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>data structure</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>java不规则数组实现杨辉三角</title>
-    <url>/2021/08/20/java%E4%B8%8D%E8%A7%84%E5%88%99%E6%95%B0%E7%BB%84%E5%AE%9E%E7%8E%B0%E6%9D%A8%E8%BE%89%E4%B8%89%E8%A7%92/</url>
-    <content><![CDATA[<h1 id="java不规则数组实现杨辉三角">【java】不规则数组实现杨辉三角</h1>
-<p>参考：java核心技术卷一</p>
-<p>构造不规则数组，及每一行长度不同，从而达到杨辉三角的效果。</p>
-<p>显示效果：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*NMAX=10;</span></span><br><span class="line"><span class="comment">   1</span></span><br><span class="line"><span class="comment">   1   1</span></span><br><span class="line"><span class="comment">   1   2   1</span></span><br><span class="line"><span class="comment">   1   3   3   1</span></span><br><span class="line"><span class="comment">   1   4   6   4   1</span></span><br><span class="line"><span class="comment">   1   5  10  10   5   1</span></span><br><span class="line"><span class="comment">   1   6  15  20  15   6   1</span></span><br><span class="line"><span class="comment">   1   7  21  35  35  21   7   1</span></span><br><span class="line"><span class="comment">   1   8  28  56  70  56  28   8   1</span></span><br><span class="line"><span class="comment">   1   9  36  84 126 126  84  36   9   1</span></span><br><span class="line"><span class="comment">   1  10  45 120 210 252 210 120  45  10   1</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">NMAX=15;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">   1</span></span><br><span class="line"><span class="comment">   1   1</span></span><br><span class="line"><span class="comment">   1   2   1</span></span><br><span class="line"><span class="comment">   1   3   3   1</span></span><br><span class="line"><span class="comment">   1   4   6   4   1</span></span><br><span class="line"><span class="comment">   1   5  10  10   5   1</span></span><br><span class="line"><span class="comment">   1   6  15  20  15   6   1</span></span><br><span class="line"><span class="comment">   1   7  21  35  35  21   7   1</span></span><br><span class="line"><span class="comment">   1   8  28  56  70  56  28   8   1</span></span><br><span class="line"><span class="comment">   1   9  36  84 126 126  84  36   9   1</span></span><br><span class="line"><span class="comment">   1  10  45 120 210 252 210 120  45  10   1</span></span><br><span class="line"><span class="comment">   1  11  55 165 330 462 462 330 165  55  11   1</span></span><br><span class="line"><span class="comment">   1  12  66 220 495 792 924 792 495 220  66  12   1</span></span><br><span class="line"><span class="comment">   1  13  78 286 7151287171617161287 715 286  78  13   1</span></span><br><span class="line"><span class="comment">   1  14  91 3641001200230033432300320021001 364  91  14   1</span></span><br><span class="line"><span class="comment">   1  15 105 45513653003500564356435500530031365 455 105  15   1</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>关键代码：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> NMAX=<span class="number">10</span>;<span class="comment">//定义要打印的三角的行数，这里先默认为10行</span></span><br><span class="line"><span class="keyword">int</span>[][] odds = <span class="keyword">new</span> <span class="keyword">int</span> [NMAX+<span class="number">1</span>][];<span class="comment">//要打印10行，那么我们的数组长度应该为行数+1 及NMAX+1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//分配行数（每一行元素具体个数）</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> n=<span class="number">0</span>;n&lt;=NMAX;n++)&#123;</span><br><span class="line">    odds[n] = <span class="keyword">new</span> <span class="keyword">int</span>[n+<span class="number">1</span>];<span class="comment">//每一行定义n个元素 那么每一行的长度即为元素数+1</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//分配元素</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> n=<span class="number">0</span>;n&lt;odds.length;n++)&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> k=<span class="number">0</span>;k&lt;odds[n].length;k++)&#123;</span><br><span class="line">        <span class="keyword">int</span> lotteryOdds = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=k;i++)&#123;</span><br><span class="line">            lotteryOdds = lotteryOdds * (n-i+<span class="number">1</span>)/i;<span class="comment">//杨辉三角公式</span></span><br><span class="line">        &#125;</span><br><span class="line">        odds[n][k] = lotteryOdds;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>完整代码：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LotteryArray</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> NMAX=<span class="number">10</span>;</span><br><span class="line">        <span class="keyword">int</span>[][] odds = <span class="keyword">new</span> <span class="keyword">int</span>[NMAX+<span class="number">1</span>][];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> n=<span class="number">0</span>;n&lt;=NMAX;n++)&#123;</span><br><span class="line">            odds[n]=<span class="keyword">new</span> <span class="keyword">int</span>[n+<span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> n=<span class="number">0</span>;n&lt; odds.length;n++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> k=<span class="number">0</span>; k&lt;odds[n].length;k++)&#123;</span><br><span class="line">                <span class="keyword">int</span> lotteryOdds = <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=k;i++)&#123;</span><br><span class="line">                    lotteryOdds = lotteryOdds*(n-i+<span class="number">1</span>)/i;</span><br><span class="line">                &#125;</span><br><span class="line">                odds[n][k] = lotteryOdds;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span>[] row:odds)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> odd:row)&#123;</span><br><span class="line">                System.out.printf(<span class="string">&quot;%4d&quot;</span>,odd);</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>java</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
       </tags>
   </entry>
   <entry>
@@ -92,6 +72,26 @@
       <tags>
         <tag>java</tag>
         <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>java不规则数组实现杨辉三角</title>
+    <url>/2021/08/20/java%E4%B8%8D%E8%A7%84%E5%88%99%E6%95%B0%E7%BB%84%E5%AE%9E%E7%8E%B0%E6%9D%A8%E8%BE%89%E4%B8%89%E8%A7%92/</url>
+    <content><![CDATA[<h1 id="java不规则数组实现杨辉三角">【java】不规则数组实现杨辉三角</h1>
+<p>参考：java核心技术卷一</p>
+<p>构造不规则数组，及每一行长度不同，从而达到杨辉三角的效果。</p>
+<p>显示效果：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*NMAX=10;</span></span><br><span class="line"><span class="comment">   1</span></span><br><span class="line"><span class="comment">   1   1</span></span><br><span class="line"><span class="comment">   1   2   1</span></span><br><span class="line"><span class="comment">   1   3   3   1</span></span><br><span class="line"><span class="comment">   1   4   6   4   1</span></span><br><span class="line"><span class="comment">   1   5  10  10   5   1</span></span><br><span class="line"><span class="comment">   1   6  15  20  15   6   1</span></span><br><span class="line"><span class="comment">   1   7  21  35  35  21   7   1</span></span><br><span class="line"><span class="comment">   1   8  28  56  70  56  28   8   1</span></span><br><span class="line"><span class="comment">   1   9  36  84 126 126  84  36   9   1</span></span><br><span class="line"><span class="comment">   1  10  45 120 210 252 210 120  45  10   1</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">NMAX=15;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">   1</span></span><br><span class="line"><span class="comment">   1   1</span></span><br><span class="line"><span class="comment">   1   2   1</span></span><br><span class="line"><span class="comment">   1   3   3   1</span></span><br><span class="line"><span class="comment">   1   4   6   4   1</span></span><br><span class="line"><span class="comment">   1   5  10  10   5   1</span></span><br><span class="line"><span class="comment">   1   6  15  20  15   6   1</span></span><br><span class="line"><span class="comment">   1   7  21  35  35  21   7   1</span></span><br><span class="line"><span class="comment">   1   8  28  56  70  56  28   8   1</span></span><br><span class="line"><span class="comment">   1   9  36  84 126 126  84  36   9   1</span></span><br><span class="line"><span class="comment">   1  10  45 120 210 252 210 120  45  10   1</span></span><br><span class="line"><span class="comment">   1  11  55 165 330 462 462 330 165  55  11   1</span></span><br><span class="line"><span class="comment">   1  12  66 220 495 792 924 792 495 220  66  12   1</span></span><br><span class="line"><span class="comment">   1  13  78 286 7151287171617161287 715 286  78  13   1</span></span><br><span class="line"><span class="comment">   1  14  91 3641001200230033432300320021001 364  91  14   1</span></span><br><span class="line"><span class="comment">   1  15 105 45513653003500564356435500530031365 455 105  15   1</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>关键代码：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> NMAX=<span class="number">10</span>;<span class="comment">//定义要打印的三角的行数，这里先默认为10行</span></span><br><span class="line"><span class="keyword">int</span>[][] odds = <span class="keyword">new</span> <span class="keyword">int</span> [NMAX+<span class="number">1</span>][];<span class="comment">//要打印10行，那么我们的数组长度应该为行数+1 及NMAX+1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//分配行数（每一行元素具体个数）</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> n=<span class="number">0</span>;n&lt;=NMAX;n++)&#123;</span><br><span class="line">    odds[n] = <span class="keyword">new</span> <span class="keyword">int</span>[n+<span class="number">1</span>];<span class="comment">//每一行定义n个元素 那么每一行的长度即为元素数+1</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//分配元素</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> n=<span class="number">0</span>;n&lt;odds.length;n++)&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> k=<span class="number">0</span>;k&lt;odds[n].length;k++)&#123;</span><br><span class="line">        <span class="keyword">int</span> lotteryOdds = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=k;i++)&#123;</span><br><span class="line">            lotteryOdds = lotteryOdds * (n-i+<span class="number">1</span>)/i;<span class="comment">//杨辉三角公式</span></span><br><span class="line">        &#125;</span><br><span class="line">        odds[n][k] = lotteryOdds;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>完整代码：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LotteryArray</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> NMAX=<span class="number">10</span>;</span><br><span class="line">        <span class="keyword">int</span>[][] odds = <span class="keyword">new</span> <span class="keyword">int</span>[NMAX+<span class="number">1</span>][];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> n=<span class="number">0</span>;n&lt;=NMAX;n++)&#123;</span><br><span class="line">            odds[n]=<span class="keyword">new</span> <span class="keyword">int</span>[n+<span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> n=<span class="number">0</span>;n&lt; odds.length;n++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> k=<span class="number">0</span>; k&lt;odds[n].length;k++)&#123;</span><br><span class="line">                <span class="keyword">int</span> lotteryOdds = <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=k;i++)&#123;</span><br><span class="line">                    lotteryOdds = lotteryOdds*(n-i+<span class="number">1</span>)/i;</span><br><span class="line">                &#125;</span><br><span class="line">                odds[n][k] = lotteryOdds;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span>[] row:odds)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> odd:row)&#123;</span><br><span class="line">                System.out.printf(<span class="string">&quot;%4d&quot;</span>,odd);</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
       </tags>
   </entry>
   <entry>
@@ -475,6 +475,58 @@
       </tags>
   </entry>
   <entry>
+    <title>【java】【leetcode】面试题 16.01.交换数字</title>
+    <url>/2021/11/02/%E3%80%90java%E3%80%91%E3%80%90leetcode%E3%80%91%E9%9D%A2%E8%AF%95%E9%A2%98%2016.01.%E4%BA%A4%E6%8D%A2%E6%95%B0%E5%AD%97/</url>
+    <content><![CDATA[<p>题目链接：<a href="https://leetcode-cn.com/problems/swap-numbers-lcci/">面试题 16.01. 交换数字</a></p>
+<p>编写一个函数，不用临时变量，直接交换numbers = [a, b]中a与b的值。</p>
+<p>示例：</p>
+<blockquote>
+<p>输入: numbers = [1,2]</p>
+<p>输出: [2,1]</p>
+</blockquote>
+<p>提示：</p>
+<ul>
+<li><code>numbers.length == 2</code></li>
+<li><code>-2147483647 &lt;= numbers[i] &lt;= 2147483647</code></li>
+</ul>
+<hr />
+<p>使用临时变量进行数组元素交换的操作，代码为:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">temp = numbers[<span class="number">0</span>];</span><br><span class="line">numbers[<span class="number">0</span>] = numbers[<span class="number">1</span>];</span><br><span class="line">numbers[<span class="number">1</span>] = temp;</span><br></pre></td></tr></table></figure>
+<p>不使用临时变量进行元素交换，加法操作：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">numbers[<span class="number">0</span>] = numbers[<span class="number">1</span>] + numbers[<span class="number">0</span>];</span><br><span class="line">numbers[<span class="number">1</span>] = numbers[<span class="number">0</span>] - numbers[<span class="number">1</span>];</span><br><span class="line">numbers[<span class="number">0</span>] = numbers[<span class="number">0</span>] - numbers[<span class="number">1</span>];</span><br></pre></td></tr></table></figure>
+<p>我们要交换元素的位置，思路为：</p>
+<p>假设现在的数组为 numbers[] = {1,2}，我们的最终目的是将数组变为 {2,1}</p>
+<p>先将元素全都堆在 0 号位，这时 numbers 中的元素变为 {3,2} ，为了让 1 号位的元素变为1，那么我们用利用当前 0 号位的所有元素之和减去 1 号位的2，即可得到 1 ，然后直接让 0 号位的元素总和减去我们刚才算得的 1 就可以了。</p>
+<p>减法也是类似的操作。</p>
+<p>减法操作：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">numbers[0] = numbers[1] - numbers[0];</span><br><span class="line">numbers[1] = numbers[0] + numbers[1];</span><br><span class="line">numbers[0] = numbers[0] - numbers[1];</span><br></pre></td></tr></table></figure>
+<p>神奇的位运算操作</p>
+<p>异或运算公式：</p>
+<ol type="1">
+<li><strong>归零律</strong>： <span class="math inline">\(a \bigoplus a = 0\)</span></li>
+<li><strong>恒等律</strong>：<span class="math inline">\(a \bigoplus 0 = a\)</span></li>
+<li><strong>交换律</strong>： <span class="math inline">\(a\bigoplus b = b \bigoplus a\)</span></li>
+<li><strong>结合律</strong>：<span class="math inline">\(a \bigoplus b \bigoplus c = a \bigoplus (b \bigoplus c) = (a \bigoplus b) \bigoplus c\)</span></li>
+<li><strong>自反</strong>：<span class="math inline">\(a \bigoplus b \bigoplus a = b\)</span></li>
+</ol>
+<p>根据第五条自反公式我们可以进行元素的换位操作</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">numbers[<span class="number">0</span>] ^= numbers[<span class="number">1</span>];</span><br><span class="line">numbers[<span class="number">1</span>] ^= numbers[<span class="number">0</span>];</span><br><span class="line">numbers[<span class="number">0</span>] ^= numbers[<span class="number">1</span>];</span><br></pre></td></tr></table></figure>
+<p>这三行代码到底具体做了什么呢？我们来展开看看。</p>
+<p>第一行代码令 0 号位元素与 1 号位元素进行异或运算得出来的数组元素为：<span class="math inline">\(1 \bigoplus 2\)</span> , 2.</p>
+<p>第二行代码让 1 号位元素与 0 号位元素进行异或运算得出来的数组元素为：<span class="math inline">\(1 \bigoplus 2\)</span> , <span class="math inline">\(1 \bigoplus 2 \bigoplus 2\)</span>. 化简一下即为：<span class="math inline">\(1 \bigoplus 2\)</span> , 1.</p>
+<p>第三行代码让 0 号位元素与 1 号位元素进行异或运算的出来的数组元素为：<span class="math inline">\(1 \bigoplus 2 \bigoplus 1\)</span> , 1.化简一下即为：2 , 1.</p>
+<p>即可完成我们的交换操作。</p>
+<p>题目完整代码：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">int</span>[] swapNumbers(<span class="keyword">int</span>[] numbers) &#123;</span><br><span class="line">    numbers[<span class="number">0</span>] ^= numbers[<span class="number">1</span>];</span><br><span class="line">    numbers[<span class="number">1</span>] ^= numbers[<span class="number">0</span>];</span><br><span class="line">    numbers[<span class="number">0</span>] ^= numbers[<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">return</span> numbers;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>【mysql笔记】SQL摘要</title>
     <url>/2021/11/01/%E3%80%90mysql%E7%AC%94%E8%AE%B0%E3%80%91SQL%E6%91%98%E8%A6%81/</url>
     <content><![CDATA[<h1 id="sql摘要">SQL摘要</h1>
@@ -530,58 +582,6 @@
       </categories>
       <tags>
         <tag>数据库</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【java】【leetcode】面试题 16.01.交换数字</title>
-    <url>/2021/11/02/%E3%80%90java%E3%80%91%E3%80%90leetcode%E3%80%91%E9%9D%A2%E8%AF%95%E9%A2%98%2016.01.%E4%BA%A4%E6%8D%A2%E6%95%B0%E5%AD%97/</url>
-    <content><![CDATA[<p>题目链接：<a href="https://leetcode-cn.com/problems/swap-numbers-lcci/">面试题 16.01. 交换数字</a></p>
-<p>编写一个函数，不用临时变量，直接交换numbers = [a, b]中a与b的值。</p>
-<p>示例：</p>
-<blockquote>
-<p>输入: numbers = [1,2]</p>
-<p>输出: [2,1]</p>
-</blockquote>
-<p>提示：</p>
-<ul>
-<li><code>numbers.length == 2</code></li>
-<li><code>-2147483647 &lt;= numbers[i] &lt;= 2147483647</code></li>
-</ul>
-<hr />
-<p>使用临时变量进行数组元素交换的操作，代码为:</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">temp = numbers[<span class="number">0</span>];</span><br><span class="line">numbers[<span class="number">0</span>] = numbers[<span class="number">1</span>];</span><br><span class="line">numbers[<span class="number">1</span>] = temp;</span><br></pre></td></tr></table></figure>
-<p>不使用临时变量进行元素交换，加法操作：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">numbers[<span class="number">0</span>] = numbers[<span class="number">1</span>] + numbers[<span class="number">0</span>];</span><br><span class="line">numbers[<span class="number">1</span>] = numbers[<span class="number">0</span>] - numbers[<span class="number">1</span>];</span><br><span class="line">numbers[<span class="number">0</span>] = numbers[<span class="number">0</span>] - numbers[<span class="number">1</span>];</span><br></pre></td></tr></table></figure>
-<p>我们要交换元素的位置，思路为：</p>
-<p>假设现在的数组为 numbers[] = {1,2}，我们的最终目的是将数组变为 {2,1}</p>
-<p>先将元素全都堆在 0 号位，这时 numbers 中的元素变为 {3,2} ，为了让 1 号位的元素变为1，那么我们用利用当前 0 号位的所有元素之和减去 1 号位的2，即可得到 1 ，然后直接让 0 号位的元素总和减去我们刚才算得的 1 就可以了。</p>
-<p>减法也是类似的操作。</p>
-<p>减法操作：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">numbers[0] = numbers[1] - numbers[0];</span><br><span class="line">numbers[1] = numbers[0] + numbers[1];</span><br><span class="line">numbers[0] = numbers[0] - numbers[1];</span><br></pre></td></tr></table></figure>
-<p>神奇的位运算操作</p>
-<p>异或运算公式：</p>
-<ol type="1">
-<li><strong>归零律</strong>： <span class="math inline">\(a \bigoplus a = 0\)</span></li>
-<li><strong>恒等律</strong>：<span class="math inline">\(a \bigoplus 0 = a\)</span></li>
-<li><strong>交换律</strong>： <span class="math inline">\(a\bigoplus b = b \bigoplus a\)</span></li>
-<li><strong>结合律</strong>：<span class="math inline">\(a \bigoplus b \bigoplus c = a \bigoplus (b \bigoplus c) = (a \bigoplus b) \bigoplus c\)</span></li>
-<li><strong>自反</strong>：<span class="math inline">\(a \bigoplus b \bigoplus a = b\)</span></li>
-</ol>
-<p>根据第五条自反公式我们可以进行元素的换位操作</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">numbers[<span class="number">0</span>] ^= numbers[<span class="number">1</span>];</span><br><span class="line">numbers[<span class="number">1</span>] ^= numbers[<span class="number">0</span>];</span><br><span class="line">numbers[<span class="number">0</span>] ^= numbers[<span class="number">1</span>];</span><br></pre></td></tr></table></figure>
-<p>这三行代码到底具体做了什么呢？我们来展开看看。</p>
-<p>第一行代码令 0 号位元素与 1 号位元素进行异或运算得出来的数组元素为：<span class="math inline">\(1 \bigoplus 2\)</span> , 2.</p>
-<p>第二行代码让 1 号位元素与 0 号位元素进行异或运算得出来的数组元素为：<span class="math inline">\(1 \bigoplus 2\)</span> , <span class="math inline">\(1 \bigoplus 2 \bigoplus 2\)</span>. 化简一下即为：<span class="math inline">\(1 \bigoplus 2\)</span> , 1.</p>
-<p>第三行代码让 0 号位元素与 1 号位元素进行异或运算的出来的数组元素为：<span class="math inline">\(1 \bigoplus 2 \bigoplus 1\)</span> , 1.化简一下即为：2 , 1.</p>
-<p>即可完成我们的交换操作。</p>
-<p>题目完整代码：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">int</span>[] swapNumbers(<span class="keyword">int</span>[] numbers) &#123;</span><br><span class="line">    numbers[<span class="number">0</span>] ^= numbers[<span class="number">1</span>];</span><br><span class="line">    numbers[<span class="number">1</span>] ^= numbers[<span class="number">0</span>];</span><br><span class="line">    numbers[<span class="number">0</span>] ^= numbers[<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">return</span> numbers;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>leetcode</category>
-      </categories>
-      <tags>
-        <tag>leetcode</tag>
       </tags>
   </entry>
   <entry>
@@ -645,6 +645,93 @@
       </categories>
       <tags>
         <tag>数据库</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【久远讲算法】什么是空间复杂度</title>
+    <url>/2021/10/30/%E3%80%90%E4%B9%85%E8%BF%9C%E8%AE%B2%E7%AE%97%E6%B3%95%E3%80%91%E4%BB%80%E4%B9%88%E6%98%AF%E7%A9%BA%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6/</url>
+    <content><![CDATA[<p>你好，我是久远，这周我们继续聊算法，接着上次的时间复杂度，我们进行关于空间复杂度的讲解。</p>
+<h2 id="知识回顾">知识回顾</h2>
+<p>首先，我们来对上周的任务进行大概的复习。</p>
+<p>算法是什么？</p>
+<ul>
+<li>从理论层面来讲，算法就是我们写程序写代码的优化手册，它教会我们怎么让代码运行起来更快，或者占用的内存空间更少。直观层面来讲便是，算法是一系列程序指令，用于处理特定的运算和逻辑问题。一个算法是好是坏，我们通常根据时间复杂度和空间复杂度去评价。</li>
+</ul>
+<p>时间复杂度是什么？</p>
+<ul>
+<li>时间复杂度是对一个算法运行时间长短的量度，用大 O 表示，常见的时间复杂度按照从低到高的顺序，包括<span class="math inline">\(O(1)、O(logn)、O(n)、O(nlogn)、O(n^2)\)</span> 等。</li>
+</ul>
+<p>时间复杂度的要点包括以下内容：</p>
+<ul>
+<li>基本操作执行次数。即每行代码的执行次数，我们通过这个来计算我们所写的代码详细的执行次数。</li>
+<li>渐进时间复杂度。计算基本操作执行次数固然是一种求解时间复杂度的方法，但是我们平时写的代码是千奇百怪的，因此通过计算基本操作执行次数得到的数字或函数大多都比较复杂，并不适合直接充当我们的时间复杂度，因此我们引入了渐进时间复杂度的概念，渐进时间复杂度常用大 O 符号表述，不包括这个函数的低阶项和首项系数。使用渐进时间复杂度可保证我们算出的时间复杂度函数相比起基本执行操作次数总和更加简洁。</li>
+</ul>
+<h2 id="空间复杂度和时间复杂度的关系">空间复杂度和时间复杂度的关系</h2>
+<p>空间复杂度和时间复杂度，这两个东西长得非常的像，但到底有什么区别呢？</p>
+<p>从文字的角度，我们可以联想到，时间一般是我们摸不着的，比较抽象的东西。而空间一般是现实存在的，我们能摸到的，比较具体的东西。</p>
+<p>再从平常我们思考的角度讲，我们去分析一件事情，一般要从理论和实际两种层面上进行分析。比如我想去旅游，理论上我只要有钱，有时间，我就可以出去旅游。但是从现实的层面去考虑这件事就很繁琐，我们要想到：当前季节上是否适合旅游，自己是否要先向学校或者上班的地方请假报备，然后再考虑订哪天的机票，以及目的地的选取等等琐事。</p>
+<p>编程也并不是一件虚拟的事情，它是切实存在且在生活中被频繁使用的，因此我们有必要从理论和实际两种方面考虑自己所写的代码的可行性。</p>
+<p>时间复杂度就是我们对自己代码的“理论分析”。从我们个人编程的角度而言，我们的代码仅用于个人电脑使用，并不参与企业开发，所以我们一般不去考虑计算机的性能。单纯的考虑了，怎么写这段代码，它不会出错，可以正确执行。在进行数据结构和算法的学习之后，我们慢慢的开始考虑自己代码的时间复杂度。即如何让自己写的代码运行速度的更快一些。</p>
+<p>空间复杂度便是我们对自己代码的“实际分析”。可能我们个人写代码体会不到空间复杂度的重要性。假设你在大型企业上班，你的老板要求你开发一个手机应用，这个时候，我们要考虑的就不仅仅是，我写的代码能不能正常运行起来这件事了，因为你要站在用户的角度去考虑，你的体验度是怎么样的，作为手机应用的使用者，我们自然会想到，我希望这个手机应用能够秒开，而不是点进去半天才能加载出来，同时也希望这个手机应用占手机的内存少一点。而作为老板，让员工开发应用的时候，也希望公司提供的电脑能安全完成开发，不希望出现因为代码运行时间过长而消耗电脑硬件，导致电脑坏掉拖延项目进展的事情发生。</p>
+<p>空间复杂度有着类似于时间复杂度的概念：一个算法或程序的空间复杂度定性地描述该算法或程序运行所需要的存储空间大小。空间复杂度是相应计算问题的输入值的长度的函数，它表示一个算法完全执行所需要的存储空间大小。</p>
+<p>和时间复杂度类似，空间复杂度通常也使用大 O 记号来渐进地表示，即空间复杂度也有渐进空间复杂度一说。例如<span class="math inline">\(O(n)\)</span>、<span class="math inline">\(O(nlogn)\)</span> 、<span class="math inline">\(O(n^α)\)</span> 、<span class="math inline">\(O(2^n)\)</span> 等；其中 n 用来表示输入的长度，该值可以影响算法的空间复杂度。</p>
+<p>就像时间复杂度的计算不考虑算法所使用的空间大小一样，空间复杂度也不考虑算法运行需要的时间长短。</p>
+<h2 id="空间复杂度">空间复杂度</h2>
+<p>从整个程序来讨论的话，程序的空间复杂度可以完全用程序代码本身所占用的存储空间多少来表示。</p>
+<p>首先，程序自身所占用的存储空间取决于其包含的代码量，我们只要在编程环境下输入代码进行运行，那么这段代码必定会占用电脑的存储空间。想要压缩这部分存储空间，就要求我们在实现功能的同时，尽可能编写足够短的代码，但从这一方面来讲，过于庞大，毕竟我们编写一段代码，其中包含着很多内容，我们将继续将代码拆分分析为以下两种情况去推算空间复杂度。</p>
+<p>一般一段代码的空间复杂度涉及到的空间类型有：</p>
+<p>1..输入、输出空间。程序中如果需要输入输出数据，也会占用一定的存储空间。程序运行过程中输入输出的数据，往往由要解决的问题而定，即便所用算法不同，程序输入输出所占用的存储空间也是相近的。即，无论是我们使用 10 行代码还是三行代码去实现同一个问题，他们最终输出的东西一样的话，即使二者代码长度不尽相同，但是输出所占的存储空间是差不多大的。</p>
+<p>2..暂存空间。程序在运行过程中，可能还需要临时申请更多的存储空间。事实上，对算法的空间复杂度影响最大的，往往是程序运行过程中所申请的临时存储空间。不同的算法所编写出的程序，其运行时申请的临时存储空间通常会有较大不同。</p>
+<p>通常情况下，空间复杂度指在输入数据大小为 N 时，算法运行所使用的「暂存空间」+「输出空间」的总体大小。</p>
+<p>先来看几种常见的空间复杂度。我们根据代码来进行详细分析。</p>
+<h3 id="常量空间">常量空间</h3>
+<p>当算法的存储空间大小固定，和输入规模没有直接的关系时，空间复杂度记作 <span class="math inline">\(O(n)\)</span> .</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fun1</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> <span class="keyword">var</span> = <span class="number">3</span>;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fun1</span>(<span class="params">n</span>):</span></span><br><span class="line">    var = <span class="number">3</span></span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+<p>讲解 python 代码：</p>
+<p>我们定义了 <code>fun1()</code> 函数，当我们调用这个函数的时候，我们要向其中传入一个参数 n ，但是n传入后，函数 <code>fun1()</code> 做了一件事，它里层引入了一个 var 变量 并给它赋值 3 ，但这一切并没有改变我们输入的参数 n 的值和类型。根据上文第二条 “ 程序中如果需要输入输出数据，也会占用一定的存储空间 ”，我们输入的参数 n 从头至尾没有发生改变，因此程序所占的存储空间也没有发生改变。所以该程序的空间复杂度为 <span class="math inline">\(O(1)\)</span> .</p>
+<h3 id="线性空间">线性空间</h3>
+<p>当算法分配的空间是一个线性的集合（如列表或数组），并且集合大小和输入规模 n 成正比时，空间复杂度记作<span class="math inline">\(O(n)\)</span> .</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fun2</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span>[] array = <span class="keyword">new</span> <span class="keyword">int</span>[n];</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fun2</span>(<span class="params">n:<span class="built_in">int</span></span>):</span></span><br><span class="line">    array_list = [<span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,n)]</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+<p>讲解 python 代码：</p>
+<p>我们定义了 <code>fun2()</code> 函数，当我们调用这个函数的时候，我们向其中传入一个参数 n ，参数 n 的类型为 int （整数类型），然后 n 被传入后，函数 <code>fun2()</code> 利用 n 做了一件事：定义了一个长度为 n ，元素为从1到 n 的列表 array_list 。我们本来的输入规模为 n ，由上文中“ 程序在运行过程中，可能还需要临时申请更多的存储空间 ”可知，在函数内我们引入了长度为 n 的列表。即在这个程序中，我们额外申请了 n 长度的一维列表，与输入规模 n 成正比，所以该程序的空间复杂度记为 <span class="math inline">\(O(n)\)</span>.</p>
+<h3 id="二维空间">二维空间</h3>
+<p>当算法分配的空间是一个二维列表或数组集合，并且集合的长度和宽度都与输入规模 n 成正比时，空间复杂度记作 <span class="math inline">\(O(n^2)\)</span>.</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fun3</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span>[][] matrix = <span class="keyword">new</span> <span class="keyword">int</span>[n][n];</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fun3</span>(<span class="params">n:<span class="built_in">int</span></span>):</span></span><br><span class="line">    matrix_list = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">        matrix_list.append([<span class="number">0</span>]*n)</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+<p>对 python 代码进行讲解：</p>
+<p>我们新建了一个函数<code>fun3()</code> ,它的目的是新建一个 <span class="math inline">\(n×n\)</span> 的二维列表，我们的做法是：首先新建一个空的列表 matrix_list 然后对 matrix_list 进行一维列表的迭代和添加，最后生成二维列表。首先我们从生成一维列表开始，将n 传入 <code>fun3()</code> 中，我们首先新建一个空列表，为之后向列表中添加元素做准备，然后我们要稍微动一下脑子，当新建一个长度为 n 元素全为 0 的一维列表时，我们使用了循环来进行列表的初始化，所以在新建二维列表时，我们可以用类似的方法，同样使用循环来进行初始化，在一维列表初始化过程中，我们是不是将0元素挨个添加到列表中，以实现有 n 个 0 的列表，那现在我们要生成拥有 <span class="math inline">\(n×n\)</span> 个 0 的列表，那是不是将[0] 做 n 次循环添加到 matrix_list 中就可以了。然后我们根据“ 程序在运行过程中，可能还需要临时申请更多的存储空间。”这一点可知，我们传入的参数 n 与二维列表 <span class="math inline">\(n×n\)</span> 的长度成正比。所以该代码空间复杂度即为<span class="math inline">\(O(n^2)\)</span>.</p>
+<p>以下我们使用了当 n 为2时的情况，进行了函数模拟。</p>
+<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110302224995.gif" /></p>
+<h3 id="递归空间">递归空间</h3>
+<p>程序调用函数是基于栈实现的，函数在调用期间，引入一个栈并进行入栈操作，将调用来的函数以及其参数信息全都压入栈中，当函数进行 return 操作时，执行出栈操作，把上一次调用的函数和参数信息从栈中弹出。从而释放掉多余的内存。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fun4</span><span class="params">(<span class="keyword">int</span> N)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(N &lt;= <span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> fun4(N - <span class="number">1</span>) + <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fun4</span>(<span class="params">N:<span class="built_in">int</span></span>):</span></span><br><span class="line">    <span class="keyword">if</span> N &lt;= <span class="number">1</span>: <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> fun4(N - <span class="number">1</span>) + <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>对 python 代码进行分析：</p>
+<p>当我们输入的 <span class="math inline">\(N&lt;=1\)</span> 时，我们将直接返回 1， 这是我们的递归结束点。当我们输入的 N 大于 1时，程序会引入一个栈，将 <code>fun4(N)</code>放入栈中，而 <code>fun4(N)</code> 又要调用 <code>fun(N - 1) + 1</code> 因此我们将<code>fun(N - 1) - 1</code> 放入栈中，以此类推直到 N 变为 1 ，这是 我们找到了递归结束点，将栈内的函数全都挨个释放出来即可。由上面函数的出入栈过程可以看出，执行递归操作所需要的内存空间和递归的深度成正比。纯粹的递归操作的空间复杂度也是线性，但如果递归的深度是 n ，那么空间复杂度就是<span class="math inline">\(O(n)\)</span>.</p>
+<p>我们在这里给出当N=6时的程序模拟以及递归树方便读者进行理解（递归后续会进行详细讲解）。</p>
+<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110302224573.gif" /></p>
+<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110302224050.png" /></p>
+<h2 id="时间和空间的权衡">时间和空间的权衡</h2>
+<p>在上文笔者也提到，写代码其实不是一件虚拟的事情，它涉及到了现实的很多情况，当你在企业工作时，你所写的代码并不是单单满足你自己的需求即可，而是要考虑各种各样现实的限制了。虽然随着科技的发展，电脑更新换代非常的快，性能也是越来越强大。但电脑的内存并不是无限的，它的性能终究是有限的。因此我们在写代码的时候也要 “精打细算”，选择更加高效的执行办法。</p>
+<p>对于算法的性能，需要从时间和空间的使用情况来综合评价。好的算法应具备两个特性，即时间和空间复杂度均比较低。而实际上，对于某个算法问题，正因为电脑的能力是有限的，所以我们的时间复杂度和空间空间复杂度是没有办法同时兼顾的，因此将会出现，时间换空间或者空间换时间的情况发生。</p>
+<p>因为现在科技发展很快，电脑性能一般比较强大，满足了我们的日常需求，所以在平常的代码编写过程中，我们绝大多数情况，会考虑空间换取时间的操作，多分配一些内存空间，让程序跑到更快。</p>
+<h2 id="总结">总结</h2>
+<ul>
+<li>什么是空间复杂度？</li>
+</ul>
+<p>空间复杂度是对一个算法在运行过程中临时占用存储空间大小的量度，用大 O 表示，常见的空间复杂度按照从低到高的顺序，包括<span class="math inline">\(O(1)、O(n)、O(n^2)\)</span> .其中递归算法的空间复杂度和递归深度成正比。</p>
+<blockquote>
+<p>流沙团队联合AI悦创|久远·推出辅导班啦，包括「Python 语言辅导班、C++ 辅导班、java 辅导班、算法/数据结构辅导班、少儿编程、pygame 游戏开发」，全部都是一对一教学：一对一辅导 + 一对一答疑 + 布置作业 + 项目实践等。QQ、微信在线，随时响应！</p>
+</blockquote>
+<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110302224870.jpg" /></p>
+]]></content>
+      <categories>
+        <category>data structure</category>
+      </categories>
+      <tags>
+        <tag>data structure</tag>
       </tags>
   </entry>
   <entry>
@@ -775,93 +862,6 @@
       </categories>
       <tags>
         <tag>java</tag>
-        <tag>data structure</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【久远讲算法】什么是空间复杂度</title>
-    <url>/2021/10/30/%E3%80%90%E4%B9%85%E8%BF%9C%E8%AE%B2%E7%AE%97%E6%B3%95%E3%80%91%E4%BB%80%E4%B9%88%E6%98%AF%E7%A9%BA%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6/</url>
-    <content><![CDATA[<p>你好，我是久远，这周我们继续聊算法，接着上次的时间复杂度，我们进行关于空间复杂度的讲解。</p>
-<h2 id="知识回顾">知识回顾</h2>
-<p>首先，我们来对上周的任务进行大概的复习。</p>
-<p>算法是什么？</p>
-<ul>
-<li>从理论层面来讲，算法就是我们写程序写代码的优化手册，它教会我们怎么让代码运行起来更快，或者占用的内存空间更少。直观层面来讲便是，算法是一系列程序指令，用于处理特定的运算和逻辑问题。一个算法是好是坏，我们通常根据时间复杂度和空间复杂度去评价。</li>
-</ul>
-<p>时间复杂度是什么？</p>
-<ul>
-<li>时间复杂度是对一个算法运行时间长短的量度，用大 O 表示，常见的时间复杂度按照从低到高的顺序，包括<span class="math inline">\(O(1)、O(logn)、O(n)、O(nlogn)、O(n^2)\)</span> 等。</li>
-</ul>
-<p>时间复杂度的要点包括以下内容：</p>
-<ul>
-<li>基本操作执行次数。即每行代码的执行次数，我们通过这个来计算我们所写的代码详细的执行次数。</li>
-<li>渐进时间复杂度。计算基本操作执行次数固然是一种求解时间复杂度的方法，但是我们平时写的代码是千奇百怪的，因此通过计算基本操作执行次数得到的数字或函数大多都比较复杂，并不适合直接充当我们的时间复杂度，因此我们引入了渐进时间复杂度的概念，渐进时间复杂度常用大 O 符号表述，不包括这个函数的低阶项和首项系数。使用渐进时间复杂度可保证我们算出的时间复杂度函数相比起基本执行操作次数总和更加简洁。</li>
-</ul>
-<h2 id="空间复杂度和时间复杂度的关系">空间复杂度和时间复杂度的关系</h2>
-<p>空间复杂度和时间复杂度，这两个东西长得非常的像，但到底有什么区别呢？</p>
-<p>从文字的角度，我们可以联想到，时间一般是我们摸不着的，比较抽象的东西。而空间一般是现实存在的，我们能摸到的，比较具体的东西。</p>
-<p>再从平常我们思考的角度讲，我们去分析一件事情，一般要从理论和实际两种层面上进行分析。比如我想去旅游，理论上我只要有钱，有时间，我就可以出去旅游。但是从现实的层面去考虑这件事就很繁琐，我们要想到：当前季节上是否适合旅游，自己是否要先向学校或者上班的地方请假报备，然后再考虑订哪天的机票，以及目的地的选取等等琐事。</p>
-<p>编程也并不是一件虚拟的事情，它是切实存在且在生活中被频繁使用的，因此我们有必要从理论和实际两种方面考虑自己所写的代码的可行性。</p>
-<p>时间复杂度就是我们对自己代码的“理论分析”。从我们个人编程的角度而言，我们的代码仅用于个人电脑使用，并不参与企业开发，所以我们一般不去考虑计算机的性能。单纯的考虑了，怎么写这段代码，它不会出错，可以正确执行。在进行数据结构和算法的学习之后，我们慢慢的开始考虑自己代码的时间复杂度。即如何让自己写的代码运行速度的更快一些。</p>
-<p>空间复杂度便是我们对自己代码的“实际分析”。可能我们个人写代码体会不到空间复杂度的重要性。假设你在大型企业上班，你的老板要求你开发一个手机应用，这个时候，我们要考虑的就不仅仅是，我写的代码能不能正常运行起来这件事了，因为你要站在用户的角度去考虑，你的体验度是怎么样的，作为手机应用的使用者，我们自然会想到，我希望这个手机应用能够秒开，而不是点进去半天才能加载出来，同时也希望这个手机应用占手机的内存少一点。而作为老板，让员工开发应用的时候，也希望公司提供的电脑能安全完成开发，不希望出现因为代码运行时间过长而消耗电脑硬件，导致电脑坏掉拖延项目进展的事情发生。</p>
-<p>空间复杂度有着类似于时间复杂度的概念：一个算法或程序的空间复杂度定性地描述该算法或程序运行所需要的存储空间大小。空间复杂度是相应计算问题的输入值的长度的函数，它表示一个算法完全执行所需要的存储空间大小。</p>
-<p>和时间复杂度类似，空间复杂度通常也使用大 O 记号来渐进地表示，即空间复杂度也有渐进空间复杂度一说。例如<span class="math inline">\(O(n)\)</span>、<span class="math inline">\(O(nlogn)\)</span> 、<span class="math inline">\(O(n^α)\)</span> 、<span class="math inline">\(O(2^n)\)</span> 等；其中 n 用来表示输入的长度，该值可以影响算法的空间复杂度。</p>
-<p>就像时间复杂度的计算不考虑算法所使用的空间大小一样，空间复杂度也不考虑算法运行需要的时间长短。</p>
-<h2 id="空间复杂度">空间复杂度</h2>
-<p>从整个程序来讨论的话，程序的空间复杂度可以完全用程序代码本身所占用的存储空间多少来表示。</p>
-<p>首先，程序自身所占用的存储空间取决于其包含的代码量，我们只要在编程环境下输入代码进行运行，那么这段代码必定会占用电脑的存储空间。想要压缩这部分存储空间，就要求我们在实现功能的同时，尽可能编写足够短的代码，但从这一方面来讲，过于庞大，毕竟我们编写一段代码，其中包含着很多内容，我们将继续将代码拆分分析为以下两种情况去推算空间复杂度。</p>
-<p>一般一段代码的空间复杂度涉及到的空间类型有：</p>
-<p>1..输入、输出空间。程序中如果需要输入输出数据，也会占用一定的存储空间。程序运行过程中输入输出的数据，往往由要解决的问题而定，即便所用算法不同，程序输入输出所占用的存储空间也是相近的。即，无论是我们使用 10 行代码还是三行代码去实现同一个问题，他们最终输出的东西一样的话，即使二者代码长度不尽相同，但是输出所占的存储空间是差不多大的。</p>
-<p>2..暂存空间。程序在运行过程中，可能还需要临时申请更多的存储空间。事实上，对算法的空间复杂度影响最大的，往往是程序运行过程中所申请的临时存储空间。不同的算法所编写出的程序，其运行时申请的临时存储空间通常会有较大不同。</p>
-<p>通常情况下，空间复杂度指在输入数据大小为 N 时，算法运行所使用的「暂存空间」+「输出空间」的总体大小。</p>
-<p>先来看几种常见的空间复杂度。我们根据代码来进行详细分析。</p>
-<h3 id="常量空间">常量空间</h3>
-<p>当算法的存储空间大小固定，和输入规模没有直接的关系时，空间复杂度记作 <span class="math inline">\(O(n)\)</span> .</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fun1</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> <span class="keyword">var</span> = <span class="number">3</span>;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fun1</span>(<span class="params">n</span>):</span></span><br><span class="line">    var = <span class="number">3</span></span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
-<p>讲解 python 代码：</p>
-<p>我们定义了 <code>fun1()</code> 函数，当我们调用这个函数的时候，我们要向其中传入一个参数 n ，但是n传入后，函数 <code>fun1()</code> 做了一件事，它里层引入了一个 var 变量 并给它赋值 3 ，但这一切并没有改变我们输入的参数 n 的值和类型。根据上文第二条 “ 程序中如果需要输入输出数据，也会占用一定的存储空间 ”，我们输入的参数 n 从头至尾没有发生改变，因此程序所占的存储空间也没有发生改变。所以该程序的空间复杂度为 <span class="math inline">\(O(1)\)</span> .</p>
-<h3 id="线性空间">线性空间</h3>
-<p>当算法分配的空间是一个线性的集合（如列表或数组），并且集合大小和输入规模 n 成正比时，空间复杂度记作<span class="math inline">\(O(n)\)</span> .</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fun2</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span>[] array = <span class="keyword">new</span> <span class="keyword">int</span>[n];</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fun2</span>(<span class="params">n:<span class="built_in">int</span></span>):</span></span><br><span class="line">    array_list = [<span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,n)]</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
-<p>讲解 python 代码：</p>
-<p>我们定义了 <code>fun2()</code> 函数，当我们调用这个函数的时候，我们向其中传入一个参数 n ，参数 n 的类型为 int （整数类型），然后 n 被传入后，函数 <code>fun2()</code> 利用 n 做了一件事：定义了一个长度为 n ，元素为从1到 n 的列表 array_list 。我们本来的输入规模为 n ，由上文中“ 程序在运行过程中，可能还需要临时申请更多的存储空间 ”可知，在函数内我们引入了长度为 n 的列表。即在这个程序中，我们额外申请了 n 长度的一维列表，与输入规模 n 成正比，所以该程序的空间复杂度记为 <span class="math inline">\(O(n)\)</span>.</p>
-<h3 id="二维空间">二维空间</h3>
-<p>当算法分配的空间是一个二维列表或数组集合，并且集合的长度和宽度都与输入规模 n 成正比时，空间复杂度记作 <span class="math inline">\(O(n^2)\)</span>.</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fun3</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span>[][] matrix = <span class="keyword">new</span> <span class="keyword">int</span>[n][n];</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fun3</span>(<span class="params">n:<span class="built_in">int</span></span>):</span></span><br><span class="line">    matrix_list = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">        matrix_list.append([<span class="number">0</span>]*n)</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
-<p>对 python 代码进行讲解：</p>
-<p>我们新建了一个函数<code>fun3()</code> ,它的目的是新建一个 <span class="math inline">\(n×n\)</span> 的二维列表，我们的做法是：首先新建一个空的列表 matrix_list 然后对 matrix_list 进行一维列表的迭代和添加，最后生成二维列表。首先我们从生成一维列表开始，将n 传入 <code>fun3()</code> 中，我们首先新建一个空列表，为之后向列表中添加元素做准备，然后我们要稍微动一下脑子，当新建一个长度为 n 元素全为 0 的一维列表时，我们使用了循环来进行列表的初始化，所以在新建二维列表时，我们可以用类似的方法，同样使用循环来进行初始化，在一维列表初始化过程中，我们是不是将0元素挨个添加到列表中，以实现有 n 个 0 的列表，那现在我们要生成拥有 <span class="math inline">\(n×n\)</span> 个 0 的列表，那是不是将[0] 做 n 次循环添加到 matrix_list 中就可以了。然后我们根据“ 程序在运行过程中，可能还需要临时申请更多的存储空间。”这一点可知，我们传入的参数 n 与二维列表 <span class="math inline">\(n×n\)</span> 的长度成正比。所以该代码空间复杂度即为<span class="math inline">\(O(n^2)\)</span>.</p>
-<p>以下我们使用了当 n 为2时的情况，进行了函数模拟。</p>
-<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110302224995.gif" /></p>
-<h3 id="递归空间">递归空间</h3>
-<p>程序调用函数是基于栈实现的，函数在调用期间，引入一个栈并进行入栈操作，将调用来的函数以及其参数信息全都压入栈中，当函数进行 return 操作时，执行出栈操作，把上一次调用的函数和参数信息从栈中弹出。从而释放掉多余的内存。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fun4</span><span class="params">(<span class="keyword">int</span> N)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(N &lt;= <span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> fun4(N - <span class="number">1</span>) + <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fun4</span>(<span class="params">N:<span class="built_in">int</span></span>):</span></span><br><span class="line">    <span class="keyword">if</span> N &lt;= <span class="number">1</span>: <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> fun4(N - <span class="number">1</span>) + <span class="number">1</span></span><br></pre></td></tr></table></figure>
-<p>对 python 代码进行分析：</p>
-<p>当我们输入的 <span class="math inline">\(N&lt;=1\)</span> 时，我们将直接返回 1， 这是我们的递归结束点。当我们输入的 N 大于 1时，程序会引入一个栈，将 <code>fun4(N)</code>放入栈中，而 <code>fun4(N)</code> 又要调用 <code>fun(N - 1) + 1</code> 因此我们将<code>fun(N - 1) - 1</code> 放入栈中，以此类推直到 N 变为 1 ，这是 我们找到了递归结束点，将栈内的函数全都挨个释放出来即可。由上面函数的出入栈过程可以看出，执行递归操作所需要的内存空间和递归的深度成正比。纯粹的递归操作的空间复杂度也是线性，但如果递归的深度是 n ，那么空间复杂度就是<span class="math inline">\(O(n)\)</span>.</p>
-<p>我们在这里给出当N=6时的程序模拟以及递归树方便读者进行理解（递归后续会进行详细讲解）。</p>
-<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110302224573.gif" /></p>
-<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110302224050.png" /></p>
-<h2 id="时间和空间的权衡">时间和空间的权衡</h2>
-<p>在上文笔者也提到，写代码其实不是一件虚拟的事情，它涉及到了现实的很多情况，当你在企业工作时，你所写的代码并不是单单满足你自己的需求即可，而是要考虑各种各样现实的限制了。虽然随着科技的发展，电脑更新换代非常的快，性能也是越来越强大。但电脑的内存并不是无限的，它的性能终究是有限的。因此我们在写代码的时候也要 “精打细算”，选择更加高效的执行办法。</p>
-<p>对于算法的性能，需要从时间和空间的使用情况来综合评价。好的算法应具备两个特性，即时间和空间复杂度均比较低。而实际上，对于某个算法问题，正因为电脑的能力是有限的，所以我们的时间复杂度和空间空间复杂度是没有办法同时兼顾的，因此将会出现，时间换空间或者空间换时间的情况发生。</p>
-<p>因为现在科技发展很快，电脑性能一般比较强大，满足了我们的日常需求，所以在平常的代码编写过程中，我们绝大多数情况，会考虑空间换取时间的操作，多分配一些内存空间，让程序跑到更快。</p>
-<h2 id="总结">总结</h2>
-<ul>
-<li>什么是空间复杂度？</li>
-</ul>
-<p>空间复杂度是对一个算法在运行过程中临时占用存储空间大小的量度，用大 O 表示，常见的空间复杂度按照从低到高的顺序，包括<span class="math inline">\(O(1)、O(n)、O(n^2)\)</span> .其中递归算法的空间复杂度和递归深度成正比。</p>
-<blockquote>
-<p>流沙团队联合AI悦创|久远·推出辅导班啦，包括「Python 语言辅导班、C++ 辅导班、java 辅导班、算法/数据结构辅导班、少儿编程、pygame 游戏开发」，全部都是一对一教学：一对一辅导 + 一对一答疑 + 布置作业 + 项目实践等。QQ、微信在线，随时响应！</p>
-</blockquote>
-<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110302224870.jpg" /></p>
-]]></content>
-      <categories>
-        <category>data structure</category>
-      </categories>
-      <tags>
         <tag>data structure</tag>
       </tags>
   </entry>
@@ -1075,6 +1075,105 @@
       </tags>
   </entry>
   <entry>
+    <title>【超详细】gitee+picgo个人图床搭建+各种插件安装bug处理</title>
+    <url>/2021/10/30/%E3%80%90%E8%B6%85%E8%AF%A6%E7%BB%86%E3%80%91gitee+picgo%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A%E6%90%AD%E5%BB%BA+%E5%90%84%E7%A7%8D%E6%8F%92%E4%BB%B6%E5%AE%89%E8%A3%85bug%E5%A4%84%E7%90%86/</url>
+    <content><![CDATA[<h1 id="超详细giteepicgo个人图床搭建各种插件安装bug处理">【超详细】gitee+picgo个人图床搭建+各种插件安装bug处理</h1>
+<p>你好我是久远，最近在搭个人静态网页，到了最后一步了，传了几篇文章上去，结果文章传上去 了，图片全都失效了，没有办法，用现成的图床吧，担心哪天网站不稳定，图片全炸掉。所以最后 我选择了自己搭建图床。使用gitee以及picgo即可简单快捷的搭建自己的个人图床，无需担心和谐问 题以及稳定问题。</p>
+<p>前提条件：电脑内装有nodejs以及npm 且二者均可正常运行。</p>
+<p>bug处理部分放到了文章最后一个 part ，请滑到最后阅读。</p>
+<h2 id="picgo下载与安装">picgo下载与安装</h2>
+<p>进入<a href="https://molunerfinn.com/PicGo/">picgo官网</a></p>
+<figure>
+<img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100011925.png" alt="picgo" /><figcaption aria-hidden="true">picgo</figcaption>
+</figure>
+<p>点击免费下载即可下载。</p>
+<p>打开安装包 进行安装</p>
+<p>这里我们选择第一个，避免之后插件安装时产生权限问题。</p>
+<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100011536.png" /></p>
+<p>安装环境随便填 记得住就行</p>
+<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100011233.png" /></p>
+<p>安装完以后，我们启动 picgo ，这里注意，你点开 picgo 却看不到它是正常的，它默认在右下角启动，点开即可。</p>
+<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100011579.png" /></p>
+<p>先进行普通的配置</p>
+<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100011643.png" /></p>
+<p>然后我们进行插件安装</p>
+<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100011348.png" /></p>
+<p>安装完插件并重启应用之后，我们可以看到图床设置那里出现了 gitee</p>
+<p>观察界面，我们确认我们要填写哪些内容。</p>
+<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100011585.png" /></p>
+<p>现在我们已经成功一半了。剩下的只需要注册gitee 然后新建仓库就好了！</p>
+<h2 id="gitee注册以及仓库的新建">gitee注册以及仓库的新建</h2>
+<p>进入<a href="https://gitee.com/">gitee官网</a> 点击注册gitee 进行注册</p>
+<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100011782.png" /></p>
+<p>输入名字邮箱密码即可注册</p>
+<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012931.png" /></p>
+<p>然后我们开始新建仓库！</p>
+<p>网页右上角加号点开，选择新建仓库。</p>
+<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012613.png" /></p>
+<p>仓库创建选项，按图来即可 注意，一定要开源尽所有人可见！！</p>
+<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012837.png" /></p>
+<p>仓库创建成功的样子：</p>
+<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012484.png" /></p>
+<p>这样我们的 repo ， branch 都弄好了。</p>
+<p>然后我们点击右上角设置 进行token的获取。</p>
+<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012003.png" /></p>
+<p>点击左栏私人令牌</p>
+<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012983.png" /></p>
+<p>再点击生成新令牌</p>
+<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012514.png" /></p>
+<p>令牌描述随便写，权限全选即可。</p>
+<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012278.png" /></p>
+<p>然后新建令牌 新建之前会让你输入密码来进行确认。</p>
+<p>然后就生成新令牌啦。我们在此可以复制到自己的txt文档中进行保存。</p>
+<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012086.png" /></p>
+<p>然后我们返回picgo进行配置即可。</p>
+<p>按图配置即可。</p>
+<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012214.png" /></p>
+<p>然后点击确定即可。</p>
+<p>然后我们返回上传区进行配置。</p>
+<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012455.png" /></p>
+<p>一定要选中为gitee图床 不然会传到别的地方去！！</p>
+<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012600.png" /></p>
+<p>然后我们随便截图一张进行上传测试。</p>
+<p>有类似此的提示 则上传成功。</p>
+<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012726.png" /></p>
+<p>转到我们配置的仓库也可以看到有图片被上传</p>
+<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012668.png" /></p>
+<h2 id="关于插件bug处理">关于插件bug处理</h2>
+<p>咱们在 picgo 上安装 gitee 插件的时候也可以看到， gitee 有三个插件，但是这里推荐第三种，前两种并不稳定。</p>
+<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012063.png" /></p>
+<p>我在安装第三种插件的时候，出现了非常多的错误。</p>
+<p>首先，点击安装，picgo 进行弹窗表示 error 但是没有任何错误提醒。</p>
+<p>点进picgo设置查看日志才知道问题所在。</p>
+<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012190.png" /></p>
+<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012949.png" /></p>
+<p>那在这里呢，就给大家分享几个我遇到的坑，然后最终填上的。</p>
+<p>首先是这样一段错误代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">2021-10-08 16:27:47 [PicGo ERROR] 插件安装失败，失败码为1，错误日志为[37;40mnpm[0m [0m[31;40mERR![0m [0m[35mcode[0m EPERM</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m [0m[35msyscall[0m open</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m [0m[35mpath[0m D:\nodejs\node_cache\_cacache\tmp\edad6f19</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m [0m[35merrno[0m EPERM</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m FetchError: Invalid response body while trying to fetch https://registry.npmjs.org/picgo-plugin-gitee-uploader: EPERM: operation not permitted, open &#x27;D:\nodejs\node_cache\_cacache\tmp\edad6f19&#x27;</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m     at D:\nodejs\node_global\node_modules\npm\node_modules\minipass-fetch\lib\body.js:162:15</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m     at async Arborist.[nodeFromEdge] (D:\nodejs\node_global\node_modules\npm\node_modules\@npmcli\arborist\lib\arborist\build-ideal-tree.js:1032:19)</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m     at async Arborist.[buildDepStep] (D:\nodejs\node_global\node_modules\npm\node_modules\@npmcli\arborist\lib\arborist\build-ideal-tree.js:906:11)</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m     at async Arborist.buildIdealTree (D:\nodejs\node_global\node_modules\npm\node_modules\@npmcli\arborist\lib\arborist\build-ideal-tree.js:210:7)</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m     at async Promise.all (index 1)</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m     at async Arborist.reify (D:\nodejs\node_global\node_modules\npm\node_modules\@npmcli\arborist\lib\arborist\reify.js:147:5)</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m     at async Install.install (D:\nodejs\node_global\node_modules\npm\lib\install.js:170:5)</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m  FetchError: Invalid response body while trying to fetch https://registry.npmjs.org/picgo-plugin-gitee-uploader: EPERM: operation not permitted, open &#x27;D:\nodejs\node_cache\_cacache\tmp\edad6f19&#x27;</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m     at D:\nodejs\node_global\node_modules\npm\node_modules\minipass-fetch\lib\body.js:162:15</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m     at async Arborist.[nodeFromEdge] (D:\nodejs\node_global\node_modules\npm\node_modules\@npmcli\arborist\lib\arborist\build-ideal-tree.js:1032:19)</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m     at async Arborist.[buildDepStep] (D:\nodejs\node_global\node_modules\npm\node_modules\@npmcli\arborist\lib\arborist\build-ideal-tree.js:906:11)</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m     at async Arborist.buildIdealTree (D:\nodejs\node_global\node_modules\npm\node_modules\@npmcli\arborist\lib\arborist\build-ideal-tree.js:210:7)</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m     at async Promise.all (index 1)</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m     at async Arborist.reify (D:\nodejs\node_global\node_modules\npm\node_modules\@npmcli\arborist\lib\arborist\reify.js:147:5)</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m     at async Install.install (D:\nodejs\node_global\node_modules\npm\lib\install.js:170:5) &#123;</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m   code: &#x27;EPERM&#x27;,</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m   errno: &#x27;EPERM&#x27;,</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m   syscall: &#x27;open&#x27;,</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m   path: &#x27;D:\\nodejs\\node_cache\\_cacache\\tmp\\edad6f19&#x27;,</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m   type: &#x27;system&#x27;,</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m   requiredBy: &#x27;.&#x27;</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m &#125;</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m </span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m The operation was rejected by your operating system.</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m It&#x27;s possible that the file was already in use (by a text editor or antivirus),</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m or that you lack permissions to access it.</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m </span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m If you believe this might be a permissions issue, please double-check the</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m permissions of the file and its containing directories, or try running</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m the command again as root/Administrator.</span><br></pre></td></tr></table></figure>
+<p>虽然中间乱七八糟看不懂，但是最后给了我提示，<code>command again as root/Administrator.</code> 所以我最终使用了这个办法：及win10家庭版系统账户切换成 administrator 。</p>
+<p>操作方法：<code>win+r</code> 输入cmd 然后在输入<code>net user administrator /active:yes</code></p>
+<p>提示指令成功完成 关掉cmd 。注销系统。会出现administrator这个账户。登陆即可。在这个环境下安装插件 不会再出现此错误。</p>
+<p>在这过程中 我又出现了这两种报错：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Error: Cannot find module &#x27;C:\Users\xueto\AppData\Roaming\picgo\node_modules\picgo-plugin-github-plus\dist\index.js&#x27;. Please verify that the package.json has a valid &quot;main&quot; entry</span><br><span class="line">    at tryPackage (internal/modules/cjs/loader.js:232:19)</span><br><span class="line">    at Function.Module._findPath (internal/modules/cjs/loader.js:369:18)</span><br><span class="line">    at Module._resolveFilename (internal/modules/cjs/loader.js:614:27)</span><br><span class="line">    at Function.Module._resolveFilename (C:\Program Files\PicGo\resources\electron.asar\common\reset-search-paths.js:41:16)</span><br><span class="line">    at Function.Module._load (internal/modules/cjs/loader.js:531:27)</span><br><span class="line">    at Module.require (internal/modules/cjs/loader.js:685:19)</span><br><span class="line">    at require (internal/modules/cjs/helpers.js:16:16)</span><br><span class="line">    at PluginLoader.getPlugin (C:\Program Files\PicGo\resources\app.asar\node_modules\picgo\dist\src\lib\PluginLoader.js:125:24)</span><br><span class="line">    at PluginLoader.registerPlugin (C:\Program Files\PicGo\resources\app.asar\node_modules\picgo\dist\src\lib\PluginLoader.js:78:26)</span><br><span class="line">    at PluginLoader.load (C:\Program Files\PicGo\resources\app.asar\node_modules\picgo\dist\src\lib\PluginLoader.js:61:18)</span><br><span class="line">-------Error Stack End------- </span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">------Error Stack Begin------</span><br><span class="line">Error: Cannot find module &#x27;dayjs&#x27;</span><br><span class="line">Require stack:</span><br><span class="line">- D:\aaaaaaa\picgo-plugin-gitee-uploader\dist\lib\helper.js</span><br><span class="line">- D:\aaaaaaa\picgo-plugin-gitee-uploader\dist\lib\octokit.js</span><br><span class="line">- D:\aaaaaaa\picgo-plugin-gitee-uploader\dist\index.js</span><br><span class="line">- C:\Program Files\PicGo\resources\app.asar\node_modules\picgo\dist\src\lib\PluginLoader.js</span><br><span class="line">- C:\Program Files\PicGo\resources\app.asar\node_modules\picgo\dist\src\core\PicGo.js</span><br><span class="line">- C:\Program Files\PicGo\resources\app.asar\node_modules\picgo\dist\src\index.js</span><br><span class="line">- C:\Program Files\PicGo\resources\app.asar\background.js</span><br><span class="line">- </span><br><span class="line">    at Module._resolveFilename (internal/modules/cjs/loader.js:627:15)</span><br><span class="line">    at Function.Module._resolveFilename (C:\Program Files\PicGo\resources\electron.asar\common\reset-search-paths.js:41:16)</span><br><span class="line">    at Function.Module._load (internal/modules/cjs/loader.js:531:27)</span><br><span class="line">    at Module.require (internal/modules/cjs/loader.js:685:19)</span><br><span class="line">    at require (internal/modules/cjs/helpers.js:16:16)</span><br><span class="line">    at Object.&lt;anonymous&gt; (D:\aaaaaaa\picgo-plugin-gitee-uploader\dist\lib\helper.js:6:33)</span><br><span class="line">    at Module._compile (internal/modules/cjs/loader.js:786:30)</span><br><span class="line">    at Object.Module._extensions..js (internal/modules/cjs/loader.js:798:10)</span><br><span class="line">    at Module.load (internal/modules/cjs/loader.js:645:32)</span><br><span class="line">    at Function.Module._load (internal/modules/cjs/loader.js:560:12)</span><br><span class="line">-------Error Stack End------- </span><br></pre></td></tr></table></figure>
+<p>重要关键句 <code>Cannot find module...index.js</code> 以及<code>Cannot find module 'dayjs'</code></p>
+<p>于是，作为一个热爱解决bug的人。我去这个报错路径查找，发现插件的安装包下真的没有indexjs以及dayjs，查了一圈没什么头绪，难道是我nodejs 和npm有问题么？ 所以我无法安装插件？于是我卸载nodejs重新安装。依旧报错。</p>
+<p>结果最后的问题居然出在了插件安装本身上！</p>
+<p>以 picgo-plugin-gitee-uploader 这个插件为例，如果下载了 github 上的 releases 版本我们可以从截图上来确定，它确实是缺少index 和dayjs文件的。</p>
+<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012239.png" /></p>
+<p>所以不建议从 github 这里下载安装插件。是有概率会报这样两种错误的。</p>
+<p>那怎么安装插件最稳妥呢？一个是从 picgo 软件里直接下载安装软件。 一个就是 使用指令。</p>
+<p>打开 cmd 然后 cd <code>C:\Users\XXX\AppData\Roaming\picgo</code>转到该目录下</p>
+<p>然后输入 <code>npm install picgo-plugin-gitee-uploader</code> 安装成功后，重启picgo 即可成功安装插件！</p>
+]]></content>
+      <categories>
+        <category>技术杂谈</category>
+      </categories>
+      <tags>
+        <tag>技术杂谈</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>【久远讲算法】链表—实现无序列表</title>
     <url>/2021/10/30/%E3%80%90%E4%B9%85%E8%BF%9C%E8%AE%B2%E7%AE%97%E6%B3%95%E3%80%91%E9%93%BE%E8%A1%A8%E2%80%94%E5%AE%9E%E7%8E%B0%E6%97%A0%E5%BA%8F%E5%88%97%E8%A1%A8/</url>
     <content><![CDATA[<p>你好，我是久远，上周开始我们算是正式入门了数据结构，进行了数组的讲解。</p>
@@ -1238,105 +1337,6 @@
       <tags>
         <tag>c</tag>
         <tag>结构体</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【超详细】gitee+picgo个人图床搭建+各种插件安装bug处理</title>
-    <url>/2021/10/30/%E3%80%90%E8%B6%85%E8%AF%A6%E7%BB%86%E3%80%91gitee+picgo%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A%E6%90%AD%E5%BB%BA+%E5%90%84%E7%A7%8D%E6%8F%92%E4%BB%B6%E5%AE%89%E8%A3%85bug%E5%A4%84%E7%90%86/</url>
-    <content><![CDATA[<h1 id="超详细giteepicgo个人图床搭建各种插件安装bug处理">【超详细】gitee+picgo个人图床搭建+各种插件安装bug处理</h1>
-<p>你好我是久远，最近在搭个人静态网页，到了最后一步了，传了几篇文章上去，结果文章传上去 了，图片全都失效了，没有办法，用现成的图床吧，担心哪天网站不稳定，图片全炸掉。所以最后 我选择了自己搭建图床。使用gitee以及picgo即可简单快捷的搭建自己的个人图床，无需担心和谐问 题以及稳定问题。</p>
-<p>前提条件：电脑内装有nodejs以及npm 且二者均可正常运行。</p>
-<p>bug处理部分放到了文章最后一个 part ，请滑到最后阅读。</p>
-<h2 id="picgo下载与安装">picgo下载与安装</h2>
-<p>进入<a href="https://molunerfinn.com/PicGo/">picgo官网</a></p>
-<figure>
-<img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100011925.png" alt="picgo" /><figcaption aria-hidden="true">picgo</figcaption>
-</figure>
-<p>点击免费下载即可下载。</p>
-<p>打开安装包 进行安装</p>
-<p>这里我们选择第一个，避免之后插件安装时产生权限问题。</p>
-<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100011536.png" /></p>
-<p>安装环境随便填 记得住就行</p>
-<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100011233.png" /></p>
-<p>安装完以后，我们启动 picgo ，这里注意，你点开 picgo 却看不到它是正常的，它默认在右下角启动，点开即可。</p>
-<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100011579.png" /></p>
-<p>先进行普通的配置</p>
-<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100011643.png" /></p>
-<p>然后我们进行插件安装</p>
-<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100011348.png" /></p>
-<p>安装完插件并重启应用之后，我们可以看到图床设置那里出现了 gitee</p>
-<p>观察界面，我们确认我们要填写哪些内容。</p>
-<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100011585.png" /></p>
-<p>现在我们已经成功一半了。剩下的只需要注册gitee 然后新建仓库就好了！</p>
-<h2 id="gitee注册以及仓库的新建">gitee注册以及仓库的新建</h2>
-<p>进入<a href="https://gitee.com/">gitee官网</a> 点击注册gitee 进行注册</p>
-<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100011782.png" /></p>
-<p>输入名字邮箱密码即可注册</p>
-<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012931.png" /></p>
-<p>然后我们开始新建仓库！</p>
-<p>网页右上角加号点开，选择新建仓库。</p>
-<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012613.png" /></p>
-<p>仓库创建选项，按图来即可 注意，一定要开源尽所有人可见！！</p>
-<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012837.png" /></p>
-<p>仓库创建成功的样子：</p>
-<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012484.png" /></p>
-<p>这样我们的 repo ， branch 都弄好了。</p>
-<p>然后我们点击右上角设置 进行token的获取。</p>
-<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012003.png" /></p>
-<p>点击左栏私人令牌</p>
-<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012983.png" /></p>
-<p>再点击生成新令牌</p>
-<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012514.png" /></p>
-<p>令牌描述随便写，权限全选即可。</p>
-<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012278.png" /></p>
-<p>然后新建令牌 新建之前会让你输入密码来进行确认。</p>
-<p>然后就生成新令牌啦。我们在此可以复制到自己的txt文档中进行保存。</p>
-<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012086.png" /></p>
-<p>然后我们返回picgo进行配置即可。</p>
-<p>按图配置即可。</p>
-<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012214.png" /></p>
-<p>然后点击确定即可。</p>
-<p>然后我们返回上传区进行配置。</p>
-<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012455.png" /></p>
-<p>一定要选中为gitee图床 不然会传到别的地方去！！</p>
-<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012600.png" /></p>
-<p>然后我们随便截图一张进行上传测试。</p>
-<p>有类似此的提示 则上传成功。</p>
-<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012726.png" /></p>
-<p>转到我们配置的仓库也可以看到有图片被上传</p>
-<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012668.png" /></p>
-<h2 id="关于插件bug处理">关于插件bug处理</h2>
-<p>咱们在 picgo 上安装 gitee 插件的时候也可以看到， gitee 有三个插件，但是这里推荐第三种，前两种并不稳定。</p>
-<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012063.png" /></p>
-<p>我在安装第三种插件的时候，出现了非常多的错误。</p>
-<p>首先，点击安装，picgo 进行弹窗表示 error 但是没有任何错误提醒。</p>
-<p>点进picgo设置查看日志才知道问题所在。</p>
-<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012190.png" /></p>
-<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012949.png" /></p>
-<p>那在这里呢，就给大家分享几个我遇到的坑，然后最终填上的。</p>
-<p>首先是这样一段错误代码：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">2021-10-08 16:27:47 [PicGo ERROR] 插件安装失败，失败码为1，错误日志为[37;40mnpm[0m [0m[31;40mERR![0m [0m[35mcode[0m EPERM</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m [0m[35msyscall[0m open</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m [0m[35mpath[0m D:\nodejs\node_cache\_cacache\tmp\edad6f19</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m [0m[35merrno[0m EPERM</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m FetchError: Invalid response body while trying to fetch https://registry.npmjs.org/picgo-plugin-gitee-uploader: EPERM: operation not permitted, open &#x27;D:\nodejs\node_cache\_cacache\tmp\edad6f19&#x27;</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m     at D:\nodejs\node_global\node_modules\npm\node_modules\minipass-fetch\lib\body.js:162:15</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m     at async Arborist.[nodeFromEdge] (D:\nodejs\node_global\node_modules\npm\node_modules\@npmcli\arborist\lib\arborist\build-ideal-tree.js:1032:19)</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m     at async Arborist.[buildDepStep] (D:\nodejs\node_global\node_modules\npm\node_modules\@npmcli\arborist\lib\arborist\build-ideal-tree.js:906:11)</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m     at async Arborist.buildIdealTree (D:\nodejs\node_global\node_modules\npm\node_modules\@npmcli\arborist\lib\arborist\build-ideal-tree.js:210:7)</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m     at async Promise.all (index 1)</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m     at async Arborist.reify (D:\nodejs\node_global\node_modules\npm\node_modules\@npmcli\arborist\lib\arborist\reify.js:147:5)</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m     at async Install.install (D:\nodejs\node_global\node_modules\npm\lib\install.js:170:5)</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m  FetchError: Invalid response body while trying to fetch https://registry.npmjs.org/picgo-plugin-gitee-uploader: EPERM: operation not permitted, open &#x27;D:\nodejs\node_cache\_cacache\tmp\edad6f19&#x27;</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m     at D:\nodejs\node_global\node_modules\npm\node_modules\minipass-fetch\lib\body.js:162:15</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m     at async Arborist.[nodeFromEdge] (D:\nodejs\node_global\node_modules\npm\node_modules\@npmcli\arborist\lib\arborist\build-ideal-tree.js:1032:19)</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m     at async Arborist.[buildDepStep] (D:\nodejs\node_global\node_modules\npm\node_modules\@npmcli\arborist\lib\arborist\build-ideal-tree.js:906:11)</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m     at async Arborist.buildIdealTree (D:\nodejs\node_global\node_modules\npm\node_modules\@npmcli\arborist\lib\arborist\build-ideal-tree.js:210:7)</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m     at async Promise.all (index 1)</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m     at async Arborist.reify (D:\nodejs\node_global\node_modules\npm\node_modules\@npmcli\arborist\lib\arborist\reify.js:147:5)</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m     at async Install.install (D:\nodejs\node_global\node_modules\npm\lib\install.js:170:5) &#123;</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m   code: &#x27;EPERM&#x27;,</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m   errno: &#x27;EPERM&#x27;,</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m   syscall: &#x27;open&#x27;,</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m   path: &#x27;D:\\nodejs\\node_cache\\_cacache\\tmp\\edad6f19&#x27;,</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m   type: &#x27;system&#x27;,</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m   requiredBy: &#x27;.&#x27;</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m &#125;</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m </span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m The operation was rejected by your operating system.</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m It&#x27;s possible that the file was already in use (by a text editor or antivirus),</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m or that you lack permissions to access it.</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m </span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m If you believe this might be a permissions issue, please double-check the</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m permissions of the file and its containing directories, or try running</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m the command again as root/Administrator.</span><br></pre></td></tr></table></figure>
-<p>虽然中间乱七八糟看不懂，但是最后给了我提示，<code>command again as root/Administrator.</code> 所以我最终使用了这个办法：及win10家庭版系统账户切换成 administrator 。</p>
-<p>操作方法：<code>win+r</code> 输入cmd 然后在输入<code>net user administrator /active:yes</code></p>
-<p>提示指令成功完成 关掉cmd 。注销系统。会出现administrator这个账户。登陆即可。在这个环境下安装插件 不会再出现此错误。</p>
-<p>在这过程中 我又出现了这两种报错：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Error: Cannot find module &#x27;C:\Users\xueto\AppData\Roaming\picgo\node_modules\picgo-plugin-github-plus\dist\index.js&#x27;. Please verify that the package.json has a valid &quot;main&quot; entry</span><br><span class="line">    at tryPackage (internal/modules/cjs/loader.js:232:19)</span><br><span class="line">    at Function.Module._findPath (internal/modules/cjs/loader.js:369:18)</span><br><span class="line">    at Module._resolveFilename (internal/modules/cjs/loader.js:614:27)</span><br><span class="line">    at Function.Module._resolveFilename (C:\Program Files\PicGo\resources\electron.asar\common\reset-search-paths.js:41:16)</span><br><span class="line">    at Function.Module._load (internal/modules/cjs/loader.js:531:27)</span><br><span class="line">    at Module.require (internal/modules/cjs/loader.js:685:19)</span><br><span class="line">    at require (internal/modules/cjs/helpers.js:16:16)</span><br><span class="line">    at PluginLoader.getPlugin (C:\Program Files\PicGo\resources\app.asar\node_modules\picgo\dist\src\lib\PluginLoader.js:125:24)</span><br><span class="line">    at PluginLoader.registerPlugin (C:\Program Files\PicGo\resources\app.asar\node_modules\picgo\dist\src\lib\PluginLoader.js:78:26)</span><br><span class="line">    at PluginLoader.load (C:\Program Files\PicGo\resources\app.asar\node_modules\picgo\dist\src\lib\PluginLoader.js:61:18)</span><br><span class="line">-------Error Stack End------- </span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">------Error Stack Begin------</span><br><span class="line">Error: Cannot find module &#x27;dayjs&#x27;</span><br><span class="line">Require stack:</span><br><span class="line">- D:\aaaaaaa\picgo-plugin-gitee-uploader\dist\lib\helper.js</span><br><span class="line">- D:\aaaaaaa\picgo-plugin-gitee-uploader\dist\lib\octokit.js</span><br><span class="line">- D:\aaaaaaa\picgo-plugin-gitee-uploader\dist\index.js</span><br><span class="line">- C:\Program Files\PicGo\resources\app.asar\node_modules\picgo\dist\src\lib\PluginLoader.js</span><br><span class="line">- C:\Program Files\PicGo\resources\app.asar\node_modules\picgo\dist\src\core\PicGo.js</span><br><span class="line">- C:\Program Files\PicGo\resources\app.asar\node_modules\picgo\dist\src\index.js</span><br><span class="line">- C:\Program Files\PicGo\resources\app.asar\background.js</span><br><span class="line">- </span><br><span class="line">    at Module._resolveFilename (internal/modules/cjs/loader.js:627:15)</span><br><span class="line">    at Function.Module._resolveFilename (C:\Program Files\PicGo\resources\electron.asar\common\reset-search-paths.js:41:16)</span><br><span class="line">    at Function.Module._load (internal/modules/cjs/loader.js:531:27)</span><br><span class="line">    at Module.require (internal/modules/cjs/loader.js:685:19)</span><br><span class="line">    at require (internal/modules/cjs/helpers.js:16:16)</span><br><span class="line">    at Object.&lt;anonymous&gt; (D:\aaaaaaa\picgo-plugin-gitee-uploader\dist\lib\helper.js:6:33)</span><br><span class="line">    at Module._compile (internal/modules/cjs/loader.js:786:30)</span><br><span class="line">    at Object.Module._extensions..js (internal/modules/cjs/loader.js:798:10)</span><br><span class="line">    at Module.load (internal/modules/cjs/loader.js:645:32)</span><br><span class="line">    at Function.Module._load (internal/modules/cjs/loader.js:560:12)</span><br><span class="line">-------Error Stack End------- </span><br></pre></td></tr></table></figure>
-<p>重要关键句 <code>Cannot find module...index.js</code> 以及<code>Cannot find module 'dayjs'</code></p>
-<p>于是，作为一个热爱解决bug的人。我去这个报错路径查找，发现插件的安装包下真的没有indexjs以及dayjs，查了一圈没什么头绪，难道是我nodejs 和npm有问题么？ 所以我无法安装插件？于是我卸载nodejs重新安装。依旧报错。</p>
-<p>结果最后的问题居然出在了插件安装本身上！</p>
-<p>以 picgo-plugin-gitee-uploader 这个插件为例，如果下载了 github 上的 releases 版本我们可以从截图上来确定，它确实是缺少index 和dayjs文件的。</p>
-<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012239.png" /></p>
-<p>所以不建议从 github 这里下载安装插件。是有概率会报这样两种错误的。</p>
-<p>那怎么安装插件最稳妥呢？一个是从 picgo 软件里直接下载安装软件。 一个就是 使用指令。</p>
-<p>打开 cmd 然后 cd <code>C:\Users\XXX\AppData\Roaming\picgo</code>转到该目录下</p>
-<p>然后输入 <code>npm install picgo-plugin-gitee-uploader</code> 安装成功后，重启picgo 即可成功安装插件！</p>
-]]></content>
-      <categories>
-        <category>技术杂谈</category>
-      </categories>
-      <tags>
-        <tag>技术杂谈</tag>
       </tags>
   </entry>
   <entry>

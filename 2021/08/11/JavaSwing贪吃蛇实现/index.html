@@ -28,7 +28,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="JavaSwing贪吃蛇实现">
 <meta property="og:url" content="https://naruuu-xx.github.io/2021/08/11/JavaSwing%E8%B4%AA%E5%90%83%E8%9B%87%E5%AE%9E%E7%8E%B0/index.html">
-<meta property="og:site_name" content="久远&#39;s blog">
+<meta property="og:site_name" content="久远forever的博客">
 <meta property="og:description" content="前些日子看了youtube上bro code的贪吃蛇代码视频 于是自己跟着视频实现了一下 顺便写了一下注释，但是 swing 基本上在企业上也很少用到了，本人也放置了这方面的学习，等之后有时间再捡回来吧，目前已经不是优先的学习方向了。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-08-11T08:30:41.000Z">
@@ -51,7 +51,7 @@
   };
 </script>
 
-  <title>JavaSwing贪吃蛇实现 | 久远's blog</title>
+  <title>JavaSwing贪吃蛇实现 | 久远forever的博客</title>
   
 
 
@@ -82,7 +82,7 @@
   </style>
 </noscript>
 
-<link rel="alternate" href="/atom.xml" title="久远's blog" type="application/atom+xml">
+<link rel="alternate" href="/atom.xml" title="久远forever的博客" type="application/atom+xml">
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
@@ -103,7 +103,7 @@
 
     <a href="/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">久远's blog</h1>
+      <h1 class="site-title">久远forever的博客</h1>
       <span class="logo-line-after"><i></i></span>
     </a>
       <p class="site-subtitle" itemprop="description">久远的博客，什么都发，爱好很广，但是只会敲代码和写文章。</p>
@@ -214,11 +214,11 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
       <meta itemprop="name" content="久远Forever">
-      <meta itemprop="description" content="编程爱好者~ 啥都感兴趣啥都写~">
+      <meta itemprop="description" content="编程爱好者 啥都感兴趣啥都写">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="久远's blog">
+      <meta itemprop="name" content="久远forever的博客">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
@@ -323,6 +323,11 @@
 
           </div>
           
+    
+  <div class="comments">
+    <div id="lv-container" data-id="city" data-uid="MTAyMC81NDkzMS8zMTQwMA=="></div>
+  </div>
+  
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -378,7 +383,7 @@
     <img class="site-author-image" itemprop="image" alt="久远Forever"
       src="/images/avatar.png">
   <p class="site-author-name" itemprop="name">久远Forever</p>
-  <div class="site-description" itemprop="description">编程爱好者~ 啥都感兴趣啥都写~</div>
+  <div class="site-description" itemprop="description">编程爱好者 啥都感兴趣啥都写</div>
 </div>
 <div class="site-state-wrap motion-element">
   <nav class="site-state">
@@ -541,6 +546,22 @@
   
 
   
+
+<script>
+NexT.utils.loadComments(document.querySelector('#lv-container'), () => {
+  window.livereOptions = {
+    refer: location.pathname.replace(CONFIG.root, '').replace('index.html', '')
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+});
+</script>
 
 </body>
 </html>
