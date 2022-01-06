@@ -1,30 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>JavaSwing贪吃蛇实现</title>
-    <url>/2021/08/11/JavaSwing%E8%B4%AA%E5%90%83%E8%9B%87%E5%AE%9E%E7%8E%B0/</url>
-    <content><![CDATA[<h1 id="java-swing贪吃蛇">Java Swing贪吃蛇</h1>
-<p>前些日子看了youtube上bro code的贪吃蛇代码视频 于是自己跟着视频实现了一下 顺便写了一下注释 。视频链接（需特殊工具才可以浏览 进不去就别进了 直接看我写的注释和代码）：<a href="https://youtu.be/bI6e6qjJ8JQ">snakegame</a></p>
-<p>该项目主要包含三个class：SnakeGame，GamePanel，GameFrame</p>
-<p>下面上代码和代码注释：</p>
-<p>首先新建三个class：SnakeGame，GamePanel，GameFrame（别写同一个大类里，放在同一个包里 分别新建三个类）</p>
-<h2 id="class-snakegame">class SnakeGame</h2>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SnakeGame</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">         <span class="keyword">new</span> GameFrame();<span class="comment">//直接new一个新的GameFrame实例 剩下的全都交给GamePanel和GameFrame做</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="class-gameframe">class GameFrame</h2>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> javax.swing.JFrame;</span><br><span class="line"><span class="comment">//GameFrame继承自JFrame用于生成贪吃蛇程序的初始化窗体</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GameFrame</span>  <span class="keyword">extends</span> <span class="title">JFrame</span> </span>&#123;</span><br><span class="line">    GameFrame()&#123;</span><br><span class="line">        <span class="keyword">this</span>.add(<span class="keyword">new</span> GamePanel());<span class="comment">//添加Panel面板</span></span><br><span class="line">        <span class="keyword">this</span>.setTitle(<span class="string">&quot;Snake&quot;</span>);<span class="comment">//窗口标题为Snake</span></span><br><span class="line">        <span class="keyword">this</span>.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);<span class="comment">//添加关闭按钮 确保窗口可关闭</span></span><br><span class="line">        <span class="keyword">this</span>.setResizable(<span class="keyword">false</span>);<span class="comment">//窗口大小无法被使用者调整，由程序员写死</span></span><br><span class="line">        <span class="keyword">this</span>.pack();<span class="comment">//调整此窗口的大小，以适合其子组件的首选大小和布局</span></span><br><span class="line">        <span class="keyword">this</span>.setVisible(<span class="keyword">true</span>);<span class="comment">//窗口可视化</span></span><br><span class="line">        <span class="keyword">this</span>.setLocationRelativeTo(<span class="keyword">null</span>);<span class="comment">//调节窗口相对于指定组件的位置 为null则默认窗口在屏幕中央弹出</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="class-gamepanel">class GamePanel</h2>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.swing.*;</span><br><span class="line"><span class="keyword">import</span> java.awt.*;</span><br><span class="line"><span class="keyword">import</span> java.awt.event.*;</span><br><span class="line"><span class="keyword">import</span> java.util.Random;</span><br><span class="line"><span class="keyword">import</span> java.util.Timer.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GamePanel</span> <span class="keyword">extends</span> <span class="title">JPanel</span> <span class="keyword">implements</span> <span class="title">ActionListener</span> </span>&#123;</span><br><span class="line">    <span class="comment">//窗口大小 默认600*600 单位大小为贪吃蛇地图大小 数字越大地图越大 判定点越大。</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> SCREEN_WIDTH = <span class="number">600</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> SCREEN_HEIGHT = <span class="number">600</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> UNIT_SIZE = <span class="number">20</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> GAME_UNITS = (SCREEN_WIDTH*SCREEN_HEIGHT)/UNIT_SIZE;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> DELAY = <span class="number">75</span>; <span class="comment">//DELAY为贪吃蛇移动速度 数字越小 贪吃蛇移动速度越快</span></span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span>[] x=<span class="keyword">new</span> <span class="keyword">int</span>[GAME_UNITS];<span class="comment">//</span></span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span>[] y=<span class="keyword">new</span> <span class="keyword">int</span>[GAME_UNITS];</span><br><span class="line">    <span class="keyword">int</span> bodyParts = <span class="number">1</span>;<span class="comment">//蛇身初始化长度为1</span></span><br><span class="line">    <span class="keyword">int</span> applesEaten;<span class="comment">//纪录蛇吃了多少苹果</span></span><br><span class="line">    <span class="keyword">int</span> appleX;<span class="comment">//苹果的坐标</span></span><br><span class="line">    <span class="keyword">int</span> appleY;</span><br><span class="line">    <span class="keyword">char</span> direction = <span class="string">&#x27;R&#x27;</span>;<span class="comment">//默认初始化窗口贪吃蛇的运动方向为向右</span></span><br><span class="line">    <span class="keyword">boolean</span> running =<span class="keyword">false</span>;</span><br><span class="line">    Timer timer;<span class="comment">//引入计时器参数timer</span></span><br><span class="line">    Random random;<span class="comment">//随机数random</span></span><br><span class="line">    GamePanel()&#123;<span class="comment">//面板构造器</span></span><br><span class="line">        random = <span class="keyword">new</span> Random();</span><br><span class="line">        <span class="keyword">this</span>.setPreferredSize(<span class="keyword">new</span> Dimension(SCREEN_WIDTH,SCREEN_HEIGHT));<span class="comment">//组件高度长度确定为刚才设定的SCREEN_WIDTH和SCREEN_HEIGHT</span></span><br><span class="line">        <span class="keyword">this</span>.setBackground(Color.BLACK);<span class="comment">//背景面板颜色设置为黑色</span></span><br><span class="line">        <span class="keyword">this</span>.setFocusable(<span class="keyword">true</span>);<span class="comment">//让窗口可以被操作 改为false 那么无法用键盘操纵蛇</span></span><br><span class="line">        <span class="keyword">this</span>.addKeyListener(<span class="keyword">new</span> MyKeyAdapter());<span class="comment">//确保窗口内的东西可以被键盘指定键操控</span></span><br><span class="line">        startGame();<span class="comment">//开始游戏</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">startGame</span><span class="params">()</span></span>&#123;</span><br><span class="line">        newApple();<span class="comment">//生成新苹果</span></span><br><span class="line">        running =<span class="keyword">true</span>;<span class="comment">//开始运行</span></span><br><span class="line">        timer = <span class="keyword">new</span> Timer(DELAY,<span class="keyword">this</span>);<span class="comment">//计时器启动</span></span><br><span class="line">        timer.start();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">paintComponent</span><span class="params">(Graphics g)</span></span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.paintComponent(g);<span class="comment">//绘制组件</span></span><br><span class="line">        draw(g);<span class="comment">//绘制容器</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">(Graphics g)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(running)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i&lt;SCREEN_HEIGHT/UNIT_SIZE;i++)&#123;</span><br><span class="line">                g.drawLine(i*UNIT_SIZE,<span class="number">0</span>,i*UNIT_SIZE,SCREEN_HEIGHT);</span><br><span class="line">                g.drawLine(<span class="number">0</span>,i*UNIT_SIZE,SCREEN_HEIGHT,i*UNIT_SIZE);<span class="comment">//绘制地图 根据窗口大小来画出每次蛇移动的格子</span></span><br><span class="line">            &#125;</span><br><span class="line">            g.setColor(Color.red);</span><br><span class="line">            g.fillOval(appleX,appleY,UNIT_SIZE,UNIT_SIZE);<span class="comment">//苹果占一个格子</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i&lt; bodyParts;i++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(i == <span class="number">0</span>)&#123;</span><br><span class="line">                    g.setColor(Color.green);</span><br><span class="line">                    g.fillRect(x[i],y[i],UNIT_SIZE,UNIT_SIZE);</span><br><span class="line">                &#125;<span class="comment">//画出初始化绿色的蛇头位置，前面设定的x[],y[]用来确认蛇头</span></span><br><span class="line">                <span class="keyword">else</span>&#123;</span><br><span class="line">                    g.setColor(<span class="keyword">new</span> Color(<span class="number">45</span>,<span class="number">180</span>,<span class="number">0</span>));<span class="comment">//绿色</span></span><br><span class="line">                    g.fillRect(x[i],y[i],UNIT_SIZE,UNIT_SIZE);<span class="comment">//确认蛇身</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            g.setColor(Color.red);</span><br><span class="line">            g.setFont(<span class="keyword">new</span> Font(<span class="string">&quot;Ink Free&quot;</span>,Font.BOLD,<span class="number">40</span>));</span><br><span class="line">            FontMetrics metrics = getFontMetrics(g.getFont());</span><br><span class="line">            g.drawString(<span class="string">&quot;Score:&quot;</span>+applesEaten,(SCREEN_WIDTH - metrics.stringWidth(<span class="string">&quot;Score:&quot;</span>+applesEaten))/<span class="number">2</span>,g.getFont().getSize());<span class="comment">//画出分数 分数的位置在窗口最上方中间</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            gameOver(g);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">newApple</span><span class="params">()</span></span>&#123;</span><br><span class="line">        appleX = random.nextInt((<span class="keyword">int</span>) SCREEN_WIDTH/UNIT_SIZE)*UNIT_SIZE;</span><br><span class="line">        appleY = random.nextInt((<span class="keyword">int</span>) SCREEN_HEIGHT/UNIT_SIZE)*UNIT_SIZE;<span class="comment">//随机生成新苹果</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">move</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = bodyParts;i&gt;<span class="number">0</span>;i--)&#123;</span><br><span class="line">            x[i] = x[i-<span class="number">1</span>];</span><br><span class="line">            y[i] = y[i-<span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">switch</span> (direction)&#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&#x27;U&#x27;</span>:</span><br><span class="line">                y[<span class="number">0</span>] = y [<span class="number">0</span>] - UNIT_SIZE;</span><br><span class="line">                <span class="keyword">break</span>;<span class="comment">//当向上移动时，蛇头的纵坐标变为原纵坐标-单位长度</span></span><br><span class="line">            <span class="keyword">case</span> <span class="string">&#x27;D&#x27;</span>:</span><br><span class="line">                y[<span class="number">0</span>] = y [<span class="number">0</span>] + UNIT_SIZE;</span><br><span class="line">                <span class="keyword">break</span>;<span class="comment">//当向下移动时，蛇头的纵坐标变为原纵坐标+单位长度</span></span><br><span class="line">            <span class="keyword">case</span> <span class="string">&#x27;L&#x27;</span>:</span><br><span class="line">                x[<span class="number">0</span>] = x [<span class="number">0</span>] - UNIT_SIZE;</span><br><span class="line">                <span class="keyword">break</span>;<span class="comment">//当向左移动时，蛇头的横坐标变为原横坐标-单位长度</span></span><br><span class="line">            <span class="keyword">case</span> <span class="string">&#x27;R&#x27;</span>:</span><br><span class="line">                x[<span class="number">0</span>] = x [<span class="number">0</span>] + UNIT_SIZE;</span><br><span class="line">                <span class="keyword">break</span>;<span class="comment">//当向右移动时，蛇头的横坐标变为原横坐标+单位长度</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">checkApple</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>((x[<span class="number">0</span>] == appleX) &amp;&amp;(y[<span class="number">0</span>] == appleY))&#123;</span><br><span class="line">            bodyParts++;</span><br><span class="line">            applesEaten++;</span><br><span class="line">            newApple();<span class="comment">//当蛇头坐标与苹果坐标相同时，蛇身变长，分数加一，然后再生成新苹果</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">checkCollisions</span><span class="params">()</span></span>&#123;</span><br><span class="line">       <span class="comment">//如果蛇头和蛇身相撞 停止运行</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i  = bodyParts;i&gt;<span class="number">0</span>;i--)&#123;</span><br><span class="line">            <span class="keyword">if</span>((x[<span class="number">0</span>] == x[i]) &amp;&amp; (y[<span class="number">0</span>] ==y[i]))&#123;</span><br><span class="line">                running = <span class="keyword">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//如果蛇头撞到窗口左边界 停止运行</span></span><br><span class="line">        <span class="keyword">if</span>(x[<span class="number">0</span>] &lt; <span class="number">0</span>)&#123;</span><br><span class="line">            running = <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//如果蛇头撞到窗口右边界 停止运行</span></span><br><span class="line">        <span class="keyword">if</span> (x[<span class="number">0</span>] &gt; SCREEN_WIDTH)&#123;</span><br><span class="line">            running = <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//如果蛇头撞到窗口上边界 停止运行</span></span><br><span class="line">        <span class="keyword">if</span>(y[<span class="number">0</span>]&lt;<span class="number">0</span>)&#123;</span><br><span class="line">            running = <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//如果蛇头撞到窗口下边界 停止运行</span></span><br><span class="line">        <span class="keyword">if</span>(y[<span class="number">0</span>]&gt;SCREEN_HEIGHT)&#123;</span><br><span class="line">            running = <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//如果停止运行，则计时器也停止</span></span><br><span class="line">        <span class="keyword">if</span> (!running)&#123;</span><br><span class="line">            timer.stop();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">gameOver</span><span class="params">(Graphics g)</span></span>&#123;</span><br><span class="line">        <span class="comment">//当游戏失败时，也显示分数</span></span><br><span class="line">        g.setColor(Color.red);</span><br><span class="line">        g.setFont(<span class="keyword">new</span> Font(<span class="string">&quot;Ink Free&quot;</span>,Font.BOLD,<span class="number">40</span>));</span><br><span class="line">        FontMetrics metrics1 = getFontMetrics(g.getFont());</span><br><span class="line">        g.drawString(<span class="string">&quot;Score:&quot;</span>+applesEaten,(SCREEN_WIDTH - metrics1.stringWidth(<span class="string">&quot;Score:&quot;</span>+applesEaten))/<span class="number">2</span>,g.getFont().getSize());</span><br><span class="line"></span><br><span class="line">        <span class="comment">//游戏失败时，显示gameover</span></span><br><span class="line">        g.setColor(Color.red);</span><br><span class="line">        g.setFont(<span class="keyword">new</span> Font(<span class="string">&quot;Ink Free&quot;</span>,Font.BOLD,<span class="number">75</span>));</span><br><span class="line">        FontMetrics metrics2 = getFontMetrics(g.getFont());</span><br><span class="line">        g.drawString(<span class="string">&quot;Game Over&quot;</span>,(SCREEN_WIDTH - metrics2.stringWidth(<span class="string">&quot;Game Over&quot;</span>))/<span class="number">2</span>,SCREEN_HEIGHT/<span class="number">2</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">actionPerformed</span><span class="params">(ActionEvent e)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(running)&#123;</span><br><span class="line">            move();<span class="comment">//窗口运行时，让蛇开始运动</span></span><br><span class="line">            checkApple();<span class="comment">//检测蛇是否吃到苹果</span></span><br><span class="line">            checkCollisions();<span class="comment">//检测蛇头是否撞到了边界或者蛇身</span></span><br><span class="line">        &#125;</span><br><span class="line">        repaint();<span class="comment">//停止运行就改变画面</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyKeyAdapter</span> <span class="keyword">extends</span> <span class="title">KeyAdapter</span></span>&#123;</span><br><span class="line">        <span class="comment">//首先我们要弄清楚一件事便是，当蛇前进时，是不能后退的，只能向左或向右，同理，蛇向左运动时，是没有办法向右的。</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">keyPressed</span><span class="params">(KeyEvent e)</span></span>&#123;</span><br><span class="line">            <span class="keyword">switch</span> (e.getKeyCode())&#123;</span><br><span class="line">                <span class="keyword">case</span> KeyEvent.VK_LEFT:</span><br><span class="line">                    <span class="keyword">if</span>(direction!= <span class="string">&#x27;R&#x27;</span>)&#123;<span class="comment">//键盘侦听，接受到的键为←时，如果这时蛇没有向右运动，则方向可变为←</span></span><br><span class="line">                        direction=<span class="string">&#x27;L&#x27;</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> KeyEvent.VK_RIGHT:</span><br><span class="line">                    <span class="keyword">if</span>(direction != <span class="string">&#x27;L&#x27;</span>)&#123;<span class="comment">//接受到的键为→时，如果这时蛇没有向左运动，则方向可变为→</span></span><br><span class="line">                        direction=<span class="string">&#x27;R&#x27;</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> KeyEvent.VK_UP:</span><br><span class="line">                    <span class="keyword">if</span>(direction != <span class="string">&#x27;D&#x27;</span>)&#123;<span class="comment">//接受到的键为↑时，如果这时蛇没有向下运动，则方向可变为↑</span></span><br><span class="line">                        direction=<span class="string">&#x27;U&#x27;</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> KeyEvent.VK_DOWN:</span><br><span class="line">                    <span class="keyword">if</span>(direction != <span class="string">&#x27;U&#x27;</span>)&#123;<span class="comment">//接受到的键为↓时，如果这时蛇没有向右运动，则方向可变为↓</span></span><br><span class="line">                        direction=<span class="string">&#x27;D&#x27;</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>java</category>
-        <category>Swing</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>Swing</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>BFS和DFS</title>
     <url>/2021/08/20/BFS%E5%92%8CDFS/</url>
     <content><![CDATA[<h1 id="javadfs和bfs">【java】DFS和BFS</h1>
@@ -38,26 +14,6 @@
       <tags>
         <tag>java</tag>
         <tag>data structure</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>java不规则数组实现杨辉三角</title>
-    <url>/2021/08/20/java%E4%B8%8D%E8%A7%84%E5%88%99%E6%95%B0%E7%BB%84%E5%AE%9E%E7%8E%B0%E6%9D%A8%E8%BE%89%E4%B8%89%E8%A7%92/</url>
-    <content><![CDATA[<h1 id="java不规则数组实现杨辉三角">【java】不规则数组实现杨辉三角</h1>
-<p>参考：java核心技术卷一</p>
-<p>构造不规则数组，及每一行长度不同，从而达到杨辉三角的效果。</p>
-<p>显示效果：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*NMAX=10;</span></span><br><span class="line"><span class="comment">   1</span></span><br><span class="line"><span class="comment">   1   1</span></span><br><span class="line"><span class="comment">   1   2   1</span></span><br><span class="line"><span class="comment">   1   3   3   1</span></span><br><span class="line"><span class="comment">   1   4   6   4   1</span></span><br><span class="line"><span class="comment">   1   5  10  10   5   1</span></span><br><span class="line"><span class="comment">   1   6  15  20  15   6   1</span></span><br><span class="line"><span class="comment">   1   7  21  35  35  21   7   1</span></span><br><span class="line"><span class="comment">   1   8  28  56  70  56  28   8   1</span></span><br><span class="line"><span class="comment">   1   9  36  84 126 126  84  36   9   1</span></span><br><span class="line"><span class="comment">   1  10  45 120 210 252 210 120  45  10   1</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">NMAX=15;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">   1</span></span><br><span class="line"><span class="comment">   1   1</span></span><br><span class="line"><span class="comment">   1   2   1</span></span><br><span class="line"><span class="comment">   1   3   3   1</span></span><br><span class="line"><span class="comment">   1   4   6   4   1</span></span><br><span class="line"><span class="comment">   1   5  10  10   5   1</span></span><br><span class="line"><span class="comment">   1   6  15  20  15   6   1</span></span><br><span class="line"><span class="comment">   1   7  21  35  35  21   7   1</span></span><br><span class="line"><span class="comment">   1   8  28  56  70  56  28   8   1</span></span><br><span class="line"><span class="comment">   1   9  36  84 126 126  84  36   9   1</span></span><br><span class="line"><span class="comment">   1  10  45 120 210 252 210 120  45  10   1</span></span><br><span class="line"><span class="comment">   1  11  55 165 330 462 462 330 165  55  11   1</span></span><br><span class="line"><span class="comment">   1  12  66 220 495 792 924 792 495 220  66  12   1</span></span><br><span class="line"><span class="comment">   1  13  78 286 7151287171617161287 715 286  78  13   1</span></span><br><span class="line"><span class="comment">   1  14  91 3641001200230033432300320021001 364  91  14   1</span></span><br><span class="line"><span class="comment">   1  15 105 45513653003500564356435500530031365 455 105  15   1</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>关键代码：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> NMAX=<span class="number">10</span>;<span class="comment">//定义要打印的三角的行数，这里先默认为10行</span></span><br><span class="line"><span class="keyword">int</span>[][] odds = <span class="keyword">new</span> <span class="keyword">int</span> [NMAX+<span class="number">1</span>][];<span class="comment">//要打印10行，那么我们的数组长度应该为行数+1 及NMAX+1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//分配行数（每一行元素具体个数）</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> n=<span class="number">0</span>;n&lt;=NMAX;n++)&#123;</span><br><span class="line">    odds[n] = <span class="keyword">new</span> <span class="keyword">int</span>[n+<span class="number">1</span>];<span class="comment">//每一行定义n个元素 那么每一行的长度即为元素数+1</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//分配元素</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> n=<span class="number">0</span>;n&lt;odds.length;n++)&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> k=<span class="number">0</span>;k&lt;odds[n].length;k++)&#123;</span><br><span class="line">        <span class="keyword">int</span> lotteryOdds = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=k;i++)&#123;</span><br><span class="line">            lotteryOdds = lotteryOdds * (n-i+<span class="number">1</span>)/i;<span class="comment">//杨辉三角公式</span></span><br><span class="line">        &#125;</span><br><span class="line">        odds[n][k] = lotteryOdds;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>完整代码：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LotteryArray</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> NMAX=<span class="number">10</span>;</span><br><span class="line">        <span class="keyword">int</span>[][] odds = <span class="keyword">new</span> <span class="keyword">int</span>[NMAX+<span class="number">1</span>][];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> n=<span class="number">0</span>;n&lt;=NMAX;n++)&#123;</span><br><span class="line">            odds[n]=<span class="keyword">new</span> <span class="keyword">int</span>[n+<span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> n=<span class="number">0</span>;n&lt; odds.length;n++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> k=<span class="number">0</span>; k&lt;odds[n].length;k++)&#123;</span><br><span class="line">                <span class="keyword">int</span> lotteryOdds = <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=k;i++)&#123;</span><br><span class="line">                    lotteryOdds = lotteryOdds*(n-i+<span class="number">1</span>)/i;</span><br><span class="line">                &#125;</span><br><span class="line">                odds[n][k] = lotteryOdds;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span>[] row:odds)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> odd:row)&#123;</span><br><span class="line">                System.out.printf(<span class="string">&quot;%4d&quot;</span>,odd);</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>java</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
       </tags>
   </entry>
   <entry>
@@ -91,6 +47,99 @@
       </categories>
       <tags>
         <tag>java</tag>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>JavaSwing贪吃蛇实现</title>
+    <url>/2021/08/11/JavaSwing%E8%B4%AA%E5%90%83%E8%9B%87%E5%AE%9E%E7%8E%B0/</url>
+    <content><![CDATA[<h1 id="java-swing贪吃蛇">Java Swing贪吃蛇</h1>
+<p>前些日子看了youtube上bro code的贪吃蛇代码视频 于是自己跟着视频实现了一下 顺便写了一下注释 。视频链接（需特殊工具才可以浏览 进不去就别进了 直接看我写的注释和代码）：<a href="https://youtu.be/bI6e6qjJ8JQ">snakegame</a></p>
+<p>该项目主要包含三个class：SnakeGame，GamePanel，GameFrame</p>
+<p>下面上代码和代码注释：</p>
+<p>首先新建三个class：SnakeGame，GamePanel，GameFrame（别写同一个大类里，放在同一个包里 分别新建三个类）</p>
+<h2 id="class-snakegame">class SnakeGame</h2>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SnakeGame</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">         <span class="keyword">new</span> GameFrame();<span class="comment">//直接new一个新的GameFrame实例 剩下的全都交给GamePanel和GameFrame做</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="class-gameframe">class GameFrame</h2>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> javax.swing.JFrame;</span><br><span class="line"><span class="comment">//GameFrame继承自JFrame用于生成贪吃蛇程序的初始化窗体</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GameFrame</span>  <span class="keyword">extends</span> <span class="title">JFrame</span> </span>&#123;</span><br><span class="line">    GameFrame()&#123;</span><br><span class="line">        <span class="keyword">this</span>.add(<span class="keyword">new</span> GamePanel());<span class="comment">//添加Panel面板</span></span><br><span class="line">        <span class="keyword">this</span>.setTitle(<span class="string">&quot;Snake&quot;</span>);<span class="comment">//窗口标题为Snake</span></span><br><span class="line">        <span class="keyword">this</span>.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);<span class="comment">//添加关闭按钮 确保窗口可关闭</span></span><br><span class="line">        <span class="keyword">this</span>.setResizable(<span class="keyword">false</span>);<span class="comment">//窗口大小无法被使用者调整，由程序员写死</span></span><br><span class="line">        <span class="keyword">this</span>.pack();<span class="comment">//调整此窗口的大小，以适合其子组件的首选大小和布局</span></span><br><span class="line">        <span class="keyword">this</span>.setVisible(<span class="keyword">true</span>);<span class="comment">//窗口可视化</span></span><br><span class="line">        <span class="keyword">this</span>.setLocationRelativeTo(<span class="keyword">null</span>);<span class="comment">//调节窗口相对于指定组件的位置 为null则默认窗口在屏幕中央弹出</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="class-gamepanel">class GamePanel</h2>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.swing.*;</span><br><span class="line"><span class="keyword">import</span> java.awt.*;</span><br><span class="line"><span class="keyword">import</span> java.awt.event.*;</span><br><span class="line"><span class="keyword">import</span> java.util.Random;</span><br><span class="line"><span class="keyword">import</span> java.util.Timer.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GamePanel</span> <span class="keyword">extends</span> <span class="title">JPanel</span> <span class="keyword">implements</span> <span class="title">ActionListener</span> </span>&#123;</span><br><span class="line">    <span class="comment">//窗口大小 默认600*600 单位大小为贪吃蛇地图大小 数字越大地图越大 判定点越大。</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> SCREEN_WIDTH = <span class="number">600</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> SCREEN_HEIGHT = <span class="number">600</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> UNIT_SIZE = <span class="number">20</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> GAME_UNITS = (SCREEN_WIDTH*SCREEN_HEIGHT)/UNIT_SIZE;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> DELAY = <span class="number">75</span>; <span class="comment">//DELAY为贪吃蛇移动速度 数字越小 贪吃蛇移动速度越快</span></span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span>[] x=<span class="keyword">new</span> <span class="keyword">int</span>[GAME_UNITS];<span class="comment">//</span></span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span>[] y=<span class="keyword">new</span> <span class="keyword">int</span>[GAME_UNITS];</span><br><span class="line">    <span class="keyword">int</span> bodyParts = <span class="number">1</span>;<span class="comment">//蛇身初始化长度为1</span></span><br><span class="line">    <span class="keyword">int</span> applesEaten;<span class="comment">//纪录蛇吃了多少苹果</span></span><br><span class="line">    <span class="keyword">int</span> appleX;<span class="comment">//苹果的坐标</span></span><br><span class="line">    <span class="keyword">int</span> appleY;</span><br><span class="line">    <span class="keyword">char</span> direction = <span class="string">&#x27;R&#x27;</span>;<span class="comment">//默认初始化窗口贪吃蛇的运动方向为向右</span></span><br><span class="line">    <span class="keyword">boolean</span> running =<span class="keyword">false</span>;</span><br><span class="line">    Timer timer;<span class="comment">//引入计时器参数timer</span></span><br><span class="line">    Random random;<span class="comment">//随机数random</span></span><br><span class="line">    GamePanel()&#123;<span class="comment">//面板构造器</span></span><br><span class="line">        random = <span class="keyword">new</span> Random();</span><br><span class="line">        <span class="keyword">this</span>.setPreferredSize(<span class="keyword">new</span> Dimension(SCREEN_WIDTH,SCREEN_HEIGHT));<span class="comment">//组件高度长度确定为刚才设定的SCREEN_WIDTH和SCREEN_HEIGHT</span></span><br><span class="line">        <span class="keyword">this</span>.setBackground(Color.BLACK);<span class="comment">//背景面板颜色设置为黑色</span></span><br><span class="line">        <span class="keyword">this</span>.setFocusable(<span class="keyword">true</span>);<span class="comment">//让窗口可以被操作 改为false 那么无法用键盘操纵蛇</span></span><br><span class="line">        <span class="keyword">this</span>.addKeyListener(<span class="keyword">new</span> MyKeyAdapter());<span class="comment">//确保窗口内的东西可以被键盘指定键操控</span></span><br><span class="line">        startGame();<span class="comment">//开始游戏</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">startGame</span><span class="params">()</span></span>&#123;</span><br><span class="line">        newApple();<span class="comment">//生成新苹果</span></span><br><span class="line">        running =<span class="keyword">true</span>;<span class="comment">//开始运行</span></span><br><span class="line">        timer = <span class="keyword">new</span> Timer(DELAY,<span class="keyword">this</span>);<span class="comment">//计时器启动</span></span><br><span class="line">        timer.start();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">paintComponent</span><span class="params">(Graphics g)</span></span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.paintComponent(g);<span class="comment">//绘制组件</span></span><br><span class="line">        draw(g);<span class="comment">//绘制容器</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">(Graphics g)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(running)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i&lt;SCREEN_HEIGHT/UNIT_SIZE;i++)&#123;</span><br><span class="line">                g.drawLine(i*UNIT_SIZE,<span class="number">0</span>,i*UNIT_SIZE,SCREEN_HEIGHT);</span><br><span class="line">                g.drawLine(<span class="number">0</span>,i*UNIT_SIZE,SCREEN_HEIGHT,i*UNIT_SIZE);<span class="comment">//绘制地图 根据窗口大小来画出每次蛇移动的格子</span></span><br><span class="line">            &#125;</span><br><span class="line">            g.setColor(Color.red);</span><br><span class="line">            g.fillOval(appleX,appleY,UNIT_SIZE,UNIT_SIZE);<span class="comment">//苹果占一个格子</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i&lt; bodyParts;i++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(i == <span class="number">0</span>)&#123;</span><br><span class="line">                    g.setColor(Color.green);</span><br><span class="line">                    g.fillRect(x[i],y[i],UNIT_SIZE,UNIT_SIZE);</span><br><span class="line">                &#125;<span class="comment">//画出初始化绿色的蛇头位置，前面设定的x[],y[]用来确认蛇头</span></span><br><span class="line">                <span class="keyword">else</span>&#123;</span><br><span class="line">                    g.setColor(<span class="keyword">new</span> Color(<span class="number">45</span>,<span class="number">180</span>,<span class="number">0</span>));<span class="comment">//绿色</span></span><br><span class="line">                    g.fillRect(x[i],y[i],UNIT_SIZE,UNIT_SIZE);<span class="comment">//确认蛇身</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            g.setColor(Color.red);</span><br><span class="line">            g.setFont(<span class="keyword">new</span> Font(<span class="string">&quot;Ink Free&quot;</span>,Font.BOLD,<span class="number">40</span>));</span><br><span class="line">            FontMetrics metrics = getFontMetrics(g.getFont());</span><br><span class="line">            g.drawString(<span class="string">&quot;Score:&quot;</span>+applesEaten,(SCREEN_WIDTH - metrics.stringWidth(<span class="string">&quot;Score:&quot;</span>+applesEaten))/<span class="number">2</span>,g.getFont().getSize());<span class="comment">//画出分数 分数的位置在窗口最上方中间</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            gameOver(g);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">newApple</span><span class="params">()</span></span>&#123;</span><br><span class="line">        appleX = random.nextInt((<span class="keyword">int</span>) SCREEN_WIDTH/UNIT_SIZE)*UNIT_SIZE;</span><br><span class="line">        appleY = random.nextInt((<span class="keyword">int</span>) SCREEN_HEIGHT/UNIT_SIZE)*UNIT_SIZE;<span class="comment">//随机生成新苹果</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">move</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = bodyParts;i&gt;<span class="number">0</span>;i--)&#123;</span><br><span class="line">            x[i] = x[i-<span class="number">1</span>];</span><br><span class="line">            y[i] = y[i-<span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">switch</span> (direction)&#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&#x27;U&#x27;</span>:</span><br><span class="line">                y[<span class="number">0</span>] = y [<span class="number">0</span>] - UNIT_SIZE;</span><br><span class="line">                <span class="keyword">break</span>;<span class="comment">//当向上移动时，蛇头的纵坐标变为原纵坐标-单位长度</span></span><br><span class="line">            <span class="keyword">case</span> <span class="string">&#x27;D&#x27;</span>:</span><br><span class="line">                y[<span class="number">0</span>] = y [<span class="number">0</span>] + UNIT_SIZE;</span><br><span class="line">                <span class="keyword">break</span>;<span class="comment">//当向下移动时，蛇头的纵坐标变为原纵坐标+单位长度</span></span><br><span class="line">            <span class="keyword">case</span> <span class="string">&#x27;L&#x27;</span>:</span><br><span class="line">                x[<span class="number">0</span>] = x [<span class="number">0</span>] - UNIT_SIZE;</span><br><span class="line">                <span class="keyword">break</span>;<span class="comment">//当向左移动时，蛇头的横坐标变为原横坐标-单位长度</span></span><br><span class="line">            <span class="keyword">case</span> <span class="string">&#x27;R&#x27;</span>:</span><br><span class="line">                x[<span class="number">0</span>] = x [<span class="number">0</span>] + UNIT_SIZE;</span><br><span class="line">                <span class="keyword">break</span>;<span class="comment">//当向右移动时，蛇头的横坐标变为原横坐标+单位长度</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">checkApple</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>((x[<span class="number">0</span>] == appleX) &amp;&amp;(y[<span class="number">0</span>] == appleY))&#123;</span><br><span class="line">            bodyParts++;</span><br><span class="line">            applesEaten++;</span><br><span class="line">            newApple();<span class="comment">//当蛇头坐标与苹果坐标相同时，蛇身变长，分数加一，然后再生成新苹果</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">checkCollisions</span><span class="params">()</span></span>&#123;</span><br><span class="line">       <span class="comment">//如果蛇头和蛇身相撞 停止运行</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i  = bodyParts;i&gt;<span class="number">0</span>;i--)&#123;</span><br><span class="line">            <span class="keyword">if</span>((x[<span class="number">0</span>] == x[i]) &amp;&amp; (y[<span class="number">0</span>] ==y[i]))&#123;</span><br><span class="line">                running = <span class="keyword">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//如果蛇头撞到窗口左边界 停止运行</span></span><br><span class="line">        <span class="keyword">if</span>(x[<span class="number">0</span>] &lt; <span class="number">0</span>)&#123;</span><br><span class="line">            running = <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//如果蛇头撞到窗口右边界 停止运行</span></span><br><span class="line">        <span class="keyword">if</span> (x[<span class="number">0</span>] &gt; SCREEN_WIDTH)&#123;</span><br><span class="line">            running = <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//如果蛇头撞到窗口上边界 停止运行</span></span><br><span class="line">        <span class="keyword">if</span>(y[<span class="number">0</span>]&lt;<span class="number">0</span>)&#123;</span><br><span class="line">            running = <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//如果蛇头撞到窗口下边界 停止运行</span></span><br><span class="line">        <span class="keyword">if</span>(y[<span class="number">0</span>]&gt;SCREEN_HEIGHT)&#123;</span><br><span class="line">            running = <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//如果停止运行，则计时器也停止</span></span><br><span class="line">        <span class="keyword">if</span> (!running)&#123;</span><br><span class="line">            timer.stop();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">gameOver</span><span class="params">(Graphics g)</span></span>&#123;</span><br><span class="line">        <span class="comment">//当游戏失败时，也显示分数</span></span><br><span class="line">        g.setColor(Color.red);</span><br><span class="line">        g.setFont(<span class="keyword">new</span> Font(<span class="string">&quot;Ink Free&quot;</span>,Font.BOLD,<span class="number">40</span>));</span><br><span class="line">        FontMetrics metrics1 = getFontMetrics(g.getFont());</span><br><span class="line">        g.drawString(<span class="string">&quot;Score:&quot;</span>+applesEaten,(SCREEN_WIDTH - metrics1.stringWidth(<span class="string">&quot;Score:&quot;</span>+applesEaten))/<span class="number">2</span>,g.getFont().getSize());</span><br><span class="line"></span><br><span class="line">        <span class="comment">//游戏失败时，显示gameover</span></span><br><span class="line">        g.setColor(Color.red);</span><br><span class="line">        g.setFont(<span class="keyword">new</span> Font(<span class="string">&quot;Ink Free&quot;</span>,Font.BOLD,<span class="number">75</span>));</span><br><span class="line">        FontMetrics metrics2 = getFontMetrics(g.getFont());</span><br><span class="line">        g.drawString(<span class="string">&quot;Game Over&quot;</span>,(SCREEN_WIDTH - metrics2.stringWidth(<span class="string">&quot;Game Over&quot;</span>))/<span class="number">2</span>,SCREEN_HEIGHT/<span class="number">2</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">actionPerformed</span><span class="params">(ActionEvent e)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(running)&#123;</span><br><span class="line">            move();<span class="comment">//窗口运行时，让蛇开始运动</span></span><br><span class="line">            checkApple();<span class="comment">//检测蛇是否吃到苹果</span></span><br><span class="line">            checkCollisions();<span class="comment">//检测蛇头是否撞到了边界或者蛇身</span></span><br><span class="line">        &#125;</span><br><span class="line">        repaint();<span class="comment">//停止运行就改变画面</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyKeyAdapter</span> <span class="keyword">extends</span> <span class="title">KeyAdapter</span></span>&#123;</span><br><span class="line">        <span class="comment">//首先我们要弄清楚一件事便是，当蛇前进时，是不能后退的，只能向左或向右，同理，蛇向左运动时，是没有办法向右的。</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">keyPressed</span><span class="params">(KeyEvent e)</span></span>&#123;</span><br><span class="line">            <span class="keyword">switch</span> (e.getKeyCode())&#123;</span><br><span class="line">                <span class="keyword">case</span> KeyEvent.VK_LEFT:</span><br><span class="line">                    <span class="keyword">if</span>(direction!= <span class="string">&#x27;R&#x27;</span>)&#123;<span class="comment">//键盘侦听，接受到的键为←时，如果这时蛇没有向右运动，则方向可变为←</span></span><br><span class="line">                        direction=<span class="string">&#x27;L&#x27;</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> KeyEvent.VK_RIGHT:</span><br><span class="line">                    <span class="keyword">if</span>(direction != <span class="string">&#x27;L&#x27;</span>)&#123;<span class="comment">//接受到的键为→时，如果这时蛇没有向左运动，则方向可变为→</span></span><br><span class="line">                        direction=<span class="string">&#x27;R&#x27;</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> KeyEvent.VK_UP:</span><br><span class="line">                    <span class="keyword">if</span>(direction != <span class="string">&#x27;D&#x27;</span>)&#123;<span class="comment">//接受到的键为↑时，如果这时蛇没有向下运动，则方向可变为↑</span></span><br><span class="line">                        direction=<span class="string">&#x27;U&#x27;</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> KeyEvent.VK_DOWN:</span><br><span class="line">                    <span class="keyword">if</span>(direction != <span class="string">&#x27;U&#x27;</span>)&#123;<span class="comment">//接受到的键为↓时，如果这时蛇没有向右运动，则方向可变为↓</span></span><br><span class="line">                        direction=<span class="string">&#x27;D&#x27;</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>Swing</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>Swing</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>java不规则数组实现杨辉三角</title>
+    <url>/2021/08/20/java%E4%B8%8D%E8%A7%84%E5%88%99%E6%95%B0%E7%BB%84%E5%AE%9E%E7%8E%B0%E6%9D%A8%E8%BE%89%E4%B8%89%E8%A7%92/</url>
+    <content><![CDATA[<h1 id="java不规则数组实现杨辉三角">【java】不规则数组实现杨辉三角</h1>
+<p>参考：java核心技术卷一</p>
+<p>构造不规则数组，及每一行长度不同，从而达到杨辉三角的效果。</p>
+<p>显示效果：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*NMAX=10;</span></span><br><span class="line"><span class="comment">   1</span></span><br><span class="line"><span class="comment">   1   1</span></span><br><span class="line"><span class="comment">   1   2   1</span></span><br><span class="line"><span class="comment">   1   3   3   1</span></span><br><span class="line"><span class="comment">   1   4   6   4   1</span></span><br><span class="line"><span class="comment">   1   5  10  10   5   1</span></span><br><span class="line"><span class="comment">   1   6  15  20  15   6   1</span></span><br><span class="line"><span class="comment">   1   7  21  35  35  21   7   1</span></span><br><span class="line"><span class="comment">   1   8  28  56  70  56  28   8   1</span></span><br><span class="line"><span class="comment">   1   9  36  84 126 126  84  36   9   1</span></span><br><span class="line"><span class="comment">   1  10  45 120 210 252 210 120  45  10   1</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">NMAX=15;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">   1</span></span><br><span class="line"><span class="comment">   1   1</span></span><br><span class="line"><span class="comment">   1   2   1</span></span><br><span class="line"><span class="comment">   1   3   3   1</span></span><br><span class="line"><span class="comment">   1   4   6   4   1</span></span><br><span class="line"><span class="comment">   1   5  10  10   5   1</span></span><br><span class="line"><span class="comment">   1   6  15  20  15   6   1</span></span><br><span class="line"><span class="comment">   1   7  21  35  35  21   7   1</span></span><br><span class="line"><span class="comment">   1   8  28  56  70  56  28   8   1</span></span><br><span class="line"><span class="comment">   1   9  36  84 126 126  84  36   9   1</span></span><br><span class="line"><span class="comment">   1  10  45 120 210 252 210 120  45  10   1</span></span><br><span class="line"><span class="comment">   1  11  55 165 330 462 462 330 165  55  11   1</span></span><br><span class="line"><span class="comment">   1  12  66 220 495 792 924 792 495 220  66  12   1</span></span><br><span class="line"><span class="comment">   1  13  78 286 7151287171617161287 715 286  78  13   1</span></span><br><span class="line"><span class="comment">   1  14  91 3641001200230033432300320021001 364  91  14   1</span></span><br><span class="line"><span class="comment">   1  15 105 45513653003500564356435500530031365 455 105  15   1</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>关键代码：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> NMAX=<span class="number">10</span>;<span class="comment">//定义要打印的三角的行数，这里先默认为10行</span></span><br><span class="line"><span class="keyword">int</span>[][] odds = <span class="keyword">new</span> <span class="keyword">int</span> [NMAX+<span class="number">1</span>][];<span class="comment">//要打印10行，那么我们的数组长度应该为行数+1 及NMAX+1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//分配行数（每一行元素具体个数）</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> n=<span class="number">0</span>;n&lt;=NMAX;n++)&#123;</span><br><span class="line">    odds[n] = <span class="keyword">new</span> <span class="keyword">int</span>[n+<span class="number">1</span>];<span class="comment">//每一行定义n个元素 那么每一行的长度即为元素数+1</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//分配元素</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> n=<span class="number">0</span>;n&lt;odds.length;n++)&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> k=<span class="number">0</span>;k&lt;odds[n].length;k++)&#123;</span><br><span class="line">        <span class="keyword">int</span> lotteryOdds = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=k;i++)&#123;</span><br><span class="line">            lotteryOdds = lotteryOdds * (n-i+<span class="number">1</span>)/i;<span class="comment">//杨辉三角公式</span></span><br><span class="line">        &#125;</span><br><span class="line">        odds[n][k] = lotteryOdds;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>完整代码：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LotteryArray</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> NMAX=<span class="number">10</span>;</span><br><span class="line">        <span class="keyword">int</span>[][] odds = <span class="keyword">new</span> <span class="keyword">int</span>[NMAX+<span class="number">1</span>][];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> n=<span class="number">0</span>;n&lt;=NMAX;n++)&#123;</span><br><span class="line">            odds[n]=<span class="keyword">new</span> <span class="keyword">int</span>[n+<span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> n=<span class="number">0</span>;n&lt; odds.length;n++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> k=<span class="number">0</span>; k&lt;odds[n].length;k++)&#123;</span><br><span class="line">                <span class="keyword">int</span> lotteryOdds = <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=k;i++)&#123;</span><br><span class="line">                    lotteryOdds = lotteryOdds*(n-i+<span class="number">1</span>)/i;</span><br><span class="line">                &#125;</span><br><span class="line">                odds[n][k] = lotteryOdds;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span>[] row:odds)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> odd:row)&#123;</span><br><span class="line">                System.out.printf(<span class="string">&quot;%4d&quot;</span>,odd);</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【java】【leetcode】1423.可获得的最大点数</title>
+    <url>/2021/10/31/%E3%80%90java%E3%80%91%E3%80%90leetcode%E3%80%911423.%20%E5%8F%AF%E8%8E%B7%E5%BE%97%E7%9A%84%E6%9C%80%E5%A4%A7%E7%82%B9%E6%95%B0%20%E6%BB%91%E7%AA%97/</url>
+    <content><![CDATA[<p>原题链接在此附上：<a href="https://leetcode-cn.com/problems/maximum-points-you-can-obtain-from-cards/">1423. 可获得的最大点数</a></p>
+<p>这题有点意思，和我们平常做题思维不太一样，所谓滑窗，我觉得我们一般都会优先考虑划结果范围那个窗，但是这个题是反着来的，你要确定的结果是数组头部和尾部元素的最大和，并不适合我们直接进行滑窗操作，于是这道题的思路就变成了逆向操作，既然不能直接滑窗，就间接来，要求解头部和尾部元素的最大和，那是不是直接求整体的和然后减去数组中间元素最小和就是左右两端的最大和了？ 所以我们写代码时要确定的几件事事情便是：</p>
+<p><strong>我们要划多大的窗？</strong></p>
+<p>已知我们要求前后k个数之和最大值 设：数组长度为 n ，窗口大小为size 那我们的滑窗大小即为，n-k（求解出n-k个数的最小和）。</p>
+<p><strong>那这个窗口要从哪开始划呢？</strong></p>
+<p>因为数组是无序的，我们没有办法去直接判断从哪边开始划，我们要确定出来一个区间，相加的值是最小的。</p>
+<p><strong>具体要怎么确定？</strong></p>
+<p>从头开始，前确定前 n-k 个数的和。 设我们滑窗区间之和为 sum ，首先计算出数组元素 0 下标到下标 n-k-1 的和。 此时设最小和为 minsum ， minisum 默认值和 sum 相同。 我们现在只是确认了数组前 n-k 个数的和，无法保证这个和是最小的，所以我们要开始遍历进行判断。</p>
+<p><strong>怎么判断和筛选区间呢？</strong></p>
+<p>现在我们的窗口大小已经确定为 n-k 了，剩下的工作就是滑动窗口，确定窗口内加起来的数和最小。 所以我们要遍历数组剩下的位置，即 n-k 到 n 。 然后我们要做的就是：窗口向右移动的同时，窗口大小是固定的，有新的数字加入窗口中，那么我就要舍弃最左边的数字，这样才能保证我们的窗口大小不变。 然后确定新加进来的数与剔除掉最左部的数之后的和与最小和的关系。 如果它比较小，它将代替旧的最小和成为新的最小和。否则则继续遍历。 最终我们还差一步操作，我们求得是中间的最小和，不是题目要求的两端最大和。 所以我们需要 求解整个数组的元素之和，然后减去中间的最小和，即为最终结果。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxScore</span><span class="params">(<span class="keyword">int</span>[] cardPoints, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = cardPoints.length; <span class="comment">// 确定数组长度</span></span><br><span class="line">    <span class="keyword">int</span> size = n - k; <span class="comment">// 确定滑窗区间</span></span><br><span class="line">    <span class="keyword">int</span> sum = <span class="number">0</span>; <span class="comment">// 滑窗区间总和</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i =<span class="number">0</span>; i &lt;size; i++)&#123;</span><br><span class="line">        sum += cardPoints[i]; <span class="comment">// 先确定区间内的元素个数</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> minsum = sum; <span class="comment">// 最小和先默认为区间总和</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = size; i &lt; n; i++)&#123;</span><br><span class="line">      </span><br><span class="line">        sum += cardPoints[i]-cardPoints[i-size]; <span class="comment">// 窗口滑动的同时，窗口区间总和会变化</span></span><br><span class="line">        minsum = Math.min(sum,minsum); <span class="comment">// 寻找滑窗区间最小和</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> Arrays.stream(cardPoints).sum()-minsum; <span class="comment">// 使用 stream.sum 求解数组之和然后利用数组总和减去中间滑窗区间的最小和即可确认边界最大和。</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【java】【leetcode】两数之和 三种解法 暴力、滑窗、哈希表</title>
+    <url>/2021/10/31/%E3%80%90java%E3%80%91%E3%80%90leetcode%E3%80%91%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C%20%E4%B8%89%E7%A7%8D%E8%A7%A3%E6%B3%95%20%E6%9A%B4%E5%8A%9B%E3%80%81%E6%BB%91%E7%AA%97%E3%80%81%E5%93%88%E5%B8%8C%E8%A1%A8/</url>
+    <content><![CDATA[<p>题目链接：<a href="https://leetcode-cn.com/problems/two-sum/">1.两数之和</a></p>
+<h2 id="解法一双层循环">解法一：双层循环</h2>
+<h3 id="解题思路">解题思路</h3>
+<p>观察函数块返回类型为<code>int[]</code> 引入<code>int[]</code> 对象 <code>result</code> 。 双层循环，i 从 0 开始，j 在 i 前面，二者相加判断，不等于 target 就继续循环。 等于 target 就将 i , j 放进 result 内。 返回 result 。</p>
+<h3 id="代码">代码</h3>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] twoSum(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target) &#123;</span><br><span class="line">         <span class="keyword">int</span>[] result=<span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">2</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt; nums.length;i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j= i+<span class="number">1</span>;j&lt; nums.length;j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(nums[i]+nums[j]==target)&#123;</span><br><span class="line">                    result[<span class="number">0</span>]=i;</span><br><span class="line">                    result[<span class="number">1</span>]=j;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="解法二-优化解法一">解法二: 优化解法一</h2>
+<h3 id="解题思路-1">解题思路</h3>
+<p>由解法一可知，j 和 i 有关系，j 总是在 i 的后一位，那么我们是否可以根据这个条件将代码简化呢？ 将 i,j 设为 0 , 1 .当下标元素相加等于 target 时，返回长度为 2 元素为 i , j 的一维数组。 下标元素相加不等于 target 时，移动 j 的位置，直到 j 到达数组长度。 此时说明在 i 这个位置的元素后的任意一个数和它相加，都得不到 target ，我们将 i 的位置后移，j 也随之后移。</p>
+<h3 id="代码-1">代码</h3>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] twoSum(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target) &#123;</span><br><span class="line">        <span class="keyword">int</span> i=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> j=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> max=nums.length-<span class="number">1</span>;</span><br><span class="line">       <span class="keyword">while</span>(nums[i]+nums[j]!=target)&#123;</span><br><span class="line">            <span class="keyword">if</span>(j==max)&#123;</span><br><span class="line">                i++;</span><br><span class="line">                j=i;</span><br><span class="line">            &#125;</span><br><span class="line">        j++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;i,j&#125;;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="解法三-使用哈希表">解法三 使用哈希表</h2>
+<h3 id="解题思路-2">解题思路</h3>
+<p>使用哈希表来存储数组元素。只需一层循环。 if 条件要点为：哈希表 maps 中是否存在有 target-nums[i] 这个值。 如果没有，则将 nums[i] 的值放入表中。</p>
+<h3 id="代码-2">代码</h3>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] twoSum(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target) &#123;</span><br><span class="line">        HashMap&lt;Integer,Integer&gt; maps=<span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.length;++i)&#123;</span><br><span class="line">            <span class="keyword">if</span>(maps.containsKey(target-nums[i]))&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;maps.get(target-nums[i]),i&#125;;</span><br><span class="line">            &#125;</span><br><span class="line">            maps.put(nums[i],i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
         <tag>leetcode</tag>
       </tags>
   </entry>
@@ -395,55 +444,6 @@
       </tags>
   </entry>
   <entry>
-    <title>【java】【leetcode】1423.可获得的最大点数</title>
-    <url>/2021/10/31/%E3%80%90java%E3%80%91%E3%80%90leetcode%E3%80%911423.%20%E5%8F%AF%E8%8E%B7%E5%BE%97%E7%9A%84%E6%9C%80%E5%A4%A7%E7%82%B9%E6%95%B0%20%E6%BB%91%E7%AA%97/</url>
-    <content><![CDATA[<p>原题链接在此附上：<a href="https://leetcode-cn.com/problems/maximum-points-you-can-obtain-from-cards/">1423. 可获得的最大点数</a></p>
-<p>这题有点意思，和我们平常做题思维不太一样，所谓滑窗，我觉得我们一般都会优先考虑划结果范围那个窗，但是这个题是反着来的，你要确定的结果是数组头部和尾部元素的最大和，并不适合我们直接进行滑窗操作，于是这道题的思路就变成了逆向操作，既然不能直接滑窗，就间接来，要求解头部和尾部元素的最大和，那是不是直接求整体的和然后减去数组中间元素最小和就是左右两端的最大和了？ 所以我们写代码时要确定的几件事事情便是：</p>
-<p><strong>我们要划多大的窗？</strong></p>
-<p>已知我们要求前后k个数之和最大值 设：数组长度为 n ，窗口大小为size 那我们的滑窗大小即为，n-k（求解出n-k个数的最小和）。</p>
-<p><strong>那这个窗口要从哪开始划呢？</strong></p>
-<p>因为数组是无序的，我们没有办法去直接判断从哪边开始划，我们要确定出来一个区间，相加的值是最小的。</p>
-<p><strong>具体要怎么确定？</strong></p>
-<p>从头开始，前确定前 n-k 个数的和。 设我们滑窗区间之和为 sum ，首先计算出数组元素 0 下标到下标 n-k-1 的和。 此时设最小和为 minsum ， minisum 默认值和 sum 相同。 我们现在只是确认了数组前 n-k 个数的和，无法保证这个和是最小的，所以我们要开始遍历进行判断。</p>
-<p><strong>怎么判断和筛选区间呢？</strong></p>
-<p>现在我们的窗口大小已经确定为 n-k 了，剩下的工作就是滑动窗口，确定窗口内加起来的数和最小。 所以我们要遍历数组剩下的位置，即 n-k 到 n 。 然后我们要做的就是：窗口向右移动的同时，窗口大小是固定的，有新的数字加入窗口中，那么我就要舍弃最左边的数字，这样才能保证我们的窗口大小不变。 然后确定新加进来的数与剔除掉最左部的数之后的和与最小和的关系。 如果它比较小，它将代替旧的最小和成为新的最小和。否则则继续遍历。 最终我们还差一步操作，我们求得是中间的最小和，不是题目要求的两端最大和。 所以我们需要 求解整个数组的元素之和，然后减去中间的最小和，即为最终结果。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxScore</span><span class="params">(<span class="keyword">int</span>[] cardPoints, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = cardPoints.length; <span class="comment">// 确定数组长度</span></span><br><span class="line">    <span class="keyword">int</span> size = n - k; <span class="comment">// 确定滑窗区间</span></span><br><span class="line">    <span class="keyword">int</span> sum = <span class="number">0</span>; <span class="comment">// 滑窗区间总和</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i =<span class="number">0</span>; i &lt;size; i++)&#123;</span><br><span class="line">        sum += cardPoints[i]; <span class="comment">// 先确定区间内的元素个数</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> minsum = sum; <span class="comment">// 最小和先默认为区间总和</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = size; i &lt; n; i++)&#123;</span><br><span class="line">      </span><br><span class="line">        sum += cardPoints[i]-cardPoints[i-size]; <span class="comment">// 窗口滑动的同时，窗口区间总和会变化</span></span><br><span class="line">        minsum = Math.min(sum,minsum); <span class="comment">// 寻找滑窗区间最小和</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> Arrays.stream(cardPoints).sum()-minsum; <span class="comment">// 使用 stream.sum 求解数组之和然后利用数组总和减去中间滑窗区间的最小和即可确认边界最大和。</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>leetcode</category>
-      </categories>
-      <tags>
-        <tag>leetcode</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【java】【leetcode】两数之和 三种解法 暴力、滑窗、哈希表</title>
-    <url>/2021/10/31/%E3%80%90java%E3%80%91%E3%80%90leetcode%E3%80%91%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C%20%E4%B8%89%E7%A7%8D%E8%A7%A3%E6%B3%95%20%E6%9A%B4%E5%8A%9B%E3%80%81%E6%BB%91%E7%AA%97%E3%80%81%E5%93%88%E5%B8%8C%E8%A1%A8/</url>
-    <content><![CDATA[<p>题目链接：<a href="https://leetcode-cn.com/problems/two-sum/">1.两数之和</a></p>
-<h2 id="解法一双层循环">解法一：双层循环</h2>
-<h3 id="解题思路">解题思路</h3>
-<p>观察函数块返回类型为<code>int[]</code> 引入<code>int[]</code> 对象 <code>result</code> 。 双层循环，i 从 0 开始，j 在 i 前面，二者相加判断，不等于 target 就继续循环。 等于 target 就将 i , j 放进 result 内。 返回 result 。</p>
-<h3 id="代码">代码</h3>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] twoSum(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target) &#123;</span><br><span class="line">         <span class="keyword">int</span>[] result=<span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">2</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt; nums.length;i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j= i+<span class="number">1</span>;j&lt; nums.length;j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(nums[i]+nums[j]==target)&#123;</span><br><span class="line">                    result[<span class="number">0</span>]=i;</span><br><span class="line">                    result[<span class="number">1</span>]=j;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="解法二-优化解法一">解法二: 优化解法一</h2>
-<h3 id="解题思路-1">解题思路</h3>
-<p>由解法一可知，j 和 i 有关系，j 总是在 i 的后一位，那么我们是否可以根据这个条件将代码简化呢？ 将 i,j 设为 0 , 1 .当下标元素相加等于 target 时，返回长度为 2 元素为 i , j 的一维数组。 下标元素相加不等于 target 时，移动 j 的位置，直到 j 到达数组长度。 此时说明在 i 这个位置的元素后的任意一个数和它相加，都得不到 target ，我们将 i 的位置后移，j 也随之后移。</p>
-<h3 id="代码-1">代码</h3>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] twoSum(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target) &#123;</span><br><span class="line">        <span class="keyword">int</span> i=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> j=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> max=nums.length-<span class="number">1</span>;</span><br><span class="line">       <span class="keyword">while</span>(nums[i]+nums[j]!=target)&#123;</span><br><span class="line">            <span class="keyword">if</span>(j==max)&#123;</span><br><span class="line">                i++;</span><br><span class="line">                j=i;</span><br><span class="line">            &#125;</span><br><span class="line">        j++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;i,j&#125;;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="解法三-使用哈希表">解法三 使用哈希表</h2>
-<h3 id="解题思路-2">解题思路</h3>
-<p>使用哈希表来存储数组元素。只需一层循环。 if 条件要点为：哈希表 maps 中是否存在有 target-nums[i] 这个值。 如果没有，则将 nums[i] 的值放入表中。</p>
-<h3 id="代码-2">代码</h3>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] twoSum(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target) &#123;</span><br><span class="line">        HashMap&lt;Integer,Integer&gt; maps=<span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.length;++i)&#123;</span><br><span class="line">            <span class="keyword">if</span>(maps.containsKey(target-nums[i]))&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;maps.get(target-nums[i]),i&#125;;</span><br><span class="line">            &#125;</span><br><span class="line">            maps.put(nums[i],i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>leetcode</category>
-      </categories>
-      <tags>
-        <tag>leetcode</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>【java】【leetcode】面试题 08 04.幂集</title>
     <url>/2021/11/03/%E3%80%90java%E3%80%91%E3%80%90leetcode%E3%80%91%E9%9D%A2%E8%AF%95%E9%A2%98%2008%2004.%E5%B9%82%E9%9B%86/</url>
     <content><![CDATA[<p>题目链接： <a href="https://leetcode-cn.com/problems/power-set-lcci/">幂集</a></p>
@@ -452,9 +452,7 @@
 <blockquote>
 <p>输入： nums = [1,2,3]</p>
 <p>输出：</p>
-<p>[</p>
-<p>[3], [1], [2], [1,2,3], [1,3], [2,3], [1,2], []</p>
-<p>]</p>
+<p>[]</p>
 </blockquote>
 <hr />
 <p>非递归模拟实现：</p>
@@ -648,272 +646,6 @@
       </tags>
   </entry>
   <entry>
-    <title>【久远讲算法】什么是时间复杂度</title>
-    <url>/2021/10/07/%E3%80%90%E4%B9%85%E8%BF%9C%E8%AE%B2%E7%AE%97%E6%B3%95%E3%80%91%E4%BB%80%E4%B9%88%E6%98%AF%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6/</url>
-    <content><![CDATA[<p>大家好 ，我是久远，今天开始，由我来给大家分享算法以及数据结构的相关知识。</p>
-<h2 id="什么是算法">什么是算法</h2>
-<p>今天我们先来讨论一个问题：什么是算法？</p>
-<p>算法是指计算方法么？并不准确。</p>
-<p>算法这个名称虽然听着硬核，但是我们换个场景你就会非常熟悉。</p>
-<p>小学数学课上，你是不是可以用 3+3+3 或者 3*3 来解决三个三相加这个问题，虽然算的结果都是9，但是中间我们用的方法是不一样的。</p>
-<p>假如你今天要做一道菜，你是不是需要菜谱，菜谱上肯定会告诉你，你做这个菜需要什么材料，分几步完成，完成这道菜需要多久。</p>
-<p>而我们今天要讲的算法，就是计算机编程界的菜谱，它就是计算机解决问题的方法。用不同的办法去解决同一个问题，结果虽然都一样，但是过程可能千差万别。</p>
-<p>正因为计算机解决问题的方法有很多个，我们便要拿标准去衡量，到底哪些算法更好，更适合我们去使用。</p>
-<h2 id="时空复杂度">时空复杂度</h2>
-<p>怎么衡量一个算法的好坏呢？</p>
-<p>举个现实的例子：</p>
-<p>小明和小亮去企业面试，hr要求他们用代码实现一个需求，一天之后，两个人交付了各自的代码，都能实现hr的需求。而只有小明被录用了。这是因为：</p>
-<p>小明的代码运行一次花了50ms,内存占用5MB。</p>
-<p>而小亮的代码运行一次要花10s，占用内存50MB。</p>
-<p>小亮的代码虽然能够实现功能，但是运行时间和内存占用都没有小明的少，自然没有被录用。</p>
-<p>所以我们衡量代码的好坏要从时间和空间两个角度去考虑。即：</p>
-<ul>
-<li>时间复杂度</li>
-<li>空间复杂度</li>
-</ul>
-<p>在本文中，我们先讲解空间复杂度。</p>
-<h2 id="时间复杂度">时间复杂度</h2>
-<p>我们可以将时间复杂度划分为两个小概念：</p>
-<ul>
-<li>基本操作次数</li>
-<li>渐进时间复杂度</li>
-</ul>
-<h3 id="基本操作次数">基本操作次数</h3>
-<p>我们假设计算机运行一行基础代码执行一次运算。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">T0101</span><span class="params">()</span></span>&#123;</span><br><span class="line">System.out.print(<span class="string">&quot;hello world!&quot;</span>); <span class="comment">//执行一次</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&quot;helo world&quot;</span>)<span class="comment">#执行一次</span></span><br></pre></td></tr></table></figure>
-<p>这个方法需要执行1次运算。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">T0102</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;<span class="comment">// 再计算for循环外层执行次数 n+1 次</span></span><br><span class="line">System.out.print(<span class="string">&quot;hello world!&quot;</span>)<span class="comment">//先计算for循环里层执行的次数 n次</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n): <span class="comment">#再计算for循环外层执行次数 n+1 次</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;hello world!&quot;</span>)<span class="comment">#先计算for循环里层执行的次数为 n次</span></span><br></pre></td></tr></table></figure>
-<p>上面这个方法需要执行（n+1+n）= 2n+1 次运算。</p>
-<p>我们把算法需要执行的运算次数用 输入大小n 的函数表示，即 T(n).</p>
-<p>为了估算算法需要的运行时间和简化算法分析，我们引入时间复杂度的概念。</p>
-<p>我们再来看几个例子：</p>
-<ol type="1">
-<li>$ T(n) = 3n $,执行次数是线性的。</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">T0103</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123; <span class="comment">// 外层循环n次 </span></span><br><span class="line">System.out.print(<span class="string">&quot;一&quot;</span>); <span class="comment">//执行一次</span></span><br><span class="line">System.out.print(<span class="string">&quot;二&quot;</span>); <span class="comment">//执行一次</span></span><br><span class="line">System.out.print(<span class="string">&quot;三&quot;</span>); <span class="comment">//执行一次</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):<span class="comment"># 外层循环n次 </span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;-&quot;</span>)<span class="comment">#执行一次</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;二&quot;</span>)<span class="comment">#执行一次</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;三&quot;</span>)<span class="comment">#执行一次</span></span><br><span class="line">    </span><br></pre></td></tr></table></figure>
-<p>2.$ T(n) = 5logn $ ,执行次数是用对数计算的。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">T0104</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = n; i&gt;<span class="number">1</span>; i/=<span class="number">2</span>)&#123;<span class="comment">//观察n与i的运算关系 成对数关系</span></span><br><span class="line">        System.out.println(<span class="string">&quot;一&quot;</span>);<span class="comment">//执行一次</span></span><br><span class="line">        System.out.println(<span class="string">&quot;二&quot;</span>);<span class="comment">//执行一次</span></span><br><span class="line">        System.out.println(<span class="string">&quot;三&quot;</span>);<span class="comment">//执行一次</span></span><br><span class="line">        System.out.println(<span class="string">&quot;四&quot;</span>);<span class="comment">//执行一次</span></span><br><span class="line">        System.out.println(<span class="string">&quot;五&quot;</span>);<span class="comment">//执行一次</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">i = n <span class="comment">#在这里n代表的是某个特定的数字，如果要进行代码复制，请将n改为指定的数字去运行</span></span><br><span class="line"><span class="keyword">while</span> i &gt; <span class="number">1</span> :</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;一&quot;</span>)<span class="comment">#执行一次</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;二&quot;</span>)<span class="comment">#执行一次</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;三&quot;</span>)<span class="comment">#执行一次</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;四&quot;</span>)<span class="comment">#执行一次</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;五&quot;</span>)<span class="comment">#执行一次</span></span><br><span class="line">    i = i//<span class="number">2</span></span><br></pre></td></tr></table></figure>
-<p>3.$ T(n) = 2 $ , 执行次数是常量。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">T0105</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;一&quot;</span>);<span class="comment">//没有循环次数</span></span><br><span class="line">    System.out.println(<span class="string">&quot;二&quot;</span>);<span class="comment">//只需要输出两次内容执行次数为2</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&quot;一&quot;</span>)<span class="comment">#无循环次数</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;二&quot;</span>)<span class="comment">#只需要输出两次内容执行的次数为2</span></span><br></pre></td></tr></table></figure>
-<ol start="4" type="1">
-<li>$ T(n) = n^2 $ ,执行次数为幂函数。</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">T0106</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123; <span class="comment">// 循环次数为 n</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j++) &#123;<span class="comment">// 循环次数为 n</span></span><br><span class="line">            System.out.println(<span class="string">&quot;Hello, World!&quot;</span>); <span class="comment">//循环体时间复杂度为 O(1)</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):<span class="comment">#循环次数n</span></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(n):<span class="comment">#循环次数n</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;hello world&quot;</span>)<span class="comment">#循环体时间复杂度为O(1)</span></span><br></pre></td></tr></table></figure>
-<h3 id="渐进时间复杂度">渐进时间复杂度</h3>
-<p>现在我们已经有了T(n),是否就可以分析和比较代码的运行时间了呢？不不不，n你还没确定呢。</p>
-<p>假设A的执行次数是$ T(n) = 100n $，算法B执行的次数是 $ T(n) = 5n^2 $ ,这辆谁大就要取决于n了。</p>
-<p>因此为了解决这类难题，我们有了渐进时间复杂度的概念。</p>
-<p>维基百科的定义如下：</p>
-<p>在计算机科学中，算法的时间复杂度是一个函数，它定性描述该算法的运行时间。时间复杂度常用大O符号表述，不包括这个函数的低阶项和首项系数。使用这种方式时，时间复杂度可被称为是渐近的，亦即考察输入值大小趋近无穷时的情况。</p>
-<p>直白的讲就是，渐进复杂度就是将我们计算的程序的执行次数函数$ T(n) $ 简化为数量级，例如 $ n <span class="math inline">\(、\)</span> n^2 $ 、$ n^3 $ 等。</p>
-<p>那我们要如何推算出时间复杂度呢？有以下几个原则：</p>
-<ul>
-<li>如果运行时间是常数级的（例如：1,2,3,4,6等），则直接用常数1代替表示。</li>
-<li>只保留时间函数中的最高阶项。</li>
-<li>如果最高阶项存在，则省去最高阶项前面的系数。</li>
-</ul>
-<p>例如，如果一个算法对于任何大小为 n （必须比 n0 大）的输入，它至多需要 <span class="math inline">\(5n^3 + 3n\)</span> 的时间运行完毕，那么它的渐近时间复杂度是 $ O(n^3) $。</p>
-<p>这个推算过程即为：</p>
-<p>1.保留函数中的最高阶项。</p>
-<p>即: <span class="math inline">\(5n^3+3n\)</span> <span class="math inline">\(-&gt;\)</span> <span class="math inline">\(5n^3\)</span></p>
-<p>2.最高阶项存在，则省去最高阶项前面的系数。</p>
-<p>即: <span class="math inline">\(5n^3\)</span> <span class="math inline">\(-&gt;\)</span> <span class="math inline">\(n^3\)</span></p>
-<p>我们再来复习一下我们刚才看的那几个计算时间函数的例子。</p>
-<ol type="1">
-<li><span class="math inline">\(T(n) = 3n\)</span></li>
-</ol>
-<p>最高阶项为<span class="math inline">\(3n\)</span> ,省去3，则转化为的时间复杂度为：</p>
-<p><span class="math display">\[T(n) = O(n)\]</span></p>
-<figure>
-<img src="https://i.loli.net/2021/10/08/5eiXqvJhQZnImrw.png" alt="O(n)" /><figcaption aria-hidden="true">O(n)</figcaption>
-</figure>
-<ol start="2" type="1">
-<li><p><span class="math inline">\(T(n) = 5logn\)</span> , 最高阶项为 <span class="math inline">\(5logn\)</span>，省去系数 5，则转化的时间复杂度为：</p>
-<p><span class="math display">\[T(n) = O(logn)\]</span></p>
-<figure>
-<img src="https://i.loli.net/2021/10/08/2tnO7PRxVaTcEGW.png" alt="O(logn)" /><figcaption aria-hidden="true">O(logn)</figcaption>
-</figure></li>
-<li><p><span class="math inline">\(T(n) = 2\)</span>，只有常数量级，则拿1替换常数，转换后的时间复杂度为：</p>
-<p><span class="math display">\[T(n) = O(1)\]</span></p>
-<figure>
-<img src="https://i.loli.net/2021/10/08/cpPDqRsfKIQra7J.png" alt="O(1)" /><figcaption aria-hidden="true">O(1)</figcaption>
-</figure></li>
-<li><p><span class="math inline">\(T(n)=n^2\)</span></p></li>
-</ol>
-<p>这四种时间复杂度究竟谁更快，谁更更慢呢？当n足够大时，我们可以得到这样的结论：</p>
-<p><span class="math display">\[O(1)&lt;O(logn)&lt;O(n)&lt;O(n^2)\]</span></p>
-<figure>
-<img src="https://i.loli.net/2021/10/08/nsugKlkIo4UbCt1.png" alt="时间复杂度比较" /><figcaption aria-hidden="true">时间复杂度比较</figcaption>
-</figure>
-<h2 id="时间复杂度的差异">时间复杂度的差异</h2>
-<p>介绍了这么多，肯定有读者心中会产生疑问，你这说了半天...函数式子，能不能让我们直接体会一下时间复杂度的差异？</p>
-<p>假设算法A的执行次数是<span class="math inline">\(T(n) =100n\)</span> ,</p>
-<p>时间复杂度为<span class="math inline">\(O(n)=n\)</span></p>
-<p>算法B的执行次数是<span class="math inline">\(T(n) = 5n^2\)</span> ,</p>
-<p>时间复杂度为<span class="math inline">\(O(n) = n^2\)</span></p>
-<p>如果 <span class="math inline">\(n=1\)</span>，使用算法A和算法B的次数均为1</p>
-<p>但是当<span class="math inline">\(n\)</span> 逐渐增大时，时间复杂度的差异性就体现出来了。</p>
-<p>当<span class="math inline">\(n&lt;20\)</span>时，<span class="math inline">\(T(n)=100n\)</span>的增长速度比<span class="math inline">\(T(n)=5n^2\)</span>快</p>
-<p>当<span class="math inline">\(n&gt;20\)</span>时，<span class="math inline">\(T(n)5n^2\)</span> 的增长速度比<span class="math inline">\(T(n) = 100\)</span> 快</p>
-<figure>
-<img src="https://i.loli.net/2021/10/08/LWigqsPhnekTbx7.png" alt="比较" /><figcaption aria-hidden="true">比较</figcaption>
-</figure>
-<p>可见当我们要处理的对象足够大的时候，选时间复杂度较低的算法可使我们事半功倍，提高我们的程序运行效率。</p>
-<h2 id="总结">总结</h2>
-<p>本次我们详细的介绍了时间复杂度的概念。下次我们将引入空间复杂度的概念。</p>
-<p>点个公众号关注不迷路。持续更新数据结构讲解以及力扣刷题技巧。</p>
-]]></content>
-      <categories>
-        <category>java</category>
-        <category>data structure</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>data structure</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【久远讲算法】数组——最简单的数据结构</title>
-    <url>/2021/10/30/%E3%80%90%E4%B9%85%E8%BF%9C%E8%AE%B2%E7%AE%97%E6%B3%95%E3%80%91%E6%95%B0%E7%BB%84%E2%80%94%E2%80%94%E6%9C%80%E7%AE%80%E5%8D%95%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</url>
-    <content><![CDATA[<p>前言：</p>
-<p>前面两篇文章，我们对算法以及时空复杂度进行了详细的讲解，但是，这其实是远远不够的，时空复杂度只是我们算法学习中的冰山一角，下面让我们通过数组的学习来正式打开算法与数据结构的大门吧！</p>
-<p>以下是我之后文章的具体走向，感兴趣的小伙伴可以跟着路线进行自学哦！基础篇暂定走向为：数组→链表→栈和队列→树→递归</p>
-<p>基础篇更完以后我将会开启力扣刷题套路篇哦，带大家一起提高对编程语言以及算法的熟练度。</p>
-<h2 id="什么是数组">什么是数组</h2>
-<p>关于数组，虽然它是数据结构世界里最常用以及最简单的，但是之前仍有同学向我反馈：数组难以理解！那我们就来对数组进行详细的讲解，帮助大家解惑。</p>
-<p>首先我们在此声明，python 本身的库中其实是没有数组这个内置类型的，但存在有列表 ( list ) 这个内置类型，列表和数组在长相以及实际应用上是相似的，因此我尝试拿列表来进行数组相关知识的讲解。（实际上在 python 的 numpy 库中是存在有数组这样一个数据结构的，之后我们会专门写一篇文章来分析数组和列表的异同。）</p>
-<p>在计算机科学中，数组数据结构，简称数组，英文名为 array ，是由相同类型的元素的集合所组成的数据结构，分配一块连续的内存来存储。利用元素的索引可以计算出该元素对应的存储地址。</p>
-<p>是不是看完这一长串理论，已经开始晕了？那我们现在提炼这段话并就来用现实生活的例子来解析这段话，带大家认识到底什么是数组。</p>
-<p>假设我们是指挥官，我们编程时使用数组，就相当于我们作为指挥官给指定人数的士兵布置了一个团队任务。而这个指定人数的队伍，就可以视为一个数组。</p>
-<ul>
-<li>数组由相同类型的元素的集合所组成。这就像是现实中的一列士兵，他们的职业都是军人，即所谓的类型相同，他们都是同一个连或者同一个团的，即同一个集合。</li>
-<li>数组分配一块连续的内存来存储。即同一列士兵，在做任务时，一般都会吃住在同一片区域。</li>
-<li>利用元素的索引可以计算出该元素对应的存储地址。士兵每天训练时要进行有序的排队，当喊道第几号士兵时，可以通过这位士兵的回答，得知他的各种信息，例如执行任务期间，住在哪片区域具体哪个位置。我们从平常计数报数都是从 1 开始，而计算机默认是从 0 开始，这点要记清楚，以防之后进行和数组相关的操作产生混乱。</li>
-</ul>
-<p>因此我们可知，数组就如同一列整齐的士兵，他们都是正规的军人，他们在队伍里有指定的位置，且通过叫号，可以知晓他们的讯息。正如军队里的士兵存在编号一样，数组中的每一个元素也有着自己的下标，只不过这个下标从 0 开始，一直到数组长度 -1。</p>
-<p>数组一般用来存储具有 "一对一" 逻辑关系数据的线性存储结构，即是在内存中顺序存储，因此可以很好地实现逻辑上的顺序表。</p>
-<p>数组在内存中的顺序存储，具体是什么样子呢？</p>
-<p>内存是由一个个连续的内存单元组成的，每一个内存单元都有自己的地址。在这些内存单元中，有些被其他数据占用了，有些是空闲的。数组中的每一个元素，都存储在小小的内存单元中，并且元素之间紧密排列，既不能打乱元素的存储顺序，也不能跳过某个存储单元进行存储。</p>
-<p>这就像是宿舍分配的床位，每个宿舍有几个指定的床位，床位号一般都是连续的，每个床位号对应一个学生，这些学生可能有人每天都在宿舍住，有的可能搬出去住。床位号都是按顺序来的，进行安排时也不会考虑跳过哪个号进行床位分配。</p>
-<p>理论性的介绍先告一段落，单单了解数组的理论知识还远远不够，接下来我们将系统性的介绍数组在编程中的使用。</p>
-<h2 id="数组的使用">数组的使用</h2>
-<p>任何数据结构的操作基本离不开，增删改查这四种情况。接下来就让我给大家介绍数组的增删改查怎么实现。</p>
-<h3 id="数组元素的查询">数组元素的查询</h3>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 初始化</span></span><br><span class="line">String[] array = <span class="keyword">new</span> String[]&#123;<span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;green&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>, <span class="string">&#x27;yellow&#x27;</span>, <span class="string">&#x27;white&#x27;</span>, <span class="string">&#x27;black&#x27;</span>&#125;;</span><br><span class="line"><span class="comment">// 通过下标进行索引</span></span><br><span class="line">System.out.println(array[<span class="number">0</span>]);</span><br><span class="line">System.out.println(array[<span class="number">1</span>]);</span><br><span class="line">System.out.println(array[<span class="number">2</span>]);</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">list_array=[<span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;green&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>, <span class="string">&#x27;yellow&#x27;</span>, <span class="string">&#x27;white&#x27;</span>, <span class="string">&#x27;black&#x27;</span>]</span><br><span class="line"><span class="built_in">print</span>( list_array[<span class="number">0</span>] )<span class="comment">#red</span></span><br><span class="line"><span class="built_in">print</span>( list_array[<span class="number">1</span>] )<span class="comment">#green</span></span><br><span class="line"><span class="built_in">print</span>( list_array[<span class="number">2</span>] )<span class="comment">#blue</span></span><br></pre></td></tr></table></figure>
-<p>对 python 代码进行讲解：</p>
-<p>我们新建了一个长度为 6 的数组，并查询数组 list_array 下标为 0，1，2的元素，并将他们打印出来。</p>
-<p>对于数组来说，读取元素是最简单的操作。由于数组在内存中顺序存储，所以只要给出一个数组下标，就可以读取到对应的数组元素。</p>
-<p>例如我们当前新建的list_array数组，我们要读取数组下标为 3 的元素，就写作 array_list[3]；读取的元素即为 yellow ，读取数组下标为 5 的元素，就写作 array_list[5]，读取的数组为 black ，需要注意的是，输入的下标必须在数组的长度范围之内，否则会出现数组越界。</p>
-<ul>
-<li><p>tips:</p>
-<p>在 python 中，使用 list 进行数组的新建，然后索引时，它其实是不会报错的，这也是数组和列表的一大区别，其实本质还是因为列表类似于动态数组，我们在别的编程语言中使用的数组，明确而言是有指定的长度的， 超越指定的长度时，它会进行越界报错，而动态数组的长度是没有准确规定，只要不超出内存，即可在数组末尾一直添加元素，这点是不是和python中的列表很像呢？</p></li>
-</ul>
-<h3 id="数组元素的更改">数组元素的更改</h3>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String[] array = <span class="keyword">new</span> String[]&#123;<span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;green&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>, <span class="string">&#x27;yellow&#x27;</span>, <span class="string">&#x27;white&#x27;</span>, <span class="string">&#x27;black&#x27;</span>&#125;;</span><br><span class="line">array[<span class="number">0</span>] = <span class="string">&#x27;orange&#x27;</span>;</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">list_array=[<span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;green&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>, <span class="string">&#x27;yellow&#x27;</span>, <span class="string">&#x27;white&#x27;</span>, <span class="string">&#x27;black&#x27;</span>]</span><br><span class="line">list_array[<span class="number">0</span>] = <span class="string">&#x27;orange&#x27;</span> </span><br></pre></td></tr></table></figure>
-<p>对 python 代码进行讲解：</p>
-<p>依旧是我们的 list_array ,现在我想把第一位的红色变成橘色，那么我们直接使用下标索引，找到 'red' ,然后将其赋值为 'orange' 即可。</p>
-<p>要把数组中某一个元素的值改为一个新值，也是非常简单的操作。我们直接利用下标索引到它，然后将其赋值为新的值就可以了。</p>
-<h3 id="时间复杂度分析">时间复杂度分析</h3>
-<p>我们根据索引就可以查询到元素的位置，若想要更改直接覆盖掉它的值即可。因此数组元素的修改和查找的时间复杂度均为 <span class="math inline">\(O(1)\)</span>。</p>
-<ul>
-<li><p>tips:</p>
-<p>关于时间复杂度的讲解，参考我之前的文章：</p></li>
-</ul>
-<h3 id="数组元素的插入">数组元素的插入</h3>
-<p>数组元素的插入分为以下几种：</p>
-<ul>
-<li>尾部插入</li>
-<li>中间插入</li>
-<li>超范围插入</li>
-</ul>
-<p>在这里python只需要几行代码即可实现这一切，因为涉及到底层逻辑以及链表的知识，我们在此章不进行详细的讲解，只讲应用。而python的底层实际上是 c语言写的，所以接下来我们会对数组元素的插入进行系统的介绍，其实这是 python 底层已经帮我们做了的事情，但是要学习数据结构，我们就要从底层开始了解一个方法是怎么被实现的，所以我依旧对数组的插入进行了较本质的讲解。</p>
-<ul>
-<li>尾部插入</li>
-</ul>
-<p>在 java 和 c 语言中，尾部插入是最简单的方法,我们只需要对数组进行一次循环找到要插入的位置，然后进行赋值即可。</p>
-<ul>
-<li>中间插入</li>
-</ul>
-<p>而进行中间的插入时，我们就要考虑这些：</p>
-<ol type="1">
-<li>确认数组本身是否还有空余的位置。如果没有空余的位置，那么我们就要进行超范围插入了。如果有空余的位置，我们进行下面的操作。</li>
-<li>挪位置。先为了给这个元素让出一个位置，这个元素指定的位置之后的元素都要向后移动一个位置，不然的话，是没有位置留给插入的那个元素的。</li>
-<li>将元素放进腾出的那个位置。原来的元素进行挪位操作后，该元素进行赋值归位，这样元素就插入成功了。</li>
-<li>数组长度+1，正因为成功插入了一个元素，所以数组的长度进行了变化。</li>
-</ol>
-<ul>
-<li>超范围插入</li>
-</ul>
-<p>什么是超范围插入？ 比如我定义了一个数组，长度为 6 ，而从 0 到 5 这6个位置，都有元素，数组已经满了，但是我们依旧想要向其中插入插入元素，这个时候我们就需要扩大数组的长度了，可是数组的长度在创建时就已经确定了，不是说变就可以轻易的改变的，所以我们通常的操作便是，创建一个新数组，长度是旧数组的 2 倍，再把旧数组中的元素统统复制过去，这样就实现了数组的扩容。</p>
-<p>以下是 java 代码实现的，新建一个数组，对其进行插入操作。虽然和我上面说的步骤几乎是一样的，但是代码量可以说是很多了。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">int</span>[] array;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">int</span> size;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">MyArray</span><span class="params">(<span class="keyword">int</span> capacity)</span></span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.array = <span class="keyword">new</span> <span class="keyword">int</span>[capacity];</span><br><span class="line">    size = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 数组插入元素</span></span><br><span class="line"><span class="comment"> * * index 插入的位置</span></span><br><span class="line"><span class="comment"> * element 插入的元素</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insert</span><span class="params">(<span class="keyword">int</span> index, <span class="keyword">int</span> element)</span>  </span>&#123;</span><br><span class="line">    <span class="comment">//判断访问下标是否超出范围</span></span><br><span class="line">    <span class="keyword">if</span>(index&lt;<span class="number">0</span> || index&gt;size)&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;超出数组实际元素范围！&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//如果实际元素达到数组容量上限，则对数组进行扩容</span></span><br><span class="line">    <span class="keyword">if</span>(size &gt;= array.length)&#123;</span><br><span class="line">        resize();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//从右向左循环，将元素逐个向右挪1位</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=size-<span class="number">1</span>; i&gt;=index; i--)&#123;</span><br><span class="line">        array[i+<span class="number">1</span>] = array[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//腾出的位置放入新元素</span></span><br><span class="line">    array[index] = element;</span><br><span class="line">    size++;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 数组扩容</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">resize</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span>[] arrayNew = <span class="keyword">new</span> <span class="keyword">int</span>[array.length*<span class="number">2</span>];</span><br><span class="line">    <span class="comment">//从旧数组复制到新数组</span></span><br><span class="line">    System.arraycopy(array, <span class="number">0</span>, arrayNew, <span class="number">0</span>, array.length);</span><br><span class="line">    array = arrayNew;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 输出数组</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">output</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;size; i++)&#123;</span><br><span class="line">        System.out.println(array[i]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    MyArray myArray = <span class="keyword">new</span> MyArray(<span class="number">10</span>);</span><br><span class="line">    myArray.insert(<span class="number">0</span>,<span class="number">7</span>);</span><br><span class="line">    myArray.insert(<span class="number">1</span>,<span class="number">5</span>);</span><br><span class="line">    myArray.insert(<span class="number">2</span>,<span class="number">9</span>);</span><br><span class="line">    myArray.insert(<span class="number">3</span>,<span class="number">8</span>);</span><br><span class="line">    myArray.insert(<span class="number">1</span>,<span class="number">4</span>);</span><br><span class="line">    myArray.output();</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>而在 python 中，我们在现实的使用过程中，无需担心自己是否也要像使用 java 那样，只为处理一个插入操作，就写了如此多的代码，我们只要调用列表自带的方法就可以了。</p>
-<ul>
-<li>列表中的 append 方法</li>
-</ul>
-<p>列表中的 append 方法，对应数组中的尾部插入，它的底层实现形式类似于上文提到的java中的实现形式。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">list_array = [<span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;green&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>]</span><br><span class="line">list_array.append(<span class="string">&#x27;black&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span> (<span class="string">&quot;更新后的列表 : &quot;</span>, list_array) </span><br><span class="line"><span class="comment">#更新后的列表为[&#x27;red&#x27;, &#x27;green&#x27;, &#x27;blue&#x27;,&#x27;black&#x27;]</span></span><br></pre></td></tr></table></figure>
-<p>对 python 代码进行讲解：</p>
-<p>我们新生成的列表对其直接使用append方法，在其中输入我们要添加的元素即可，然后我们的元素就被添加到了列表的末尾了。</p>
-<ul>
-<li>列表中的 insert 方法</li>
-</ul>
-<p>列表中的 insert 方法，对应数组中的中间插入，只需要一步调用方法，即可完成 java 中那么多的判断以及元素的插入，可见 python 的强大。又因为列表本身可以视为动态数组，其实对于长度的要求并没有数组那么苛刻，它是可以随意插入元素的，无需担心长度，容量问题。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">list_array = [<span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;green&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>]</span><br><span class="line">list_array.insert(<span class="number">0</span>, <span class="string">&#x27;black&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span> (<span class="string">&#x27;列表插入元素后为 : &#x27;</span>, list_array)</span><br><span class="line"><span class="comment">#更新后的列表为 [&#x27;black&#x27;, &#x27;red&#x27;, &#x27;green&#x27;, &#x27;blue&#x27;]</span></span><br></pre></td></tr></table></figure>
-<p>对 python 代码进行讲解：</p>
-<p>对新生成的列表使用 insert 方法，insert 方法有两个参数，第一个参数为，我们要将元素插入到列表的哪个位置，第二个参数为元素内容。该段代码即为使用 insert 方法将 'black' 插入到列表的头部。</p>
-<ul>
-<li>列表中的 extend 方法</li>
-</ul>
-<p>列表中的 extend 方法，用于在列表末尾一次性追加另一个序列中的多个值（用新列表扩展原来的列表）。可以视为是数组扩容的一种特殊情况。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">list_array = [<span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;green&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>]</span><br><span class="line">list2=<span class="built_in">list</span>(<span class="built_in">range</span>(<span class="number">5</span>)) <span class="comment"># 创建 0-4 的列表</span></span><br><span class="line">list1.extend(list2)  <span class="comment"># 扩展列表</span></span><br><span class="line"><span class="built_in">print</span> (<span class="string">&quot;扩展后的列表：&quot;</span>, list1)</span><br><span class="line"><span class="comment">#扩展后的列表： [&#x27;red&#x27;, &#x27;green&#x27;, &#x27;blue&#x27;, 0, 1, 2, 3, 4]</span></span><br></pre></td></tr></table></figure>
-<h3 id="数组元素的删除">数组元素的删除</h3>
-<p>数组的删除操作和插入操作的过程相反，如果是在数组的最后删除元素，那么直接去除元素即可，但是如果是在头部或者数组的中间删除元素，那么其后的元素都需要向前挪动 1 位。</p>
-<p>删除简单的地方在于，我们无需关心下标是否会越界，容量是肯定不会超过申请的大小的。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">delete</span><span class="params">(<span class="keyword">int</span> index)</span>  </span>&#123;</span><br><span class="line">    <span class="comment">//判断访问下标是否超出范围</span></span><br><span class="line">    <span class="keyword">if</span>(index&lt;<span class="number">0</span> || index&gt;=size)&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;超出数组实际元素范围！&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> deleted= array[index];</span><br><span class="line">    <span class="comment">//从左向右循环，将元素逐个向左挪1位</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=index; i&lt;size-<span class="number">1</span>; i++)&#123;</span><br><span class="line">        array[i] = array[i+<span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    size--;</span><br><span class="line">    <span class="keyword">return</span> deleted;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>python 列表中有两种方法和数组的删除操作匹配，即 pop 和 remove 方法。</p>
-<ul>
-<li>列表中的pop方法</li>
-</ul>
-<p>pop() 函数用于移除列表中的一个元素（默认最后一个元素），并且返回该元素的值。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">list1 = [<span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;green&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>]</span><br><span class="line">list1.pop()</span><br><span class="line"><span class="built_in">print</span> (<span class="string">&quot;列表现在为 : &quot;</span>, list1)</span><br><span class="line"><span class="comment">#列表现在为 :  [&#x27;red&#x27;, &#x27;green&#x27;]</span></span><br><span class="line">list1.pop(<span class="number">1</span>)</span><br><span class="line"><span class="built_in">print</span> (<span class="string">&quot;列表现在为 : &quot;</span>, list1)</span><br><span class="line"><span class="comment">#列表现在为 :  [&#x27;red&#x27;]</span></span><br></pre></td></tr></table></figure>
-<p>对 python 代码进行讲解：</p>
-<p>新建一个 list1 列表，我们对其使用 pop() ，那么 list1 列表中最后一个元素被移除，这个元素即为 'blue' ，然后继续对 list1 使用 pop 操作，此时 list1 中最后一个元素为 'green'，将其移除， list1 中最后只有 'red' 一个元素了。</p>
-<ul>
-<li>列表中的 remove 方法</li>
-</ul>
-<p>remove() 函数用于移除列表中某个值的第一个匹配项。即当列表中有一样的元素的时候，使用 remove 删除这个元素， remove 将会删除下标较小的。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">list1 = [<span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;green&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>]</span><br><span class="line">list1.remove(<span class="string">&#x27;red&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span> (<span class="string">&quot;列表现在为 : &quot;</span>, list1)</span><br><span class="line"><span class="comment"># 列表现在为 :  [&#x27;green&#x27;,&#x27;blue&#x27;]</span></span><br><span class="line">list1.remove(<span class="string">&#x27;green&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span> (<span class="string">&quot;列表现在为 : &quot;</span>, list1)</span><br><span class="line"><span class="comment"># 列表现在为 :  [&#x27;blue&#x27;]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 有重复元素的情况</span></span><br><span class="line">list2 = [<span class="string">&#x27;red&#x27;</span>,<span class="string">&#x27;red&#x27;</span>,<span class="string">&#x27;green&#x27;</span>,<span class="string">&#x27;blue&#x27;</span>,<span class="string">&#x27;blue&#x27;</span>]</span><br><span class="line">list2.remove(<span class="string">&#x27;red&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;列表现在为：&quot;</span>,list2)</span><br><span class="line"><span class="comment"># 列表现在为： [&#x27;red&#x27;, &#x27;green&#x27;, &#x27;blue&#x27;, &#x27;blue&#x27;]</span></span><br><span class="line">list2.remove(<span class="string">&#x27;green&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;列表现在为：&quot;</span>,list2)</span><br><span class="line"><span class="comment"># 列表现在为： [&#x27;red&#x27;, &#x27;blue&#x27;, &#x27;blue&#x27;]</span></span><br></pre></td></tr></table></figure>
-<p>对 python 代码进行讲解：</p>
-<p>新建一个 list2 列表，我们对其使用 remove('red') ，那么 list2 列表中第一个 'red' 将会被移除，然后继续对 list2 使用 remove 操作，这次我们移除列表中第一个 'blue' ，打印列表可以发现，我们原列表中的 0 号位的 'red' 和 3 号位的 'blue' 都被删掉了，而剩下的 'red' 和 'blue' 没有被移除。</p>
-<h3 id="时间复杂度分析-1">时间复杂度分析</h3>
-<p>数组的插入，我们首先要考虑数组的长度和容量，如果容量空余，我们在插入前还要为元素腾出位置，因此我们在此的时间复杂度 为 <span class="math inline">\(O(n)\)</span> , 如果元素的容量已满，我们要扩容数组，那么这个操作的时间复杂度仍为 <span class="math inline">\(O(n)\)</span> ，综合考虑，数组的插入操作时间复杂度为 <span class="math inline">\(O(n)\)</span> .</p>
-<p>数组的删除，无需考虑数组的长度和容量问题，只需要在删除元素之后，改变其它元素的位置即可，因此数组的删除操作消耗的时间在此的时间复杂度为 <span class="math inline">\(O(n)\)</span> .</p>
-<h2 id="数组的优势和劣势">数组的优势和劣势</h2>
-<p>数组的优势体现在查询和修改元素上，我们只需要知道元素的数组下标即可对其进行查询和修改，非常的方便。而这种特性也被二分查找法充分的利用了。</p>
-<p>数组的劣势体现在它的插入操作和删除操作上，当插入一个元素或者删除一个元素时，其他的元素都需要改变，这极大地影响了程序的运行效率。</p>
-<p>总之数组适用于，查找，修改较多，插入，删除较少的场景下。我们下周要讲的链表则和它的情况相反。</p>
-<blockquote>
-<p>流沙团队联合AI悦创|久远·推出辅导班啦，包括「Python 语言辅导班、C++ 辅导班、java 辅导班、算法/数据结构辅导班、少儿编程、pygame 游戏开发」，全部都是一对一教学：一对一辅导 + 一对一答疑 + 布置作业 + 项目实践等。QQ、微信在线，随时响应！</p>
-</blockquote>
-<p><img src="新建文本文档.assets/202110302224870.jpg" /></p>
-]]></content>
-      <categories>
-        <category>data structure</category>
-      </categories>
-      <tags>
-        <tag>data structure</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>【久远讲算法】什么是空间复杂度</title>
     <url>/2021/10/30/%E3%80%90%E4%B9%85%E8%BF%9C%E8%AE%B2%E7%AE%97%E6%B3%95%E3%80%91%E4%BB%80%E4%B9%88%E6%98%AF%E7%A9%BA%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6/</url>
     <content><![CDATA[<p>你好，我是久远，这周我们继续聊算法，接着上次的时间复杂度，我们进行关于空间复杂度的讲解。</p>
@@ -1075,147 +807,138 @@
       </tags>
   </entry>
   <entry>
-    <title>【超详细】gitee+picgo个人图床搭建+各种插件安装bug处理</title>
-    <url>/2021/10/30/%E3%80%90%E8%B6%85%E8%AF%A6%E7%BB%86%E3%80%91gitee+picgo%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A%E6%90%AD%E5%BB%BA+%E5%90%84%E7%A7%8D%E6%8F%92%E4%BB%B6%E5%AE%89%E8%A3%85bug%E5%A4%84%E7%90%86/</url>
-    <content><![CDATA[<h1 id="超详细giteepicgo个人图床搭建各种插件安装bug处理">【超详细】gitee+picgo个人图床搭建+各种插件安装bug处理</h1>
-<p>你好我是久远，最近在搭个人静态网页，到了最后一步了，传了几篇文章上去，结果文章传上去 了，图片全都失效了，没有办法，用现成的图床吧，担心哪天网站不稳定，图片全炸掉。所以最后 我选择了自己搭建图床。使用gitee以及picgo即可简单快捷的搭建自己的个人图床，无需担心和谐问 题以及稳定问题。</p>
-<p>前提条件：电脑内装有nodejs以及npm 且二者均可正常运行。</p>
-<p>bug处理部分放到了文章最后一个 part ，请滑到最后阅读。</p>
-<h2 id="picgo下载与安装">picgo下载与安装</h2>
-<p>进入<a href="https://molunerfinn.com/PicGo/">picgo官网</a></p>
-<figure>
-<img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100011925.png" alt="picgo" /><figcaption aria-hidden="true">picgo</figcaption>
-</figure>
-<p>点击免费下载即可下载。</p>
-<p>打开安装包 进行安装</p>
-<p>这里我们选择第一个，避免之后插件安装时产生权限问题。</p>
-<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100011536.png" /></p>
-<p>安装环境随便填 记得住就行</p>
-<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100011233.png" /></p>
-<p>安装完以后，我们启动 picgo ，这里注意，你点开 picgo 却看不到它是正常的，它默认在右下角启动，点开即可。</p>
-<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100011579.png" /></p>
-<p>先进行普通的配置</p>
-<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100011643.png" /></p>
-<p>然后我们进行插件安装</p>
-<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100011348.png" /></p>
-<p>安装完插件并重启应用之后，我们可以看到图床设置那里出现了 gitee</p>
-<p>观察界面，我们确认我们要填写哪些内容。</p>
-<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100011585.png" /></p>
-<p>现在我们已经成功一半了。剩下的只需要注册gitee 然后新建仓库就好了！</p>
-<h2 id="gitee注册以及仓库的新建">gitee注册以及仓库的新建</h2>
-<p>进入<a href="https://gitee.com/">gitee官网</a> 点击注册gitee 进行注册</p>
-<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100011782.png" /></p>
-<p>输入名字邮箱密码即可注册</p>
-<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012931.png" /></p>
-<p>然后我们开始新建仓库！</p>
-<p>网页右上角加号点开，选择新建仓库。</p>
-<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012613.png" /></p>
-<p>仓库创建选项，按图来即可 注意，一定要开源尽所有人可见！！</p>
-<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012837.png" /></p>
-<p>仓库创建成功的样子：</p>
-<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012484.png" /></p>
-<p>这样我们的 repo ， branch 都弄好了。</p>
-<p>然后我们点击右上角设置 进行token的获取。</p>
-<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012003.png" /></p>
-<p>点击左栏私人令牌</p>
-<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012983.png" /></p>
-<p>再点击生成新令牌</p>
-<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012514.png" /></p>
-<p>令牌描述随便写，权限全选即可。</p>
-<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012278.png" /></p>
-<p>然后新建令牌 新建之前会让你输入密码来进行确认。</p>
-<p>然后就生成新令牌啦。我们在此可以复制到自己的txt文档中进行保存。</p>
-<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012086.png" /></p>
-<p>然后我们返回picgo进行配置即可。</p>
-<p>按图配置即可。</p>
-<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012214.png" /></p>
-<p>然后点击确定即可。</p>
-<p>然后我们返回上传区进行配置。</p>
-<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012455.png" /></p>
-<p>一定要选中为gitee图床 不然会传到别的地方去！！</p>
-<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012600.png" /></p>
-<p>然后我们随便截图一张进行上传测试。</p>
-<p>有类似此的提示 则上传成功。</p>
-<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012726.png" /></p>
-<p>转到我们配置的仓库也可以看到有图片被上传</p>
-<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012668.png" /></p>
-<h2 id="关于插件bug处理">关于插件bug处理</h2>
-<p>咱们在 picgo 上安装 gitee 插件的时候也可以看到， gitee 有三个插件，但是这里推荐第三种，前两种并不稳定。</p>
-<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012063.png" /></p>
-<p>我在安装第三种插件的时候，出现了非常多的错误。</p>
-<p>首先，点击安装，picgo 进行弹窗表示 error 但是没有任何错误提醒。</p>
-<p>点进picgo设置查看日志才知道问题所在。</p>
-<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012190.png" /></p>
-<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012949.png" /></p>
-<p>那在这里呢，就给大家分享几个我遇到的坑，然后最终填上的。</p>
-<p>首先是这样一段错误代码：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">2021-10-08 16:27:47 [PicGo ERROR] 插件安装失败，失败码为1，错误日志为[37;40mnpm[0m [0m[31;40mERR![0m [0m[35mcode[0m EPERM</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m [0m[35msyscall[0m open</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m [0m[35mpath[0m D:\nodejs\node_cache\_cacache\tmp\edad6f19</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m [0m[35merrno[0m EPERM</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m FetchError: Invalid response body while trying to fetch https://registry.npmjs.org/picgo-plugin-gitee-uploader: EPERM: operation not permitted, open &#x27;D:\nodejs\node_cache\_cacache\tmp\edad6f19&#x27;</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m     at D:\nodejs\node_global\node_modules\npm\node_modules\minipass-fetch\lib\body.js:162:15</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m     at async Arborist.[nodeFromEdge] (D:\nodejs\node_global\node_modules\npm\node_modules\@npmcli\arborist\lib\arborist\build-ideal-tree.js:1032:19)</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m     at async Arborist.[buildDepStep] (D:\nodejs\node_global\node_modules\npm\node_modules\@npmcli\arborist\lib\arborist\build-ideal-tree.js:906:11)</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m     at async Arborist.buildIdealTree (D:\nodejs\node_global\node_modules\npm\node_modules\@npmcli\arborist\lib\arborist\build-ideal-tree.js:210:7)</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m     at async Promise.all (index 1)</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m     at async Arborist.reify (D:\nodejs\node_global\node_modules\npm\node_modules\@npmcli\arborist\lib\arborist\reify.js:147:5)</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m     at async Install.install (D:\nodejs\node_global\node_modules\npm\lib\install.js:170:5)</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m  FetchError: Invalid response body while trying to fetch https://registry.npmjs.org/picgo-plugin-gitee-uploader: EPERM: operation not permitted, open &#x27;D:\nodejs\node_cache\_cacache\tmp\edad6f19&#x27;</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m     at D:\nodejs\node_global\node_modules\npm\node_modules\minipass-fetch\lib\body.js:162:15</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m     at async Arborist.[nodeFromEdge] (D:\nodejs\node_global\node_modules\npm\node_modules\@npmcli\arborist\lib\arborist\build-ideal-tree.js:1032:19)</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m     at async Arborist.[buildDepStep] (D:\nodejs\node_global\node_modules\npm\node_modules\@npmcli\arborist\lib\arborist\build-ideal-tree.js:906:11)</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m     at async Arborist.buildIdealTree (D:\nodejs\node_global\node_modules\npm\node_modules\@npmcli\arborist\lib\arborist\build-ideal-tree.js:210:7)</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m     at async Promise.all (index 1)</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m     at async Arborist.reify (D:\nodejs\node_global\node_modules\npm\node_modules\@npmcli\arborist\lib\arborist\reify.js:147:5)</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m     at async Install.install (D:\nodejs\node_global\node_modules\npm\lib\install.js:170:5) &#123;</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m   code: &#x27;EPERM&#x27;,</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m   errno: &#x27;EPERM&#x27;,</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m   syscall: &#x27;open&#x27;,</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m   path: &#x27;D:\\nodejs\\node_cache\\_cacache\\tmp\\edad6f19&#x27;,</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m   type: &#x27;system&#x27;,</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m   requiredBy: &#x27;.&#x27;</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m &#125;</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m </span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m The operation was rejected by your operating system.</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m It&#x27;s possible that the file was already in use (by a text editor or antivirus),</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m or that you lack permissions to access it.</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m </span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m If you believe this might be a permissions issue, please double-check the</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m permissions of the file and its containing directories, or try running</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m the command again as root/Administrator.</span><br></pre></td></tr></table></figure>
-<p>虽然中间乱七八糟看不懂，但是最后给了我提示，<code>command again as root/Administrator.</code> 所以我最终使用了这个办法：及win10家庭版系统账户切换成 administrator 。</p>
-<p>操作方法：<code>win+r</code> 输入cmd 然后在输入<code>net user administrator /active:yes</code></p>
-<p>提示指令成功完成 关掉cmd 。注销系统。会出现administrator这个账户。登陆即可。在这个环境下安装插件 不会再出现此错误。</p>
-<p>在这过程中 我又出现了这两种报错：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Error: Cannot find module &#x27;C:\Users\xueto\AppData\Roaming\picgo\node_modules\picgo-plugin-github-plus\dist\index.js&#x27;. Please verify that the package.json has a valid &quot;main&quot; entry</span><br><span class="line">    at tryPackage (internal/modules/cjs/loader.js:232:19)</span><br><span class="line">    at Function.Module._findPath (internal/modules/cjs/loader.js:369:18)</span><br><span class="line">    at Module._resolveFilename (internal/modules/cjs/loader.js:614:27)</span><br><span class="line">    at Function.Module._resolveFilename (C:\Program Files\PicGo\resources\electron.asar\common\reset-search-paths.js:41:16)</span><br><span class="line">    at Function.Module._load (internal/modules/cjs/loader.js:531:27)</span><br><span class="line">    at Module.require (internal/modules/cjs/loader.js:685:19)</span><br><span class="line">    at require (internal/modules/cjs/helpers.js:16:16)</span><br><span class="line">    at PluginLoader.getPlugin (C:\Program Files\PicGo\resources\app.asar\node_modules\picgo\dist\src\lib\PluginLoader.js:125:24)</span><br><span class="line">    at PluginLoader.registerPlugin (C:\Program Files\PicGo\resources\app.asar\node_modules\picgo\dist\src\lib\PluginLoader.js:78:26)</span><br><span class="line">    at PluginLoader.load (C:\Program Files\PicGo\resources\app.asar\node_modules\picgo\dist\src\lib\PluginLoader.js:61:18)</span><br><span class="line">-------Error Stack End------- </span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">------Error Stack Begin------</span><br><span class="line">Error: Cannot find module &#x27;dayjs&#x27;</span><br><span class="line">Require stack:</span><br><span class="line">- D:\aaaaaaa\picgo-plugin-gitee-uploader\dist\lib\helper.js</span><br><span class="line">- D:\aaaaaaa\picgo-plugin-gitee-uploader\dist\lib\octokit.js</span><br><span class="line">- D:\aaaaaaa\picgo-plugin-gitee-uploader\dist\index.js</span><br><span class="line">- C:\Program Files\PicGo\resources\app.asar\node_modules\picgo\dist\src\lib\PluginLoader.js</span><br><span class="line">- C:\Program Files\PicGo\resources\app.asar\node_modules\picgo\dist\src\core\PicGo.js</span><br><span class="line">- C:\Program Files\PicGo\resources\app.asar\node_modules\picgo\dist\src\index.js</span><br><span class="line">- C:\Program Files\PicGo\resources\app.asar\background.js</span><br><span class="line">- </span><br><span class="line">    at Module._resolveFilename (internal/modules/cjs/loader.js:627:15)</span><br><span class="line">    at Function.Module._resolveFilename (C:\Program Files\PicGo\resources\electron.asar\common\reset-search-paths.js:41:16)</span><br><span class="line">    at Function.Module._load (internal/modules/cjs/loader.js:531:27)</span><br><span class="line">    at Module.require (internal/modules/cjs/loader.js:685:19)</span><br><span class="line">    at require (internal/modules/cjs/helpers.js:16:16)</span><br><span class="line">    at Object.&lt;anonymous&gt; (D:\aaaaaaa\picgo-plugin-gitee-uploader\dist\lib\helper.js:6:33)</span><br><span class="line">    at Module._compile (internal/modules/cjs/loader.js:786:30)</span><br><span class="line">    at Object.Module._extensions..js (internal/modules/cjs/loader.js:798:10)</span><br><span class="line">    at Module.load (internal/modules/cjs/loader.js:645:32)</span><br><span class="line">    at Function.Module._load (internal/modules/cjs/loader.js:560:12)</span><br><span class="line">-------Error Stack End------- </span><br></pre></td></tr></table></figure>
-<p>重要关键句 <code>Cannot find module...index.js</code> 以及<code>Cannot find module 'dayjs'</code></p>
-<p>于是，作为一个热爱解决bug的人。我去这个报错路径查找，发现插件的安装包下真的没有indexjs以及dayjs，查了一圈没什么头绪，难道是我nodejs 和npm有问题么？ 所以我无法安装插件？于是我卸载nodejs重新安装。依旧报错。</p>
-<p>结果最后的问题居然出在了插件安装本身上！</p>
-<p>以 picgo-plugin-gitee-uploader 这个插件为例，如果下载了 github 上的 releases 版本我们可以从截图上来确定，它确实是缺少index 和dayjs文件的。</p>
-<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012239.png" /></p>
-<p>所以不建议从 github 这里下载安装插件。是有概率会报这样两种错误的。</p>
-<p>那怎么安装插件最稳妥呢？一个是从 picgo 软件里直接下载安装软件。 一个就是 使用指令。</p>
-<p>打开 cmd 然后 cd <code>C:\Users\XXX\AppData\Roaming\picgo</code>转到该目录下</p>
-<p>然后输入 <code>npm install picgo-plugin-gitee-uploader</code> 安装成功后，重启picgo 即可成功安装插件！</p>
+    <title>【久远讲算法】数组——最简单的数据结构</title>
+    <url>/2021/10/30/%E3%80%90%E4%B9%85%E8%BF%9C%E8%AE%B2%E7%AE%97%E6%B3%95%E3%80%91%E6%95%B0%E7%BB%84%E2%80%94%E2%80%94%E6%9C%80%E7%AE%80%E5%8D%95%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</url>
+    <content><![CDATA[<p>前言：</p>
+<p>前面两篇文章，我们对算法以及时空复杂度进行了详细的讲解，但是，这其实是远远不够的，时空复杂度只是我们算法学习中的冰山一角，下面让我们通过数组的学习来正式打开算法与数据结构的大门吧！</p>
+<p>以下是我之后文章的具体走向，感兴趣的小伙伴可以跟着路线进行自学哦！基础篇暂定走向为：数组→链表→栈和队列→树→递归</p>
+<p>基础篇更完以后我将会开启力扣刷题套路篇哦，带大家一起提高对编程语言以及算法的熟练度。</p>
+<h2 id="什么是数组">什么是数组</h2>
+<p>关于数组，虽然它是数据结构世界里最常用以及最简单的，但是之前仍有同学向我反馈：数组难以理解！那我们就来对数组进行详细的讲解，帮助大家解惑。</p>
+<p>首先我们在此声明，python 本身的库中其实是没有数组这个内置类型的，但存在有列表 ( list ) 这个内置类型，列表和数组在长相以及实际应用上是相似的，因此我尝试拿列表来进行数组相关知识的讲解。（实际上在 python 的 numpy 库中是存在有数组这样一个数据结构的，之后我们会专门写一篇文章来分析数组和列表的异同。）</p>
+<p>在计算机科学中，数组数据结构，简称数组，英文名为 array ，是由相同类型的元素的集合所组成的数据结构，分配一块连续的内存来存储。利用元素的索引可以计算出该元素对应的存储地址。</p>
+<p>是不是看完这一长串理论，已经开始晕了？那我们现在提炼这段话并就来用现实生活的例子来解析这段话，带大家认识到底什么是数组。</p>
+<p>假设我们是指挥官，我们编程时使用数组，就相当于我们作为指挥官给指定人数的士兵布置了一个团队任务。而这个指定人数的队伍，就可以视为一个数组。</p>
+<ul>
+<li>数组由相同类型的元素的集合所组成。这就像是现实中的一列士兵，他们的职业都是军人，即所谓的类型相同，他们都是同一个连或者同一个团的，即同一个集合。</li>
+<li>数组分配一块连续的内存来存储。即同一列士兵，在做任务时，一般都会吃住在同一片区域。</li>
+<li>利用元素的索引可以计算出该元素对应的存储地址。士兵每天训练时要进行有序的排队，当喊道第几号士兵时，可以通过这位士兵的回答，得知他的各种信息，例如执行任务期间，住在哪片区域具体哪个位置。我们从平常计数报数都是从 1 开始，而计算机默认是从 0 开始，这点要记清楚，以防之后进行和数组相关的操作产生混乱。</li>
+</ul>
+<p>因此我们可知，数组就如同一列整齐的士兵，他们都是正规的军人，他们在队伍里有指定的位置，且通过叫号，可以知晓他们的讯息。正如军队里的士兵存在编号一样，数组中的每一个元素也有着自己的下标，只不过这个下标从 0 开始，一直到数组长度 -1。</p>
+<p>数组一般用来存储具有 "一对一" 逻辑关系数据的线性存储结构，即是在内存中顺序存储，因此可以很好地实现逻辑上的顺序表。</p>
+<p>数组在内存中的顺序存储，具体是什么样子呢？</p>
+<p>内存是由一个个连续的内存单元组成的，每一个内存单元都有自己的地址。在这些内存单元中，有些被其他数据占用了，有些是空闲的。数组中的每一个元素，都存储在小小的内存单元中，并且元素之间紧密排列，既不能打乱元素的存储顺序，也不能跳过某个存储单元进行存储。</p>
+<p>这就像是宿舍分配的床位，每个宿舍有几个指定的床位，床位号一般都是连续的，每个床位号对应一个学生，这些学生可能有人每天都在宿舍住，有的可能搬出去住。床位号都是按顺序来的，进行安排时也不会考虑跳过哪个号进行床位分配。</p>
+<p>理论性的介绍先告一段落，单单了解数组的理论知识还远远不够，接下来我们将系统性的介绍数组在编程中的使用。</p>
+<h2 id="数组的使用">数组的使用</h2>
+<p>任何数据结构的操作基本离不开，增删改查这四种情况。接下来就让我给大家介绍数组的增删改查怎么实现。</p>
+<h3 id="数组元素的查询">数组元素的查询</h3>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 初始化</span></span><br><span class="line">String[] array = <span class="keyword">new</span> String[]&#123;<span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;green&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>, <span class="string">&#x27;yellow&#x27;</span>, <span class="string">&#x27;white&#x27;</span>, <span class="string">&#x27;black&#x27;</span>&#125;;</span><br><span class="line"><span class="comment">// 通过下标进行索引</span></span><br><span class="line">System.out.println(array[<span class="number">0</span>]);</span><br><span class="line">System.out.println(array[<span class="number">1</span>]);</span><br><span class="line">System.out.println(array[<span class="number">2</span>]);</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">list_array=[<span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;green&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>, <span class="string">&#x27;yellow&#x27;</span>, <span class="string">&#x27;white&#x27;</span>, <span class="string">&#x27;black&#x27;</span>]</span><br><span class="line"><span class="built_in">print</span>( list_array[<span class="number">0</span>] )<span class="comment">#red</span></span><br><span class="line"><span class="built_in">print</span>( list_array[<span class="number">1</span>] )<span class="comment">#green</span></span><br><span class="line"><span class="built_in">print</span>( list_array[<span class="number">2</span>] )<span class="comment">#blue</span></span><br></pre></td></tr></table></figure>
+<p>对 python 代码进行讲解：</p>
+<p>我们新建了一个长度为 6 的数组，并查询数组 list_array 下标为 0，1，2的元素，并将他们打印出来。</p>
+<p>对于数组来说，读取元素是最简单的操作。由于数组在内存中顺序存储，所以只要给出一个数组下标，就可以读取到对应的数组元素。</p>
+<p>例如我们当前新建的list_array数组，我们要读取数组下标为 3 的元素，就写作 array_list[3]；读取的元素即为 yellow ，读取数组下标为 5 的元素，就写作 array_list[5]，读取的数组为 black ，需要注意的是，输入的下标必须在数组的长度范围之内，否则会出现数组越界。</p>
+<ul>
+<li><p>tips:</p>
+<p>在 python 中，使用 list 进行数组的新建，然后索引时，它其实是不会报错的，这也是数组和列表的一大区别，其实本质还是因为列表类似于动态数组，我们在别的编程语言中使用的数组，明确而言是有指定的长度的， 超越指定的长度时，它会进行越界报错，而动态数组的长度是没有准确规定，只要不超出内存，即可在数组末尾一直添加元素，这点是不是和python中的列表很像呢？</p></li>
+</ul>
+<h3 id="数组元素的更改">数组元素的更改</h3>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String[] array = <span class="keyword">new</span> String[]&#123;<span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;green&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>, <span class="string">&#x27;yellow&#x27;</span>, <span class="string">&#x27;white&#x27;</span>, <span class="string">&#x27;black&#x27;</span>&#125;;</span><br><span class="line">array[<span class="number">0</span>] = <span class="string">&#x27;orange&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">list_array=[<span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;green&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>, <span class="string">&#x27;yellow&#x27;</span>, <span class="string">&#x27;white&#x27;</span>, <span class="string">&#x27;black&#x27;</span>]</span><br><span class="line">list_array[<span class="number">0</span>] = <span class="string">&#x27;orange&#x27;</span> </span><br></pre></td></tr></table></figure>
+<p>对 python 代码进行讲解：</p>
+<p>依旧是我们的 list_array ,现在我想把第一位的红色变成橘色，那么我们直接使用下标索引，找到 'red' ,然后将其赋值为 'orange' 即可。</p>
+<p>要把数组中某一个元素的值改为一个新值，也是非常简单的操作。我们直接利用下标索引到它，然后将其赋值为新的值就可以了。</p>
+<h3 id="时间复杂度分析">时间复杂度分析</h3>
+<p>我们根据索引就可以查询到元素的位置，若想要更改直接覆盖掉它的值即可。因此数组元素的修改和查找的时间复杂度均为 <span class="math inline">\(O(1)\)</span>。</p>
+<ul>
+<li><p>tips:</p>
+<p>关于时间复杂度的讲解，参考我之前的文章：</p></li>
+</ul>
+<h3 id="数组元素的插入">数组元素的插入</h3>
+<p>数组元素的插入分为以下几种：</p>
+<ul>
+<li>尾部插入</li>
+<li>中间插入</li>
+<li>超范围插入</li>
+</ul>
+<p>在这里python只需要几行代码即可实现这一切，因为涉及到底层逻辑以及链表的知识，我们在此章不进行详细的讲解，只讲应用。而python的底层实际上是 c语言写的，所以接下来我们会对数组元素的插入进行系统的介绍，其实这是 python 底层已经帮我们做了的事情，但是要学习数据结构，我们就要从底层开始了解一个方法是怎么被实现的，所以我依旧对数组的插入进行了较本质的讲解。</p>
+<ul>
+<li>尾部插入</li>
+</ul>
+<p>在 java 和 c 语言中，尾部插入是最简单的方法,我们只需要对数组进行一次循环找到要插入的位置，然后进行赋值即可。</p>
+<ul>
+<li>中间插入</li>
+</ul>
+<p>而进行中间的插入时，我们就要考虑这些：</p>
+<ol type="1">
+<li>确认数组本身是否还有空余的位置。如果没有空余的位置，那么我们就要进行超范围插入了。如果有空余的位置，我们进行下面的操作。</li>
+<li>挪位置。先为了给这个元素让出一个位置，这个元素指定的位置之后的元素都要向后移动一个位置，不然的话，是没有位置留给插入的那个元素的。</li>
+<li>将元素放进腾出的那个位置。原来的元素进行挪位操作后，该元素进行赋值归位，这样元素就插入成功了。</li>
+<li>数组长度+1，正因为成功插入了一个元素，所以数组的长度进行了变化。</li>
+</ol>
+<ul>
+<li>超范围插入</li>
+</ul>
+<p>什么是超范围插入？ 比如我定义了一个数组，长度为 6 ，而从 0 到 5 这6个位置，都有元素，数组已经满了，但是我们依旧想要向其中插入插入元素，这个时候我们就需要扩大数组的长度了，可是数组的长度在创建时就已经确定了，不是说变就可以轻易的改变的，所以我们通常的操作便是，创建一个新数组，长度是旧数组的 2 倍，再把旧数组中的元素统统复制过去，这样就实现了数组的扩容。</p>
+<p>以下是 java 代码实现的，新建一个数组，对其进行插入操作。虽然和我上面说的步骤几乎是一样的，但是代码量可以说是很多了。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">int</span>[] array;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">int</span> size;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">MyArray</span><span class="params">(<span class="keyword">int</span> capacity)</span></span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.array = <span class="keyword">new</span> <span class="keyword">int</span>[capacity];</span><br><span class="line">    size = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 数组插入元素</span></span><br><span class="line"><span class="comment"> * * index 插入的位置</span></span><br><span class="line"><span class="comment"> * element 插入的元素</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insert</span><span class="params">(<span class="keyword">int</span> index, <span class="keyword">int</span> element)</span>  </span>&#123;</span><br><span class="line">    <span class="comment">//判断访问下标是否超出范围</span></span><br><span class="line">    <span class="keyword">if</span>(index&lt;<span class="number">0</span> || index&gt;size)&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;超出数组实际元素范围！&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//如果实际元素达到数组容量上限，则对数组进行扩容</span></span><br><span class="line">    <span class="keyword">if</span>(size &gt;= array.length)&#123;</span><br><span class="line">        resize();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//从右向左循环，将元素逐个向右挪1位</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=size-<span class="number">1</span>; i&gt;=index; i--)&#123;</span><br><span class="line">        array[i+<span class="number">1</span>] = array[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//腾出的位置放入新元素</span></span><br><span class="line">    array[index] = element;</span><br><span class="line">    size++;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 数组扩容</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">resize</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span>[] arrayNew = <span class="keyword">new</span> <span class="keyword">int</span>[array.length*<span class="number">2</span>];</span><br><span class="line">    <span class="comment">//从旧数组复制到新数组</span></span><br><span class="line">    System.arraycopy(array, <span class="number">0</span>, arrayNew, <span class="number">0</span>, array.length);</span><br><span class="line">    array = arrayNew;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 输出数组</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">output</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;size; i++)&#123;</span><br><span class="line">        System.out.println(array[i]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    MyArray myArray = <span class="keyword">new</span> MyArray(<span class="number">10</span>);</span><br><span class="line">    myArray.insert(<span class="number">0</span>,<span class="number">7</span>);</span><br><span class="line">    myArray.insert(<span class="number">1</span>,<span class="number">5</span>);</span><br><span class="line">    myArray.insert(<span class="number">2</span>,<span class="number">9</span>);</span><br><span class="line">    myArray.insert(<span class="number">3</span>,<span class="number">8</span>);</span><br><span class="line">    myArray.insert(<span class="number">1</span>,<span class="number">4</span>);</span><br><span class="line">    myArray.output();</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>而在 python 中，我们在现实的使用过程中，无需担心自己是否也要像使用 java 那样，只为处理一个插入操作，就写了如此多的代码，我们只要调用列表自带的方法就可以了。</p>
+<ul>
+<li>列表中的 append 方法</li>
+</ul>
+<p>列表中的 append 方法，对应数组中的尾部插入，它的底层实现形式类似于上文提到的java中的实现形式。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">list_array = [<span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;green&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>]</span><br><span class="line">list_array.append(<span class="string">&#x27;black&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span> (<span class="string">&quot;更新后的列表 : &quot;</span>, list_array) </span><br><span class="line"><span class="comment">#更新后的列表为[&#x27;red&#x27;, &#x27;green&#x27;, &#x27;blue&#x27;,&#x27;black&#x27;]</span></span><br></pre></td></tr></table></figure>
+<p>对 python 代码进行讲解：</p>
+<p>我们新生成的列表对其直接使用append方法，在其中输入我们要添加的元素即可，然后我们的元素就被添加到了列表的末尾了。</p>
+<ul>
+<li>列表中的 insert 方法</li>
+</ul>
+<p>列表中的 insert 方法，对应数组中的中间插入，只需要一步调用方法，即可完成 java 中那么多的判断以及元素的插入，可见 python 的强大。又因为列表本身可以视为动态数组，其实对于长度的要求并没有数组那么苛刻，它是可以随意插入元素的，无需担心长度，容量问题。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">list_array = [<span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;green&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>]</span><br><span class="line">list_array.insert(<span class="number">0</span>, <span class="string">&#x27;black&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span> (<span class="string">&#x27;列表插入元素后为 : &#x27;</span>, list_array)</span><br><span class="line"><span class="comment">#更新后的列表为 [&#x27;black&#x27;, &#x27;red&#x27;, &#x27;green&#x27;, &#x27;blue&#x27;]</span></span><br></pre></td></tr></table></figure>
+<p>对 python 代码进行讲解：</p>
+<p>对新生成的列表使用 insert 方法，insert 方法有两个参数，第一个参数为，我们要将元素插入到列表的哪个位置，第二个参数为元素内容。该段代码即为使用 insert 方法将 'black' 插入到列表的头部。</p>
+<ul>
+<li>列表中的 extend 方法</li>
+</ul>
+<p>列表中的 extend 方法，用于在列表末尾一次性追加另一个序列中的多个值（用新列表扩展原来的列表）。可以视为是数组扩容的一种特殊情况。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">list_array = [<span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;green&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>]</span><br><span class="line">list2=<span class="built_in">list</span>(<span class="built_in">range</span>(<span class="number">5</span>)) <span class="comment"># 创建 0-4 的列表</span></span><br><span class="line">list1.extend(list2)  <span class="comment"># 扩展列表</span></span><br><span class="line"><span class="built_in">print</span> (<span class="string">&quot;扩展后的列表：&quot;</span>, list1)</span><br><span class="line"><span class="comment">#扩展后的列表： [&#x27;red&#x27;, &#x27;green&#x27;, &#x27;blue&#x27;, 0, 1, 2, 3, 4]</span></span><br></pre></td></tr></table></figure>
+<h3 id="数组元素的删除">数组元素的删除</h3>
+<p>数组的删除操作和插入操作的过程相反，如果是在数组的最后删除元素，那么直接去除元素即可，但是如果是在头部或者数组的中间删除元素，那么其后的元素都需要向前挪动 1 位。</p>
+<p>删除简单的地方在于，我们无需关心下标是否会越界，容量是肯定不会超过申请的大小的。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">delete</span><span class="params">(<span class="keyword">int</span> index)</span>  </span>&#123;</span><br><span class="line">    <span class="comment">//判断访问下标是否超出范围</span></span><br><span class="line">    <span class="keyword">if</span>(index&lt;<span class="number">0</span> || index&gt;=size)&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;超出数组实际元素范围！&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> deleted= array[index];</span><br><span class="line">    <span class="comment">//从左向右循环，将元素逐个向左挪1位</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=index; i&lt;size-<span class="number">1</span>; i++)&#123;</span><br><span class="line">        array[i] = array[i+<span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    size--;</span><br><span class="line">    <span class="keyword">return</span> deleted;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>python 列表中有两种方法和数组的删除操作匹配，即 pop 和 remove 方法。</p>
+<ul>
+<li>列表中的pop方法</li>
+</ul>
+<p>pop() 函数用于移除列表中的一个元素（默认最后一个元素），并且返回该元素的值。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">list1 = [<span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;green&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>]</span><br><span class="line">list1.pop()</span><br><span class="line"><span class="built_in">print</span> (<span class="string">&quot;列表现在为 : &quot;</span>, list1)</span><br><span class="line"><span class="comment">#列表现在为 :  [&#x27;red&#x27;, &#x27;green&#x27;]</span></span><br><span class="line">list1.pop(<span class="number">1</span>)</span><br><span class="line"><span class="built_in">print</span> (<span class="string">&quot;列表现在为 : &quot;</span>, list1)</span><br><span class="line"><span class="comment">#列表现在为 :  [&#x27;red&#x27;]</span></span><br></pre></td></tr></table></figure>
+<p>对 python 代码进行讲解：</p>
+<p>新建一个 list1 列表，我们对其使用 pop() ，那么 list1 列表中最后一个元素被移除，这个元素即为 'blue' ，然后继续对 list1 使用 pop 操作，此时 list1 中最后一个元素为 'green'，将其移除， list1 中最后只有 'red' 一个元素了。</p>
+<ul>
+<li>列表中的 remove 方法</li>
+</ul>
+<p>remove() 函数用于移除列表中某个值的第一个匹配项。即当列表中有一样的元素的时候，使用 remove 删除这个元素， remove 将会删除下标较小的。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">list1 = [<span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;green&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>]</span><br><span class="line">list1.remove(<span class="string">&#x27;red&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span> (<span class="string">&quot;列表现在为 : &quot;</span>, list1)</span><br><span class="line"><span class="comment"># 列表现在为 :  [&#x27;green&#x27;,&#x27;blue&#x27;]</span></span><br><span class="line">list1.remove(<span class="string">&#x27;green&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span> (<span class="string">&quot;列表现在为 : &quot;</span>, list1)</span><br><span class="line"><span class="comment"># 列表现在为 :  [&#x27;blue&#x27;]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 有重复元素的情况</span></span><br><span class="line">list2 = [<span class="string">&#x27;red&#x27;</span>,<span class="string">&#x27;red&#x27;</span>,<span class="string">&#x27;green&#x27;</span>,<span class="string">&#x27;blue&#x27;</span>,<span class="string">&#x27;blue&#x27;</span>]</span><br><span class="line">list2.remove(<span class="string">&#x27;red&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;列表现在为：&quot;</span>,list2)</span><br><span class="line"><span class="comment"># 列表现在为： [&#x27;red&#x27;, &#x27;green&#x27;, &#x27;blue&#x27;, &#x27;blue&#x27;]</span></span><br><span class="line">list2.remove(<span class="string">&#x27;green&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;列表现在为：&quot;</span>,list2)</span><br><span class="line"><span class="comment"># 列表现在为： [&#x27;red&#x27;, &#x27;blue&#x27;, &#x27;blue&#x27;]</span></span><br></pre></td></tr></table></figure>
+<p>对 python 代码进行讲解：</p>
+<p>新建一个 list2 列表，我们对其使用 remove('red') ，那么 list2 列表中第一个 'red' 将会被移除，然后继续对 list2 使用 remove 操作，这次我们移除列表中第一个 'blue' ，打印列表可以发现，我们原列表中的 0 号位的 'red' 和 3 号位的 'blue' 都被删掉了，而剩下的 'red' 和 'blue' 没有被移除。</p>
+<h3 id="时间复杂度分析-1">时间复杂度分析</h3>
+<p>数组的插入，我们首先要考虑数组的长度和容量，如果容量空余，我们在插入前还要为元素腾出位置，因此我们在此的时间复杂度 为 <span class="math inline">\(O(n)\)</span> , 如果元素的容量已满，我们要扩容数组，那么这个操作的时间复杂度仍为 <span class="math inline">\(O(n)\)</span> ，综合考虑，数组的插入操作时间复杂度为 <span class="math inline">\(O(n)\)</span> .</p>
+<p>数组的删除，无需考虑数组的长度和容量问题，只需要在删除元素之后，改变其它元素的位置即可，因此数组的删除操作消耗的时间在此的时间复杂度为 <span class="math inline">\(O(n)\)</span> .</p>
+<h2 id="数组的优势和劣势">数组的优势和劣势</h2>
+<p>数组的优势体现在查询和修改元素上，我们只需要知道元素的数组下标即可对其进行查询和修改，非常的方便。而这种特性也被二分查找法充分的利用了。</p>
+<p>数组的劣势体现在它的插入操作和删除操作上，当插入一个元素或者删除一个元素时，其他的元素都需要改变，这极大地影响了程序的运行效率。</p>
+<p>总之数组适用于，查找，修改较多，插入，删除较少的场景下。我们下周要讲的链表则和它的情况相反。</p>
+<blockquote>
+<p>流沙团队联合AI悦创|久远·推出辅导班啦，包括「Python 语言辅导班、C++ 辅导班、java 辅导班、算法/数据结构辅导班、少儿编程、pygame 游戏开发」，全部都是一对一教学：一对一辅导 + 一对一答疑 + 布置作业 + 项目实践等。QQ、微信在线，随时响应！</p>
+</blockquote>
+<p><img src="新建文本文档.assets/202110302224870.jpg" /></p>
 ]]></content>
       <categories>
-        <category>技术杂谈</category>
+        <category>data structure</category>
       </categories>
       <tags>
-        <tag>技术杂谈</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【面向就业式复习】【java基础】接口</title>
-    <url>/2021/12/11/%E3%80%90%E9%9D%A2%E5%90%91%E5%B0%B1%E4%B8%9A%E5%BC%8F%E5%A4%8D%E4%B9%A0%E3%80%91%E3%80%90java%E5%9F%BA%E7%A1%80%E3%80%91%E6%8E%A5%E5%8F%A3/</url>
-    <content><![CDATA[<h2 id="概念">概念</h2>
-<p>接口不是类，是对类的一组需求描述，这些类要遵从接口描述的统一格式进行定义。</p>
-<p>如果类遵从某个特定接口，那么就履行这项服务。</p>
-<p>实例：Arrays类中的 sort 方法可以对对象数组进行排序，但是前提是 对象所属的类必须实现了 Comparable 接口。</p>
-<p>Comparable 接口的代码：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Comparable</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(Object other)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这就是说，任何实现 Comparable 接口的类都需要包含 compareTo 方法，并且这个方法的参数必须是一个 Object 对象，返回一个整型数值。</p>
-<p>接口中的所有方法皆属于public 因此在接口中声明方法时，不必提供关键字public。</p>
-<p>为了类实现一个接口，通常需要下面两个步骤：</p>
-<ol type="1">
-<li>将类声明为实现给定的接口。（需要使用关键字implements）</li>
-<li>对接口中的所有方法进行定义。</li>
-</ol>
-<h2 id="接口的特性">接口的特性</h2>
-<ul>
-<li>接口不是类，不能使用 new 实例化接口。</li>
-<li>虽然不能构造接口对象，但是可以声明接口变量。</li>
-<li>接口变量必须引用实现了接口的类对象。</li>
-<li>可以使用 instanceof 检查一个对象是否实现了某个接口。</li>
-<li>接口也可以被继承。</li>
-<li>虽然接口中不能包含实例域和静态方法，但可以包含常量。</li>
-</ul>
-<p>接口中的方法都自动地被设置为 public—样，接口中的域将被自动设为 public static final。</p>
-<h2 id="接口与抽象类">接口与抽象类</h2>
-<p>关于抽象类：每个类只能拓展一个类。Java 不支持多继承。一个类只能有一个超类。</p>
-<p>但是接口可以提供多重继承。</p>
-<h2 id="接口相关的面试题">接口相关的面试题：</h2>
-<ul>
-<li>接口和抽象类的区别是什么？</li>
-</ul>
-<ol type="1">
-<li>接⼝的方法默认是 public ，所有⽅法在接⼝中不能有实现(Java 8 开始接口方法可以有默认实现），而抽象类可以有非抽象的方法。</li>
-<li>接⼝中除了 static 、 final 变量，不能有其他变量，而抽象类中则不⼀定。</li>
-<li>⼀个类可以实现多个接口，但只能实现⼀个抽象类。接口自己本身可以通过 extends 关键字扩展多个接口。</li>
-<li>接口方法默认修饰符是 public ，抽象⽅法可以有 public 、protected 和 default 这些修饰符（抽象方法就是为了被重写所以不能使用 private 关键字修饰！）。</li>
-<li>从设计层面来说，抽象是对类的抽象，是⼀种模板设计，而接口是对行为的抽象，是⼀种行为的规范。</li>
-</ol>
-]]></content>
-      <tags>
-        <tag>java</tag>
+        <tag>data structure</tag>
       </tags>
   </entry>
   <entry>
@@ -1325,6 +1048,105 @@
       </tags>
   </entry>
   <entry>
+    <title>【超详细】gitee+picgo个人图床搭建+各种插件安装bug处理</title>
+    <url>/2021/10/30/%E3%80%90%E8%B6%85%E8%AF%A6%E7%BB%86%E3%80%91gitee+picgo%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A%E6%90%AD%E5%BB%BA+%E5%90%84%E7%A7%8D%E6%8F%92%E4%BB%B6%E5%AE%89%E8%A3%85bug%E5%A4%84%E7%90%86/</url>
+    <content><![CDATA[<h1 id="超详细giteepicgo个人图床搭建各种插件安装bug处理">【超详细】gitee+picgo个人图床搭建+各种插件安装bug处理</h1>
+<p>你好我是久远，最近在搭个人静态网页，到了最后一步了，传了几篇文章上去，结果文章传上去 了，图片全都失效了，没有办法，用现成的图床吧，担心哪天网站不稳定，图片全炸掉。所以最后 我选择了自己搭建图床。使用gitee以及picgo即可简单快捷的搭建自己的个人图床，无需担心和谐问 题以及稳定问题。</p>
+<p>前提条件：电脑内装有nodejs以及npm 且二者均可正常运行。</p>
+<p>bug处理部分放到了文章最后一个 part ，请滑到最后阅读。</p>
+<h2 id="picgo下载与安装">picgo下载与安装</h2>
+<p>进入<a href="https://molunerfinn.com/PicGo/">picgo官网</a></p>
+<figure>
+<img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100011925.png" alt="picgo" /><figcaption aria-hidden="true">picgo</figcaption>
+</figure>
+<p>点击免费下载即可下载。</p>
+<p>打开安装包 进行安装</p>
+<p>这里我们选择第一个，避免之后插件安装时产生权限问题。</p>
+<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100011536.png" /></p>
+<p>安装环境随便填 记得住就行</p>
+<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100011233.png" /></p>
+<p>安装完以后，我们启动 picgo ，这里注意，你点开 picgo 却看不到它是正常的，它默认在右下角启动，点开即可。</p>
+<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100011579.png" /></p>
+<p>先进行普通的配置</p>
+<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100011643.png" /></p>
+<p>然后我们进行插件安装</p>
+<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100011348.png" /></p>
+<p>安装完插件并重启应用之后，我们可以看到图床设置那里出现了 gitee</p>
+<p>观察界面，我们确认我们要填写哪些内容。</p>
+<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100011585.png" /></p>
+<p>现在我们已经成功一半了。剩下的只需要注册gitee 然后新建仓库就好了！</p>
+<h2 id="gitee注册以及仓库的新建">gitee注册以及仓库的新建</h2>
+<p>进入<a href="https://gitee.com/">gitee官网</a> 点击注册gitee 进行注册</p>
+<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100011782.png" /></p>
+<p>输入名字邮箱密码即可注册</p>
+<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012931.png" /></p>
+<p>然后我们开始新建仓库！</p>
+<p>网页右上角加号点开，选择新建仓库。</p>
+<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012613.png" /></p>
+<p>仓库创建选项，按图来即可 注意，一定要开源尽所有人可见！！</p>
+<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012837.png" /></p>
+<p>仓库创建成功的样子：</p>
+<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012484.png" /></p>
+<p>这样我们的 repo ， branch 都弄好了。</p>
+<p>然后我们点击右上角设置 进行token的获取。</p>
+<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012003.png" /></p>
+<p>点击左栏私人令牌</p>
+<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012983.png" /></p>
+<p>再点击生成新令牌</p>
+<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012514.png" /></p>
+<p>令牌描述随便写，权限全选即可。</p>
+<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012278.png" /></p>
+<p>然后新建令牌 新建之前会让你输入密码来进行确认。</p>
+<p>然后就生成新令牌啦。我们在此可以复制到自己的txt文档中进行保存。</p>
+<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012086.png" /></p>
+<p>然后我们返回picgo进行配置即可。</p>
+<p>按图配置即可。</p>
+<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012214.png" /></p>
+<p>然后点击确定即可。</p>
+<p>然后我们返回上传区进行配置。</p>
+<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012455.png" /></p>
+<p>一定要选中为gitee图床 不然会传到别的地方去！！</p>
+<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012600.png" /></p>
+<p>然后我们随便截图一张进行上传测试。</p>
+<p>有类似此的提示 则上传成功。</p>
+<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012726.png" /></p>
+<p>转到我们配置的仓库也可以看到有图片被上传</p>
+<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012668.png" /></p>
+<h2 id="关于插件bug处理">关于插件bug处理</h2>
+<p>咱们在 picgo 上安装 gitee 插件的时候也可以看到， gitee 有三个插件，但是这里推荐第三种，前两种并不稳定。</p>
+<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012063.png" /></p>
+<p>我在安装第三种插件的时候，出现了非常多的错误。</p>
+<p>首先，点击安装，picgo 进行弹窗表示 error 但是没有任何错误提醒。</p>
+<p>点进picgo设置查看日志才知道问题所在。</p>
+<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012190.png" /></p>
+<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012949.png" /></p>
+<p>那在这里呢，就给大家分享几个我遇到的坑，然后最终填上的。</p>
+<p>首先是这样一段错误代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">2021-10-08 16:27:47 [PicGo ERROR] 插件安装失败，失败码为1，错误日志为[37;40mnpm[0m [0m[31;40mERR![0m [0m[35mcode[0m EPERM</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m [0m[35msyscall[0m open</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m [0m[35mpath[0m D:\nodejs\node_cache\_cacache\tmp\edad6f19</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m [0m[35merrno[0m EPERM</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m FetchError: Invalid response body while trying to fetch https://registry.npmjs.org/picgo-plugin-gitee-uploader: EPERM: operation not permitted, open &#x27;D:\nodejs\node_cache\_cacache\tmp\edad6f19&#x27;</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m     at D:\nodejs\node_global\node_modules\npm\node_modules\minipass-fetch\lib\body.js:162:15</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m     at async Arborist.[nodeFromEdge] (D:\nodejs\node_global\node_modules\npm\node_modules\@npmcli\arborist\lib\arborist\build-ideal-tree.js:1032:19)</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m     at async Arborist.[buildDepStep] (D:\nodejs\node_global\node_modules\npm\node_modules\@npmcli\arborist\lib\arborist\build-ideal-tree.js:906:11)</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m     at async Arborist.buildIdealTree (D:\nodejs\node_global\node_modules\npm\node_modules\@npmcli\arborist\lib\arborist\build-ideal-tree.js:210:7)</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m     at async Promise.all (index 1)</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m     at async Arborist.reify (D:\nodejs\node_global\node_modules\npm\node_modules\@npmcli\arborist\lib\arborist\reify.js:147:5)</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m     at async Install.install (D:\nodejs\node_global\node_modules\npm\lib\install.js:170:5)</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m  FetchError: Invalid response body while trying to fetch https://registry.npmjs.org/picgo-plugin-gitee-uploader: EPERM: operation not permitted, open &#x27;D:\nodejs\node_cache\_cacache\tmp\edad6f19&#x27;</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m     at D:\nodejs\node_global\node_modules\npm\node_modules\minipass-fetch\lib\body.js:162:15</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m     at async Arborist.[nodeFromEdge] (D:\nodejs\node_global\node_modules\npm\node_modules\@npmcli\arborist\lib\arborist\build-ideal-tree.js:1032:19)</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m     at async Arborist.[buildDepStep] (D:\nodejs\node_global\node_modules\npm\node_modules\@npmcli\arborist\lib\arborist\build-ideal-tree.js:906:11)</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m     at async Arborist.buildIdealTree (D:\nodejs\node_global\node_modules\npm\node_modules\@npmcli\arborist\lib\arborist\build-ideal-tree.js:210:7)</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m     at async Promise.all (index 1)</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m     at async Arborist.reify (D:\nodejs\node_global\node_modules\npm\node_modules\@npmcli\arborist\lib\arborist\reify.js:147:5)</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m     at async Install.install (D:\nodejs\node_global\node_modules\npm\lib\install.js:170:5) &#123;</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m   code: &#x27;EPERM&#x27;,</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m   errno: &#x27;EPERM&#x27;,</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m   syscall: &#x27;open&#x27;,</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m   path: &#x27;D:\\nodejs\\node_cache\\_cacache\\tmp\\edad6f19&#x27;,</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m   type: &#x27;system&#x27;,</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m   requiredBy: &#x27;.&#x27;</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m &#125;</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m </span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m The operation was rejected by your operating system.</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m It&#x27;s possible that the file was already in use (by a text editor or antivirus),</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m or that you lack permissions to access it.</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m </span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m If you believe this might be a permissions issue, please double-check the</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m permissions of the file and its containing directories, or try running</span><br><span class="line">[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m the command again as root/Administrator.</span><br></pre></td></tr></table></figure>
+<p>虽然中间乱七八糟看不懂，但是最后给了我提示，<code>command again as root/Administrator.</code> 所以我最终使用了这个办法：及win10家庭版系统账户切换成 administrator 。</p>
+<p>操作方法：<code>win+r</code> 输入cmd 然后在输入<code>net user administrator /active:yes</code></p>
+<p>提示指令成功完成 关掉cmd 。注销系统。会出现administrator这个账户。登陆即可。在这个环境下安装插件 不会再出现此错误。</p>
+<p>在这过程中 我又出现了这两种报错：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Error: Cannot find module &#x27;C:\Users\xueto\AppData\Roaming\picgo\node_modules\picgo-plugin-github-plus\dist\index.js&#x27;. Please verify that the package.json has a valid &quot;main&quot; entry</span><br><span class="line">    at tryPackage (internal/modules/cjs/loader.js:232:19)</span><br><span class="line">    at Function.Module._findPath (internal/modules/cjs/loader.js:369:18)</span><br><span class="line">    at Module._resolveFilename (internal/modules/cjs/loader.js:614:27)</span><br><span class="line">    at Function.Module._resolveFilename (C:\Program Files\PicGo\resources\electron.asar\common\reset-search-paths.js:41:16)</span><br><span class="line">    at Function.Module._load (internal/modules/cjs/loader.js:531:27)</span><br><span class="line">    at Module.require (internal/modules/cjs/loader.js:685:19)</span><br><span class="line">    at require (internal/modules/cjs/helpers.js:16:16)</span><br><span class="line">    at PluginLoader.getPlugin (C:\Program Files\PicGo\resources\app.asar\node_modules\picgo\dist\src\lib\PluginLoader.js:125:24)</span><br><span class="line">    at PluginLoader.registerPlugin (C:\Program Files\PicGo\resources\app.asar\node_modules\picgo\dist\src\lib\PluginLoader.js:78:26)</span><br><span class="line">    at PluginLoader.load (C:\Program Files\PicGo\resources\app.asar\node_modules\picgo\dist\src\lib\PluginLoader.js:61:18)</span><br><span class="line">-------Error Stack End------- </span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">------Error Stack Begin------</span><br><span class="line">Error: Cannot find module &#x27;dayjs&#x27;</span><br><span class="line">Require stack:</span><br><span class="line">- D:\aaaaaaa\picgo-plugin-gitee-uploader\dist\lib\helper.js</span><br><span class="line">- D:\aaaaaaa\picgo-plugin-gitee-uploader\dist\lib\octokit.js</span><br><span class="line">- D:\aaaaaaa\picgo-plugin-gitee-uploader\dist\index.js</span><br><span class="line">- C:\Program Files\PicGo\resources\app.asar\node_modules\picgo\dist\src\lib\PluginLoader.js</span><br><span class="line">- C:\Program Files\PicGo\resources\app.asar\node_modules\picgo\dist\src\core\PicGo.js</span><br><span class="line">- C:\Program Files\PicGo\resources\app.asar\node_modules\picgo\dist\src\index.js</span><br><span class="line">- C:\Program Files\PicGo\resources\app.asar\background.js</span><br><span class="line">- </span><br><span class="line">    at Module._resolveFilename (internal/modules/cjs/loader.js:627:15)</span><br><span class="line">    at Function.Module._resolveFilename (C:\Program Files\PicGo\resources\electron.asar\common\reset-search-paths.js:41:16)</span><br><span class="line">    at Function.Module._load (internal/modules/cjs/loader.js:531:27)</span><br><span class="line">    at Module.require (internal/modules/cjs/loader.js:685:19)</span><br><span class="line">    at require (internal/modules/cjs/helpers.js:16:16)</span><br><span class="line">    at Object.&lt;anonymous&gt; (D:\aaaaaaa\picgo-plugin-gitee-uploader\dist\lib\helper.js:6:33)</span><br><span class="line">    at Module._compile (internal/modules/cjs/loader.js:786:30)</span><br><span class="line">    at Object.Module._extensions..js (internal/modules/cjs/loader.js:798:10)</span><br><span class="line">    at Module.load (internal/modules/cjs/loader.js:645:32)</span><br><span class="line">    at Function.Module._load (internal/modules/cjs/loader.js:560:12)</span><br><span class="line">-------Error Stack End------- </span><br></pre></td></tr></table></figure>
+<p>重要关键句 <code>Cannot find module...index.js</code> 以及<code>Cannot find module 'dayjs'</code></p>
+<p>于是，作为一个热爱解决bug的人。我去这个报错路径查找，发现插件的安装包下真的没有indexjs以及dayjs，查了一圈没什么头绪，难道是我nodejs 和npm有问题么？ 所以我无法安装插件？于是我卸载nodejs重新安装。依旧报错。</p>
+<p>结果最后的问题居然出在了插件安装本身上！</p>
+<p>以 picgo-plugin-gitee-uploader 这个插件为例，如果下载了 github 上的 releases 版本我们可以从截图上来确定，它确实是缺少index 和dayjs文件的。</p>
+<p><img src="https://gitee.com/nruuu/mypic/raw/master/img/202110100012239.png" /></p>
+<p>所以不建议从 github 这里下载安装插件。是有概率会报这样两种错误的。</p>
+<p>那怎么安装插件最稳妥呢？一个是从 picgo 软件里直接下载安装软件。 一个就是 使用指令。</p>
+<p>打开 cmd 然后 cd <code>C:\Users\XXX\AppData\Roaming\picgo</code>转到该目录下</p>
+<p>然后输入 <code>npm install picgo-plugin-gitee-uploader</code> 安装成功后，重启picgo 即可成功安装插件！</p>
+]]></content>
+      <categories>
+        <category>技术杂谈</category>
+      </categories>
+      <tags>
+        <tag>技术杂谈</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>哈夫曼树类型的实现和应用</title>
     <url>/2021/07/29/%E5%93%88%E5%A4%AB%E6%9B%BC%E6%A0%91%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%92%8C%E5%BA%94%E7%94%A8/</url>
     <content><![CDATA[<h1 id="哈夫曼树类型的实现和应用">哈夫曼树类型的实现和应用</h1>
@@ -1421,6 +1243,51 @@
       <tags>
         <tag>java</tag>
         <tag>data structure</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【面向就业式复习】【java基础】接口</title>
+    <url>/2021/12/11/%E3%80%90%E9%9D%A2%E5%90%91%E5%B0%B1%E4%B8%9A%E5%BC%8F%E5%A4%8D%E4%B9%A0%E3%80%91%E3%80%90java%E5%9F%BA%E7%A1%80%E3%80%91%E6%8E%A5%E5%8F%A3/</url>
+    <content><![CDATA[<h2 id="概念">概念</h2>
+<p>接口不是类，是对类的一组需求描述，这些类要遵从接口描述的统一格式进行定义。</p>
+<p>如果类遵从某个特定接口，那么就履行这项服务。</p>
+<p>实例：Arrays类中的 sort 方法可以对对象数组进行排序，但是前提是 对象所属的类必须实现了 Comparable 接口。</p>
+<p>Comparable 接口的代码：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Comparable</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(Object other)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这就是说，任何实现 Comparable 接口的类都需要包含 compareTo 方法，并且这个方法的参数必须是一个 Object 对象，返回一个整型数值。</p>
+<p>接口中的所有方法皆属于public 因此在接口中声明方法时，不必提供关键字public。</p>
+<p>为了类实现一个接口，通常需要下面两个步骤：</p>
+<ol type="1">
+<li>将类声明为实现给定的接口。（需要使用关键字implements）</li>
+<li>对接口中的所有方法进行定义。</li>
+</ol>
+<h2 id="接口的特性">接口的特性</h2>
+<ul>
+<li>接口不是类，不能使用 new 实例化接口。</li>
+<li>虽然不能构造接口对象，但是可以声明接口变量。</li>
+<li>接口变量必须引用实现了接口的类对象。</li>
+<li>可以使用 instanceof 检查一个对象是否实现了某个接口。</li>
+<li>接口也可以被继承。</li>
+<li>虽然接口中不能包含实例域和静态方法，但可以包含常量。</li>
+</ul>
+<p>接口中的方法都自动地被设置为 public—样，接口中的域将被自动设为 public static final。</p>
+<h2 id="接口与抽象类">接口与抽象类</h2>
+<p>关于抽象类：每个类只能拓展一个类。Java 不支持多继承。一个类只能有一个超类。</p>
+<p>但是接口可以提供多重继承。</p>
+<h2 id="接口相关的面试题">接口相关的面试题：</h2>
+<ul>
+<li>接口和抽象类的区别是什么？</li>
+</ul>
+<ol type="1">
+<li>接⼝的方法默认是 public ，所有⽅法在接⼝中不能有实现(Java 8 开始接口方法可以有默认实现），而抽象类可以有非抽象的方法。</li>
+<li>接⼝中除了 static 、 final 变量，不能有其他变量，而抽象类中则不⼀定。</li>
+<li>⼀个类可以实现多个接口，但只能实现⼀个抽象类。接口自己本身可以通过 extends 关键字扩展多个接口。</li>
+<li>接口方法默认修饰符是 public ，抽象⽅法可以有 public 、protected 和 default 这些修饰符（抽象方法就是为了被重写所以不能使用 private 关键字修饰！）。</li>
+<li>从设计层面来说，抽象是对类的抽象，是⼀种模板设计，而接口是对行为的抽象，是⼀种行为的规范。</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>java</tag>
       </tags>
   </entry>
   <entry>
