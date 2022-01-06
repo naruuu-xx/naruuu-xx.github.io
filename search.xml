@@ -17,6 +17,30 @@
       </tags>
   </entry>
   <entry>
+    <title>JavaSwing贪吃蛇实现</title>
+    <url>/2021/08/11/JavaSwing%E8%B4%AA%E5%90%83%E8%9B%87%E5%AE%9E%E7%8E%B0/</url>
+    <content><![CDATA[<h1 id="java-swing贪吃蛇">Java Swing贪吃蛇</h1>
+<p>前些日子看了youtube上bro code的贪吃蛇代码视频 于是自己跟着视频实现了一下 顺便写了一下注释 。视频链接（需特殊工具才可以浏览 进不去就别进了 直接看我写的注释和代码）：<a href="https://youtu.be/bI6e6qjJ8JQ">snakegame</a></p>
+<p>该项目主要包含三个class：SnakeGame，GamePanel，GameFrame</p>
+<p>下面上代码和代码注释：</p>
+<p>首先新建三个class：SnakeGame，GamePanel，GameFrame（别写同一个大类里，放在同一个包里 分别新建三个类）</p>
+<h2 id="class-snakegame">class SnakeGame</h2>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SnakeGame</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">         <span class="keyword">new</span> GameFrame();<span class="comment">//直接new一个新的GameFrame实例 剩下的全都交给GamePanel和GameFrame做</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="class-gameframe">class GameFrame</h2>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> javax.swing.JFrame;</span><br><span class="line"><span class="comment">//GameFrame继承自JFrame用于生成贪吃蛇程序的初始化窗体</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GameFrame</span>  <span class="keyword">extends</span> <span class="title">JFrame</span> </span>&#123;</span><br><span class="line">    GameFrame()&#123;</span><br><span class="line">        <span class="keyword">this</span>.add(<span class="keyword">new</span> GamePanel());<span class="comment">//添加Panel面板</span></span><br><span class="line">        <span class="keyword">this</span>.setTitle(<span class="string">&quot;Snake&quot;</span>);<span class="comment">//窗口标题为Snake</span></span><br><span class="line">        <span class="keyword">this</span>.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);<span class="comment">//添加关闭按钮 确保窗口可关闭</span></span><br><span class="line">        <span class="keyword">this</span>.setResizable(<span class="keyword">false</span>);<span class="comment">//窗口大小无法被使用者调整，由程序员写死</span></span><br><span class="line">        <span class="keyword">this</span>.pack();<span class="comment">//调整此窗口的大小，以适合其子组件的首选大小和布局</span></span><br><span class="line">        <span class="keyword">this</span>.setVisible(<span class="keyword">true</span>);<span class="comment">//窗口可视化</span></span><br><span class="line">        <span class="keyword">this</span>.setLocationRelativeTo(<span class="keyword">null</span>);<span class="comment">//调节窗口相对于指定组件的位置 为null则默认窗口在屏幕中央弹出</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="class-gamepanel">class GamePanel</h2>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.swing.*;</span><br><span class="line"><span class="keyword">import</span> java.awt.*;</span><br><span class="line"><span class="keyword">import</span> java.awt.event.*;</span><br><span class="line"><span class="keyword">import</span> java.util.Random;</span><br><span class="line"><span class="keyword">import</span> java.util.Timer.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GamePanel</span> <span class="keyword">extends</span> <span class="title">JPanel</span> <span class="keyword">implements</span> <span class="title">ActionListener</span> </span>&#123;</span><br><span class="line">    <span class="comment">//窗口大小 默认600*600 单位大小为贪吃蛇地图大小 数字越大地图越大 判定点越大。</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> SCREEN_WIDTH = <span class="number">600</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> SCREEN_HEIGHT = <span class="number">600</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> UNIT_SIZE = <span class="number">20</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> GAME_UNITS = (SCREEN_WIDTH*SCREEN_HEIGHT)/UNIT_SIZE;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> DELAY = <span class="number">75</span>; <span class="comment">//DELAY为贪吃蛇移动速度 数字越小 贪吃蛇移动速度越快</span></span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span>[] x=<span class="keyword">new</span> <span class="keyword">int</span>[GAME_UNITS];<span class="comment">//</span></span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span>[] y=<span class="keyword">new</span> <span class="keyword">int</span>[GAME_UNITS];</span><br><span class="line">    <span class="keyword">int</span> bodyParts = <span class="number">1</span>;<span class="comment">//蛇身初始化长度为1</span></span><br><span class="line">    <span class="keyword">int</span> applesEaten;<span class="comment">//纪录蛇吃了多少苹果</span></span><br><span class="line">    <span class="keyword">int</span> appleX;<span class="comment">//苹果的坐标</span></span><br><span class="line">    <span class="keyword">int</span> appleY;</span><br><span class="line">    <span class="keyword">char</span> direction = <span class="string">&#x27;R&#x27;</span>;<span class="comment">//默认初始化窗口贪吃蛇的运动方向为向右</span></span><br><span class="line">    <span class="keyword">boolean</span> running =<span class="keyword">false</span>;</span><br><span class="line">    Timer timer;<span class="comment">//引入计时器参数timer</span></span><br><span class="line">    Random random;<span class="comment">//随机数random</span></span><br><span class="line">    GamePanel()&#123;<span class="comment">//面板构造器</span></span><br><span class="line">        random = <span class="keyword">new</span> Random();</span><br><span class="line">        <span class="keyword">this</span>.setPreferredSize(<span class="keyword">new</span> Dimension(SCREEN_WIDTH,SCREEN_HEIGHT));<span class="comment">//组件高度长度确定为刚才设定的SCREEN_WIDTH和SCREEN_HEIGHT</span></span><br><span class="line">        <span class="keyword">this</span>.setBackground(Color.BLACK);<span class="comment">//背景面板颜色设置为黑色</span></span><br><span class="line">        <span class="keyword">this</span>.setFocusable(<span class="keyword">true</span>);<span class="comment">//让窗口可以被操作 改为false 那么无法用键盘操纵蛇</span></span><br><span class="line">        <span class="keyword">this</span>.addKeyListener(<span class="keyword">new</span> MyKeyAdapter());<span class="comment">//确保窗口内的东西可以被键盘指定键操控</span></span><br><span class="line">        startGame();<span class="comment">//开始游戏</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">startGame</span><span class="params">()</span></span>&#123;</span><br><span class="line">        newApple();<span class="comment">//生成新苹果</span></span><br><span class="line">        running =<span class="keyword">true</span>;<span class="comment">//开始运行</span></span><br><span class="line">        timer = <span class="keyword">new</span> Timer(DELAY,<span class="keyword">this</span>);<span class="comment">//计时器启动</span></span><br><span class="line">        timer.start();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">paintComponent</span><span class="params">(Graphics g)</span></span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.paintComponent(g);<span class="comment">//绘制组件</span></span><br><span class="line">        draw(g);<span class="comment">//绘制容器</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">(Graphics g)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(running)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i&lt;SCREEN_HEIGHT/UNIT_SIZE;i++)&#123;</span><br><span class="line">                g.drawLine(i*UNIT_SIZE,<span class="number">0</span>,i*UNIT_SIZE,SCREEN_HEIGHT);</span><br><span class="line">                g.drawLine(<span class="number">0</span>,i*UNIT_SIZE,SCREEN_HEIGHT,i*UNIT_SIZE);<span class="comment">//绘制地图 根据窗口大小来画出每次蛇移动的格子</span></span><br><span class="line">            &#125;</span><br><span class="line">            g.setColor(Color.red);</span><br><span class="line">            g.fillOval(appleX,appleY,UNIT_SIZE,UNIT_SIZE);<span class="comment">//苹果占一个格子</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i&lt; bodyParts;i++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(i == <span class="number">0</span>)&#123;</span><br><span class="line">                    g.setColor(Color.green);</span><br><span class="line">                    g.fillRect(x[i],y[i],UNIT_SIZE,UNIT_SIZE);</span><br><span class="line">                &#125;<span class="comment">//画出初始化绿色的蛇头位置，前面设定的x[],y[]用来确认蛇头</span></span><br><span class="line">                <span class="keyword">else</span>&#123;</span><br><span class="line">                    g.setColor(<span class="keyword">new</span> Color(<span class="number">45</span>,<span class="number">180</span>,<span class="number">0</span>));<span class="comment">//绿色</span></span><br><span class="line">                    g.fillRect(x[i],y[i],UNIT_SIZE,UNIT_SIZE);<span class="comment">//确认蛇身</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            g.setColor(Color.red);</span><br><span class="line">            g.setFont(<span class="keyword">new</span> Font(<span class="string">&quot;Ink Free&quot;</span>,Font.BOLD,<span class="number">40</span>));</span><br><span class="line">            FontMetrics metrics = getFontMetrics(g.getFont());</span><br><span class="line">            g.drawString(<span class="string">&quot;Score:&quot;</span>+applesEaten,(SCREEN_WIDTH - metrics.stringWidth(<span class="string">&quot;Score:&quot;</span>+applesEaten))/<span class="number">2</span>,g.getFont().getSize());<span class="comment">//画出分数 分数的位置在窗口最上方中间</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            gameOver(g);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">newApple</span><span class="params">()</span></span>&#123;</span><br><span class="line">        appleX = random.nextInt((<span class="keyword">int</span>) SCREEN_WIDTH/UNIT_SIZE)*UNIT_SIZE;</span><br><span class="line">        appleY = random.nextInt((<span class="keyword">int</span>) SCREEN_HEIGHT/UNIT_SIZE)*UNIT_SIZE;<span class="comment">//随机生成新苹果</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">move</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = bodyParts;i&gt;<span class="number">0</span>;i--)&#123;</span><br><span class="line">            x[i] = x[i-<span class="number">1</span>];</span><br><span class="line">            y[i] = y[i-<span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">switch</span> (direction)&#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&#x27;U&#x27;</span>:</span><br><span class="line">                y[<span class="number">0</span>] = y [<span class="number">0</span>] - UNIT_SIZE;</span><br><span class="line">                <span class="keyword">break</span>;<span class="comment">//当向上移动时，蛇头的纵坐标变为原纵坐标-单位长度</span></span><br><span class="line">            <span class="keyword">case</span> <span class="string">&#x27;D&#x27;</span>:</span><br><span class="line">                y[<span class="number">0</span>] = y [<span class="number">0</span>] + UNIT_SIZE;</span><br><span class="line">                <span class="keyword">break</span>;<span class="comment">//当向下移动时，蛇头的纵坐标变为原纵坐标+单位长度</span></span><br><span class="line">            <span class="keyword">case</span> <span class="string">&#x27;L&#x27;</span>:</span><br><span class="line">                x[<span class="number">0</span>] = x [<span class="number">0</span>] - UNIT_SIZE;</span><br><span class="line">                <span class="keyword">break</span>;<span class="comment">//当向左移动时，蛇头的横坐标变为原横坐标-单位长度</span></span><br><span class="line">            <span class="keyword">case</span> <span class="string">&#x27;R&#x27;</span>:</span><br><span class="line">                x[<span class="number">0</span>] = x [<span class="number">0</span>] + UNIT_SIZE;</span><br><span class="line">                <span class="keyword">break</span>;<span class="comment">//当向右移动时，蛇头的横坐标变为原横坐标+单位长度</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">checkApple</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>((x[<span class="number">0</span>] == appleX) &amp;&amp;(y[<span class="number">0</span>] == appleY))&#123;</span><br><span class="line">            bodyParts++;</span><br><span class="line">            applesEaten++;</span><br><span class="line">            newApple();<span class="comment">//当蛇头坐标与苹果坐标相同时，蛇身变长，分数加一，然后再生成新苹果</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">checkCollisions</span><span class="params">()</span></span>&#123;</span><br><span class="line">       <span class="comment">//如果蛇头和蛇身相撞 停止运行</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i  = bodyParts;i&gt;<span class="number">0</span>;i--)&#123;</span><br><span class="line">            <span class="keyword">if</span>((x[<span class="number">0</span>] == x[i]) &amp;&amp; (y[<span class="number">0</span>] ==y[i]))&#123;</span><br><span class="line">                running = <span class="keyword">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//如果蛇头撞到窗口左边界 停止运行</span></span><br><span class="line">        <span class="keyword">if</span>(x[<span class="number">0</span>] &lt; <span class="number">0</span>)&#123;</span><br><span class="line">            running = <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//如果蛇头撞到窗口右边界 停止运行</span></span><br><span class="line">        <span class="keyword">if</span> (x[<span class="number">0</span>] &gt; SCREEN_WIDTH)&#123;</span><br><span class="line">            running = <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//如果蛇头撞到窗口上边界 停止运行</span></span><br><span class="line">        <span class="keyword">if</span>(y[<span class="number">0</span>]&lt;<span class="number">0</span>)&#123;</span><br><span class="line">            running = <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//如果蛇头撞到窗口下边界 停止运行</span></span><br><span class="line">        <span class="keyword">if</span>(y[<span class="number">0</span>]&gt;SCREEN_HEIGHT)&#123;</span><br><span class="line">            running = <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//如果停止运行，则计时器也停止</span></span><br><span class="line">        <span class="keyword">if</span> (!running)&#123;</span><br><span class="line">            timer.stop();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">gameOver</span><span class="params">(Graphics g)</span></span>&#123;</span><br><span class="line">        <span class="comment">//当游戏失败时，也显示分数</span></span><br><span class="line">        g.setColor(Color.red);</span><br><span class="line">        g.setFont(<span class="keyword">new</span> Font(<span class="string">&quot;Ink Free&quot;</span>,Font.BOLD,<span class="number">40</span>));</span><br><span class="line">        FontMetrics metrics1 = getFontMetrics(g.getFont());</span><br><span class="line">        g.drawString(<span class="string">&quot;Score:&quot;</span>+applesEaten,(SCREEN_WIDTH - metrics1.stringWidth(<span class="string">&quot;Score:&quot;</span>+applesEaten))/<span class="number">2</span>,g.getFont().getSize());</span><br><span class="line"></span><br><span class="line">        <span class="comment">//游戏失败时，显示gameover</span></span><br><span class="line">        g.setColor(Color.red);</span><br><span class="line">        g.setFont(<span class="keyword">new</span> Font(<span class="string">&quot;Ink Free&quot;</span>,Font.BOLD,<span class="number">75</span>));</span><br><span class="line">        FontMetrics metrics2 = getFontMetrics(g.getFont());</span><br><span class="line">        g.drawString(<span class="string">&quot;Game Over&quot;</span>,(SCREEN_WIDTH - metrics2.stringWidth(<span class="string">&quot;Game Over&quot;</span>))/<span class="number">2</span>,SCREEN_HEIGHT/<span class="number">2</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">actionPerformed</span><span class="params">(ActionEvent e)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(running)&#123;</span><br><span class="line">            move();<span class="comment">//窗口运行时，让蛇开始运动</span></span><br><span class="line">            checkApple();<span class="comment">//检测蛇是否吃到苹果</span></span><br><span class="line">            checkCollisions();<span class="comment">//检测蛇头是否撞到了边界或者蛇身</span></span><br><span class="line">        &#125;</span><br><span class="line">        repaint();<span class="comment">//停止运行就改变画面</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyKeyAdapter</span> <span class="keyword">extends</span> <span class="title">KeyAdapter</span></span>&#123;</span><br><span class="line">        <span class="comment">//首先我们要弄清楚一件事便是，当蛇前进时，是不能后退的，只能向左或向右，同理，蛇向左运动时，是没有办法向右的。</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">keyPressed</span><span class="params">(KeyEvent e)</span></span>&#123;</span><br><span class="line">            <span class="keyword">switch</span> (e.getKeyCode())&#123;</span><br><span class="line">                <span class="keyword">case</span> KeyEvent.VK_LEFT:</span><br><span class="line">                    <span class="keyword">if</span>(direction!= <span class="string">&#x27;R&#x27;</span>)&#123;<span class="comment">//键盘侦听，接受到的键为←时，如果这时蛇没有向右运动，则方向可变为←</span></span><br><span class="line">                        direction=<span class="string">&#x27;L&#x27;</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> KeyEvent.VK_RIGHT:</span><br><span class="line">                    <span class="keyword">if</span>(direction != <span class="string">&#x27;L&#x27;</span>)&#123;<span class="comment">//接受到的键为→时，如果这时蛇没有向左运动，则方向可变为→</span></span><br><span class="line">                        direction=<span class="string">&#x27;R&#x27;</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> KeyEvent.VK_UP:</span><br><span class="line">                    <span class="keyword">if</span>(direction != <span class="string">&#x27;D&#x27;</span>)&#123;<span class="comment">//接受到的键为↑时，如果这时蛇没有向下运动，则方向可变为↑</span></span><br><span class="line">                        direction=<span class="string">&#x27;U&#x27;</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> KeyEvent.VK_DOWN:</span><br><span class="line">                    <span class="keyword">if</span>(direction != <span class="string">&#x27;U&#x27;</span>)&#123;<span class="comment">//接受到的键为↓时，如果这时蛇没有向右运动，则方向可变为↓</span></span><br><span class="line">                        direction=<span class="string">&#x27;D&#x27;</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>Swing</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>Swing</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>ValidParentheses</title>
     <url>/2021/08/05/ValidParentheses/</url>
     <content><![CDATA[<h1 id="有效的括号">有效的括号</h1>
@@ -51,30 +75,6 @@
       </tags>
   </entry>
   <entry>
-    <title>JavaSwing贪吃蛇实现</title>
-    <url>/2021/08/11/JavaSwing%E8%B4%AA%E5%90%83%E8%9B%87%E5%AE%9E%E7%8E%B0/</url>
-    <content><![CDATA[<h1 id="java-swing贪吃蛇">Java Swing贪吃蛇</h1>
-<p>前些日子看了youtube上bro code的贪吃蛇代码视频 于是自己跟着视频实现了一下 顺便写了一下注释 。视频链接（需特殊工具才可以浏览 进不去就别进了 直接看我写的注释和代码）：<a href="https://youtu.be/bI6e6qjJ8JQ">snakegame</a></p>
-<p>该项目主要包含三个class：SnakeGame，GamePanel，GameFrame</p>
-<p>下面上代码和代码注释：</p>
-<p>首先新建三个class：SnakeGame，GamePanel，GameFrame（别写同一个大类里，放在同一个包里 分别新建三个类）</p>
-<h2 id="class-snakegame">class SnakeGame</h2>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SnakeGame</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">         <span class="keyword">new</span> GameFrame();<span class="comment">//直接new一个新的GameFrame实例 剩下的全都交给GamePanel和GameFrame做</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="class-gameframe">class GameFrame</h2>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> javax.swing.JFrame;</span><br><span class="line"><span class="comment">//GameFrame继承自JFrame用于生成贪吃蛇程序的初始化窗体</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GameFrame</span>  <span class="keyword">extends</span> <span class="title">JFrame</span> </span>&#123;</span><br><span class="line">    GameFrame()&#123;</span><br><span class="line">        <span class="keyword">this</span>.add(<span class="keyword">new</span> GamePanel());<span class="comment">//添加Panel面板</span></span><br><span class="line">        <span class="keyword">this</span>.setTitle(<span class="string">&quot;Snake&quot;</span>);<span class="comment">//窗口标题为Snake</span></span><br><span class="line">        <span class="keyword">this</span>.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);<span class="comment">//添加关闭按钮 确保窗口可关闭</span></span><br><span class="line">        <span class="keyword">this</span>.setResizable(<span class="keyword">false</span>);<span class="comment">//窗口大小无法被使用者调整，由程序员写死</span></span><br><span class="line">        <span class="keyword">this</span>.pack();<span class="comment">//调整此窗口的大小，以适合其子组件的首选大小和布局</span></span><br><span class="line">        <span class="keyword">this</span>.setVisible(<span class="keyword">true</span>);<span class="comment">//窗口可视化</span></span><br><span class="line">        <span class="keyword">this</span>.setLocationRelativeTo(<span class="keyword">null</span>);<span class="comment">//调节窗口相对于指定组件的位置 为null则默认窗口在屏幕中央弹出</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="class-gamepanel">class GamePanel</h2>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.swing.*;</span><br><span class="line"><span class="keyword">import</span> java.awt.*;</span><br><span class="line"><span class="keyword">import</span> java.awt.event.*;</span><br><span class="line"><span class="keyword">import</span> java.util.Random;</span><br><span class="line"><span class="keyword">import</span> java.util.Timer.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GamePanel</span> <span class="keyword">extends</span> <span class="title">JPanel</span> <span class="keyword">implements</span> <span class="title">ActionListener</span> </span>&#123;</span><br><span class="line">    <span class="comment">//窗口大小 默认600*600 单位大小为贪吃蛇地图大小 数字越大地图越大 判定点越大。</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> SCREEN_WIDTH = <span class="number">600</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> SCREEN_HEIGHT = <span class="number">600</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> UNIT_SIZE = <span class="number">20</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> GAME_UNITS = (SCREEN_WIDTH*SCREEN_HEIGHT)/UNIT_SIZE;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> DELAY = <span class="number">75</span>; <span class="comment">//DELAY为贪吃蛇移动速度 数字越小 贪吃蛇移动速度越快</span></span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span>[] x=<span class="keyword">new</span> <span class="keyword">int</span>[GAME_UNITS];<span class="comment">//</span></span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span>[] y=<span class="keyword">new</span> <span class="keyword">int</span>[GAME_UNITS];</span><br><span class="line">    <span class="keyword">int</span> bodyParts = <span class="number">1</span>;<span class="comment">//蛇身初始化长度为1</span></span><br><span class="line">    <span class="keyword">int</span> applesEaten;<span class="comment">//纪录蛇吃了多少苹果</span></span><br><span class="line">    <span class="keyword">int</span> appleX;<span class="comment">//苹果的坐标</span></span><br><span class="line">    <span class="keyword">int</span> appleY;</span><br><span class="line">    <span class="keyword">char</span> direction = <span class="string">&#x27;R&#x27;</span>;<span class="comment">//默认初始化窗口贪吃蛇的运动方向为向右</span></span><br><span class="line">    <span class="keyword">boolean</span> running =<span class="keyword">false</span>;</span><br><span class="line">    Timer timer;<span class="comment">//引入计时器参数timer</span></span><br><span class="line">    Random random;<span class="comment">//随机数random</span></span><br><span class="line">    GamePanel()&#123;<span class="comment">//面板构造器</span></span><br><span class="line">        random = <span class="keyword">new</span> Random();</span><br><span class="line">        <span class="keyword">this</span>.setPreferredSize(<span class="keyword">new</span> Dimension(SCREEN_WIDTH,SCREEN_HEIGHT));<span class="comment">//组件高度长度确定为刚才设定的SCREEN_WIDTH和SCREEN_HEIGHT</span></span><br><span class="line">        <span class="keyword">this</span>.setBackground(Color.BLACK);<span class="comment">//背景面板颜色设置为黑色</span></span><br><span class="line">        <span class="keyword">this</span>.setFocusable(<span class="keyword">true</span>);<span class="comment">//让窗口可以被操作 改为false 那么无法用键盘操纵蛇</span></span><br><span class="line">        <span class="keyword">this</span>.addKeyListener(<span class="keyword">new</span> MyKeyAdapter());<span class="comment">//确保窗口内的东西可以被键盘指定键操控</span></span><br><span class="line">        startGame();<span class="comment">//开始游戏</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">startGame</span><span class="params">()</span></span>&#123;</span><br><span class="line">        newApple();<span class="comment">//生成新苹果</span></span><br><span class="line">        running =<span class="keyword">true</span>;<span class="comment">//开始运行</span></span><br><span class="line">        timer = <span class="keyword">new</span> Timer(DELAY,<span class="keyword">this</span>);<span class="comment">//计时器启动</span></span><br><span class="line">        timer.start();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">paintComponent</span><span class="params">(Graphics g)</span></span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.paintComponent(g);<span class="comment">//绘制组件</span></span><br><span class="line">        draw(g);<span class="comment">//绘制容器</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">(Graphics g)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(running)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i&lt;SCREEN_HEIGHT/UNIT_SIZE;i++)&#123;</span><br><span class="line">                g.drawLine(i*UNIT_SIZE,<span class="number">0</span>,i*UNIT_SIZE,SCREEN_HEIGHT);</span><br><span class="line">                g.drawLine(<span class="number">0</span>,i*UNIT_SIZE,SCREEN_HEIGHT,i*UNIT_SIZE);<span class="comment">//绘制地图 根据窗口大小来画出每次蛇移动的格子</span></span><br><span class="line">            &#125;</span><br><span class="line">            g.setColor(Color.red);</span><br><span class="line">            g.fillOval(appleX,appleY,UNIT_SIZE,UNIT_SIZE);<span class="comment">//苹果占一个格子</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i&lt; bodyParts;i++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(i == <span class="number">0</span>)&#123;</span><br><span class="line">                    g.setColor(Color.green);</span><br><span class="line">                    g.fillRect(x[i],y[i],UNIT_SIZE,UNIT_SIZE);</span><br><span class="line">                &#125;<span class="comment">//画出初始化绿色的蛇头位置，前面设定的x[],y[]用来确认蛇头</span></span><br><span class="line">                <span class="keyword">else</span>&#123;</span><br><span class="line">                    g.setColor(<span class="keyword">new</span> Color(<span class="number">45</span>,<span class="number">180</span>,<span class="number">0</span>));<span class="comment">//绿色</span></span><br><span class="line">                    g.fillRect(x[i],y[i],UNIT_SIZE,UNIT_SIZE);<span class="comment">//确认蛇身</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            g.setColor(Color.red);</span><br><span class="line">            g.setFont(<span class="keyword">new</span> Font(<span class="string">&quot;Ink Free&quot;</span>,Font.BOLD,<span class="number">40</span>));</span><br><span class="line">            FontMetrics metrics = getFontMetrics(g.getFont());</span><br><span class="line">            g.drawString(<span class="string">&quot;Score:&quot;</span>+applesEaten,(SCREEN_WIDTH - metrics.stringWidth(<span class="string">&quot;Score:&quot;</span>+applesEaten))/<span class="number">2</span>,g.getFont().getSize());<span class="comment">//画出分数 分数的位置在窗口最上方中间</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            gameOver(g);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">newApple</span><span class="params">()</span></span>&#123;</span><br><span class="line">        appleX = random.nextInt((<span class="keyword">int</span>) SCREEN_WIDTH/UNIT_SIZE)*UNIT_SIZE;</span><br><span class="line">        appleY = random.nextInt((<span class="keyword">int</span>) SCREEN_HEIGHT/UNIT_SIZE)*UNIT_SIZE;<span class="comment">//随机生成新苹果</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">move</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = bodyParts;i&gt;<span class="number">0</span>;i--)&#123;</span><br><span class="line">            x[i] = x[i-<span class="number">1</span>];</span><br><span class="line">            y[i] = y[i-<span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">switch</span> (direction)&#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&#x27;U&#x27;</span>:</span><br><span class="line">                y[<span class="number">0</span>] = y [<span class="number">0</span>] - UNIT_SIZE;</span><br><span class="line">                <span class="keyword">break</span>;<span class="comment">//当向上移动时，蛇头的纵坐标变为原纵坐标-单位长度</span></span><br><span class="line">            <span class="keyword">case</span> <span class="string">&#x27;D&#x27;</span>:</span><br><span class="line">                y[<span class="number">0</span>] = y [<span class="number">0</span>] + UNIT_SIZE;</span><br><span class="line">                <span class="keyword">break</span>;<span class="comment">//当向下移动时，蛇头的纵坐标变为原纵坐标+单位长度</span></span><br><span class="line">            <span class="keyword">case</span> <span class="string">&#x27;L&#x27;</span>:</span><br><span class="line">                x[<span class="number">0</span>] = x [<span class="number">0</span>] - UNIT_SIZE;</span><br><span class="line">                <span class="keyword">break</span>;<span class="comment">//当向左移动时，蛇头的横坐标变为原横坐标-单位长度</span></span><br><span class="line">            <span class="keyword">case</span> <span class="string">&#x27;R&#x27;</span>:</span><br><span class="line">                x[<span class="number">0</span>] = x [<span class="number">0</span>] + UNIT_SIZE;</span><br><span class="line">                <span class="keyword">break</span>;<span class="comment">//当向右移动时，蛇头的横坐标变为原横坐标+单位长度</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">checkApple</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>((x[<span class="number">0</span>] == appleX) &amp;&amp;(y[<span class="number">0</span>] == appleY))&#123;</span><br><span class="line">            bodyParts++;</span><br><span class="line">            applesEaten++;</span><br><span class="line">            newApple();<span class="comment">//当蛇头坐标与苹果坐标相同时，蛇身变长，分数加一，然后再生成新苹果</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">checkCollisions</span><span class="params">()</span></span>&#123;</span><br><span class="line">       <span class="comment">//如果蛇头和蛇身相撞 停止运行</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i  = bodyParts;i&gt;<span class="number">0</span>;i--)&#123;</span><br><span class="line">            <span class="keyword">if</span>((x[<span class="number">0</span>] == x[i]) &amp;&amp; (y[<span class="number">0</span>] ==y[i]))&#123;</span><br><span class="line">                running = <span class="keyword">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//如果蛇头撞到窗口左边界 停止运行</span></span><br><span class="line">        <span class="keyword">if</span>(x[<span class="number">0</span>] &lt; <span class="number">0</span>)&#123;</span><br><span class="line">            running = <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//如果蛇头撞到窗口右边界 停止运行</span></span><br><span class="line">        <span class="keyword">if</span> (x[<span class="number">0</span>] &gt; SCREEN_WIDTH)&#123;</span><br><span class="line">            running = <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//如果蛇头撞到窗口上边界 停止运行</span></span><br><span class="line">        <span class="keyword">if</span>(y[<span class="number">0</span>]&lt;<span class="number">0</span>)&#123;</span><br><span class="line">            running = <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//如果蛇头撞到窗口下边界 停止运行</span></span><br><span class="line">        <span class="keyword">if</span>(y[<span class="number">0</span>]&gt;SCREEN_HEIGHT)&#123;</span><br><span class="line">            running = <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//如果停止运行，则计时器也停止</span></span><br><span class="line">        <span class="keyword">if</span> (!running)&#123;</span><br><span class="line">            timer.stop();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">gameOver</span><span class="params">(Graphics g)</span></span>&#123;</span><br><span class="line">        <span class="comment">//当游戏失败时，也显示分数</span></span><br><span class="line">        g.setColor(Color.red);</span><br><span class="line">        g.setFont(<span class="keyword">new</span> Font(<span class="string">&quot;Ink Free&quot;</span>,Font.BOLD,<span class="number">40</span>));</span><br><span class="line">        FontMetrics metrics1 = getFontMetrics(g.getFont());</span><br><span class="line">        g.drawString(<span class="string">&quot;Score:&quot;</span>+applesEaten,(SCREEN_WIDTH - metrics1.stringWidth(<span class="string">&quot;Score:&quot;</span>+applesEaten))/<span class="number">2</span>,g.getFont().getSize());</span><br><span class="line"></span><br><span class="line">        <span class="comment">//游戏失败时，显示gameover</span></span><br><span class="line">        g.setColor(Color.red);</span><br><span class="line">        g.setFont(<span class="keyword">new</span> Font(<span class="string">&quot;Ink Free&quot;</span>,Font.BOLD,<span class="number">75</span>));</span><br><span class="line">        FontMetrics metrics2 = getFontMetrics(g.getFont());</span><br><span class="line">        g.drawString(<span class="string">&quot;Game Over&quot;</span>,(SCREEN_WIDTH - metrics2.stringWidth(<span class="string">&quot;Game Over&quot;</span>))/<span class="number">2</span>,SCREEN_HEIGHT/<span class="number">2</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">actionPerformed</span><span class="params">(ActionEvent e)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(running)&#123;</span><br><span class="line">            move();<span class="comment">//窗口运行时，让蛇开始运动</span></span><br><span class="line">            checkApple();<span class="comment">//检测蛇是否吃到苹果</span></span><br><span class="line">            checkCollisions();<span class="comment">//检测蛇头是否撞到了边界或者蛇身</span></span><br><span class="line">        &#125;</span><br><span class="line">        repaint();<span class="comment">//停止运行就改变画面</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyKeyAdapter</span> <span class="keyword">extends</span> <span class="title">KeyAdapter</span></span>&#123;</span><br><span class="line">        <span class="comment">//首先我们要弄清楚一件事便是，当蛇前进时，是不能后退的，只能向左或向右，同理，蛇向左运动时，是没有办法向右的。</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">keyPressed</span><span class="params">(KeyEvent e)</span></span>&#123;</span><br><span class="line">            <span class="keyword">switch</span> (e.getKeyCode())&#123;</span><br><span class="line">                <span class="keyword">case</span> KeyEvent.VK_LEFT:</span><br><span class="line">                    <span class="keyword">if</span>(direction!= <span class="string">&#x27;R&#x27;</span>)&#123;<span class="comment">//键盘侦听，接受到的键为←时，如果这时蛇没有向右运动，则方向可变为←</span></span><br><span class="line">                        direction=<span class="string">&#x27;L&#x27;</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> KeyEvent.VK_RIGHT:</span><br><span class="line">                    <span class="keyword">if</span>(direction != <span class="string">&#x27;L&#x27;</span>)&#123;<span class="comment">//接受到的键为→时，如果这时蛇没有向左运动，则方向可变为→</span></span><br><span class="line">                        direction=<span class="string">&#x27;R&#x27;</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> KeyEvent.VK_UP:</span><br><span class="line">                    <span class="keyword">if</span>(direction != <span class="string">&#x27;D&#x27;</span>)&#123;<span class="comment">//接受到的键为↑时，如果这时蛇没有向下运动，则方向可变为↑</span></span><br><span class="line">                        direction=<span class="string">&#x27;U&#x27;</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> KeyEvent.VK_DOWN:</span><br><span class="line">                    <span class="keyword">if</span>(direction != <span class="string">&#x27;U&#x27;</span>)&#123;<span class="comment">//接受到的键为↓时，如果这时蛇没有向右运动，则方向可变为↓</span></span><br><span class="line">                        direction=<span class="string">&#x27;D&#x27;</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>java</category>
-        <category>Swing</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>Swing</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>java不规则数组实现杨辉三角</title>
     <url>/2021/08/20/java%E4%B8%8D%E8%A7%84%E5%88%99%E6%95%B0%E7%BB%84%E5%AE%9E%E7%8E%B0%E6%9D%A8%E8%BE%89%E4%B8%89%E8%A7%92/</url>
     <content><![CDATA[<h1 id="java不规则数组实现杨辉三角">【java】不规则数组实现杨辉三角</h1>
@@ -92,55 +92,6 @@
       </categories>
       <tags>
         <tag>java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【java】【leetcode】1423.可获得的最大点数</title>
-    <url>/2021/10/31/%E3%80%90java%E3%80%91%E3%80%90leetcode%E3%80%911423.%20%E5%8F%AF%E8%8E%B7%E5%BE%97%E7%9A%84%E6%9C%80%E5%A4%A7%E7%82%B9%E6%95%B0%20%E6%BB%91%E7%AA%97/</url>
-    <content><![CDATA[<p>原题链接在此附上：<a href="https://leetcode-cn.com/problems/maximum-points-you-can-obtain-from-cards/">1423. 可获得的最大点数</a></p>
-<p>这题有点意思，和我们平常做题思维不太一样，所谓滑窗，我觉得我们一般都会优先考虑划结果范围那个窗，但是这个题是反着来的，你要确定的结果是数组头部和尾部元素的最大和，并不适合我们直接进行滑窗操作，于是这道题的思路就变成了逆向操作，既然不能直接滑窗，就间接来，要求解头部和尾部元素的最大和，那是不是直接求整体的和然后减去数组中间元素最小和就是左右两端的最大和了？ 所以我们写代码时要确定的几件事事情便是：</p>
-<p><strong>我们要划多大的窗？</strong></p>
-<p>已知我们要求前后k个数之和最大值 设：数组长度为 n ，窗口大小为size 那我们的滑窗大小即为，n-k（求解出n-k个数的最小和）。</p>
-<p><strong>那这个窗口要从哪开始划呢？</strong></p>
-<p>因为数组是无序的，我们没有办法去直接判断从哪边开始划，我们要确定出来一个区间，相加的值是最小的。</p>
-<p><strong>具体要怎么确定？</strong></p>
-<p>从头开始，前确定前 n-k 个数的和。 设我们滑窗区间之和为 sum ，首先计算出数组元素 0 下标到下标 n-k-1 的和。 此时设最小和为 minsum ， minisum 默认值和 sum 相同。 我们现在只是确认了数组前 n-k 个数的和，无法保证这个和是最小的，所以我们要开始遍历进行判断。</p>
-<p><strong>怎么判断和筛选区间呢？</strong></p>
-<p>现在我们的窗口大小已经确定为 n-k 了，剩下的工作就是滑动窗口，确定窗口内加起来的数和最小。 所以我们要遍历数组剩下的位置，即 n-k 到 n 。 然后我们要做的就是：窗口向右移动的同时，窗口大小是固定的，有新的数字加入窗口中，那么我就要舍弃最左边的数字，这样才能保证我们的窗口大小不变。 然后确定新加进来的数与剔除掉最左部的数之后的和与最小和的关系。 如果它比较小，它将代替旧的最小和成为新的最小和。否则则继续遍历。 最终我们还差一步操作，我们求得是中间的最小和，不是题目要求的两端最大和。 所以我们需要 求解整个数组的元素之和，然后减去中间的最小和，即为最终结果。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxScore</span><span class="params">(<span class="keyword">int</span>[] cardPoints, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = cardPoints.length; <span class="comment">// 确定数组长度</span></span><br><span class="line">    <span class="keyword">int</span> size = n - k; <span class="comment">// 确定滑窗区间</span></span><br><span class="line">    <span class="keyword">int</span> sum = <span class="number">0</span>; <span class="comment">// 滑窗区间总和</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i =<span class="number">0</span>; i &lt;size; i++)&#123;</span><br><span class="line">        sum += cardPoints[i]; <span class="comment">// 先确定区间内的元素个数</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> minsum = sum; <span class="comment">// 最小和先默认为区间总和</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = size; i &lt; n; i++)&#123;</span><br><span class="line">      </span><br><span class="line">        sum += cardPoints[i]-cardPoints[i-size]; <span class="comment">// 窗口滑动的同时，窗口区间总和会变化</span></span><br><span class="line">        minsum = Math.min(sum,minsum); <span class="comment">// 寻找滑窗区间最小和</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> Arrays.stream(cardPoints).sum()-minsum; <span class="comment">// 使用 stream.sum 求解数组之和然后利用数组总和减去中间滑窗区间的最小和即可确认边界最大和。</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>leetcode</category>
-      </categories>
-      <tags>
-        <tag>leetcode</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【java】【leetcode】两数之和 三种解法 暴力、滑窗、哈希表</title>
-    <url>/2021/10/31/%E3%80%90java%E3%80%91%E3%80%90leetcode%E3%80%91%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C%20%E4%B8%89%E7%A7%8D%E8%A7%A3%E6%B3%95%20%E6%9A%B4%E5%8A%9B%E3%80%81%E6%BB%91%E7%AA%97%E3%80%81%E5%93%88%E5%B8%8C%E8%A1%A8/</url>
-    <content><![CDATA[<p>题目链接：<a href="https://leetcode-cn.com/problems/two-sum/">1.两数之和</a></p>
-<h2 id="解法一双层循环">解法一：双层循环</h2>
-<h3 id="解题思路">解题思路</h3>
-<p>观察函数块返回类型为<code>int[]</code> 引入<code>int[]</code> 对象 <code>result</code> 。 双层循环，i 从 0 开始，j 在 i 前面，二者相加判断，不等于 target 就继续循环。 等于 target 就将 i , j 放进 result 内。 返回 result 。</p>
-<h3 id="代码">代码</h3>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] twoSum(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target) &#123;</span><br><span class="line">         <span class="keyword">int</span>[] result=<span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">2</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt; nums.length;i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j= i+<span class="number">1</span>;j&lt; nums.length;j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(nums[i]+nums[j]==target)&#123;</span><br><span class="line">                    result[<span class="number">0</span>]=i;</span><br><span class="line">                    result[<span class="number">1</span>]=j;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="解法二-优化解法一">解法二: 优化解法一</h2>
-<h3 id="解题思路-1">解题思路</h3>
-<p>由解法一可知，j 和 i 有关系，j 总是在 i 的后一位，那么我们是否可以根据这个条件将代码简化呢？ 将 i,j 设为 0 , 1 .当下标元素相加等于 target 时，返回长度为 2 元素为 i , j 的一维数组。 下标元素相加不等于 target 时，移动 j 的位置，直到 j 到达数组长度。 此时说明在 i 这个位置的元素后的任意一个数和它相加，都得不到 target ，我们将 i 的位置后移，j 也随之后移。</p>
-<h3 id="代码-1">代码</h3>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] twoSum(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target) &#123;</span><br><span class="line">        <span class="keyword">int</span> i=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> j=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> max=nums.length-<span class="number">1</span>;</span><br><span class="line">       <span class="keyword">while</span>(nums[i]+nums[j]!=target)&#123;</span><br><span class="line">            <span class="keyword">if</span>(j==max)&#123;</span><br><span class="line">                i++;</span><br><span class="line">                j=i;</span><br><span class="line">            &#125;</span><br><span class="line">        j++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;i,j&#125;;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="解法三-使用哈希表">解法三 使用哈希表</h2>
-<h3 id="解题思路-2">解题思路</h3>
-<p>使用哈希表来存储数组元素。只需一层循环。 if 条件要点为：哈希表 maps 中是否存在有 target-nums[i] 这个值。 如果没有，则将 nums[i] 的值放入表中。</p>
-<h3 id="代码-2">代码</h3>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] twoSum(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target) &#123;</span><br><span class="line">        HashMap&lt;Integer,Integer&gt; maps=<span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.length;++i)&#123;</span><br><span class="line">            <span class="keyword">if</span>(maps.containsKey(target-nums[i]))&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;maps.get(target-nums[i]),i&#125;;</span><br><span class="line">            &#125;</span><br><span class="line">            maps.put(nums[i],i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>leetcode</category>
-      </categories>
-      <tags>
-        <tag>leetcode</tag>
       </tags>
   </entry>
   <entry>
@@ -444,6 +395,55 @@
       </tags>
   </entry>
   <entry>
+    <title>【java】【leetcode】1423.可获得的最大点数</title>
+    <url>/2021/10/31/%E3%80%90java%E3%80%91%E3%80%90leetcode%E3%80%911423.%20%E5%8F%AF%E8%8E%B7%E5%BE%97%E7%9A%84%E6%9C%80%E5%A4%A7%E7%82%B9%E6%95%B0%20%E6%BB%91%E7%AA%97/</url>
+    <content><![CDATA[<p>原题链接在此附上：<a href="https://leetcode-cn.com/problems/maximum-points-you-can-obtain-from-cards/">1423. 可获得的最大点数</a></p>
+<p>这题有点意思，和我们平常做题思维不太一样，所谓滑窗，我觉得我们一般都会优先考虑划结果范围那个窗，但是这个题是反着来的，你要确定的结果是数组头部和尾部元素的最大和，并不适合我们直接进行滑窗操作，于是这道题的思路就变成了逆向操作，既然不能直接滑窗，就间接来，要求解头部和尾部元素的最大和，那是不是直接求整体的和然后减去数组中间元素最小和就是左右两端的最大和了？ 所以我们写代码时要确定的几件事事情便是：</p>
+<p><strong>我们要划多大的窗？</strong></p>
+<p>已知我们要求前后k个数之和最大值 设：数组长度为 n ，窗口大小为size 那我们的滑窗大小即为，n-k（求解出n-k个数的最小和）。</p>
+<p><strong>那这个窗口要从哪开始划呢？</strong></p>
+<p>因为数组是无序的，我们没有办法去直接判断从哪边开始划，我们要确定出来一个区间，相加的值是最小的。</p>
+<p><strong>具体要怎么确定？</strong></p>
+<p>从头开始，前确定前 n-k 个数的和。 设我们滑窗区间之和为 sum ，首先计算出数组元素 0 下标到下标 n-k-1 的和。 此时设最小和为 minsum ， minisum 默认值和 sum 相同。 我们现在只是确认了数组前 n-k 个数的和，无法保证这个和是最小的，所以我们要开始遍历进行判断。</p>
+<p><strong>怎么判断和筛选区间呢？</strong></p>
+<p>现在我们的窗口大小已经确定为 n-k 了，剩下的工作就是滑动窗口，确定窗口内加起来的数和最小。 所以我们要遍历数组剩下的位置，即 n-k 到 n 。 然后我们要做的就是：窗口向右移动的同时，窗口大小是固定的，有新的数字加入窗口中，那么我就要舍弃最左边的数字，这样才能保证我们的窗口大小不变。 然后确定新加进来的数与剔除掉最左部的数之后的和与最小和的关系。 如果它比较小，它将代替旧的最小和成为新的最小和。否则则继续遍历。 最终我们还差一步操作，我们求得是中间的最小和，不是题目要求的两端最大和。 所以我们需要 求解整个数组的元素之和，然后减去中间的最小和，即为最终结果。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxScore</span><span class="params">(<span class="keyword">int</span>[] cardPoints, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = cardPoints.length; <span class="comment">// 确定数组长度</span></span><br><span class="line">    <span class="keyword">int</span> size = n - k; <span class="comment">// 确定滑窗区间</span></span><br><span class="line">    <span class="keyword">int</span> sum = <span class="number">0</span>; <span class="comment">// 滑窗区间总和</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i =<span class="number">0</span>; i &lt;size; i++)&#123;</span><br><span class="line">        sum += cardPoints[i]; <span class="comment">// 先确定区间内的元素个数</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> minsum = sum; <span class="comment">// 最小和先默认为区间总和</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = size; i &lt; n; i++)&#123;</span><br><span class="line">      </span><br><span class="line">        sum += cardPoints[i]-cardPoints[i-size]; <span class="comment">// 窗口滑动的同时，窗口区间总和会变化</span></span><br><span class="line">        minsum = Math.min(sum,minsum); <span class="comment">// 寻找滑窗区间最小和</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> Arrays.stream(cardPoints).sum()-minsum; <span class="comment">// 使用 stream.sum 求解数组之和然后利用数组总和减去中间滑窗区间的最小和即可确认边界最大和。</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【java】【leetcode】两数之和 三种解法 暴力、滑窗、哈希表</title>
+    <url>/2021/10/31/%E3%80%90java%E3%80%91%E3%80%90leetcode%E3%80%91%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C%20%E4%B8%89%E7%A7%8D%E8%A7%A3%E6%B3%95%20%E6%9A%B4%E5%8A%9B%E3%80%81%E6%BB%91%E7%AA%97%E3%80%81%E5%93%88%E5%B8%8C%E8%A1%A8/</url>
+    <content><![CDATA[<p>题目链接：<a href="https://leetcode-cn.com/problems/two-sum/">1.两数之和</a></p>
+<h2 id="解法一双层循环">解法一：双层循环</h2>
+<h3 id="解题思路">解题思路</h3>
+<p>观察函数块返回类型为<code>int[]</code> 引入<code>int[]</code> 对象 <code>result</code> 。 双层循环，i 从 0 开始，j 在 i 前面，二者相加判断，不等于 target 就继续循环。 等于 target 就将 i , j 放进 result 内。 返回 result 。</p>
+<h3 id="代码">代码</h3>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] twoSum(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target) &#123;</span><br><span class="line">         <span class="keyword">int</span>[] result=<span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">2</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt; nums.length;i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j= i+<span class="number">1</span>;j&lt; nums.length;j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(nums[i]+nums[j]==target)&#123;</span><br><span class="line">                    result[<span class="number">0</span>]=i;</span><br><span class="line">                    result[<span class="number">1</span>]=j;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="解法二-优化解法一">解法二: 优化解法一</h2>
+<h3 id="解题思路-1">解题思路</h3>
+<p>由解法一可知，j 和 i 有关系，j 总是在 i 的后一位，那么我们是否可以根据这个条件将代码简化呢？ 将 i,j 设为 0 , 1 .当下标元素相加等于 target 时，返回长度为 2 元素为 i , j 的一维数组。 下标元素相加不等于 target 时，移动 j 的位置，直到 j 到达数组长度。 此时说明在 i 这个位置的元素后的任意一个数和它相加，都得不到 target ，我们将 i 的位置后移，j 也随之后移。</p>
+<h3 id="代码-1">代码</h3>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] twoSum(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target) &#123;</span><br><span class="line">        <span class="keyword">int</span> i=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> j=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> max=nums.length-<span class="number">1</span>;</span><br><span class="line">       <span class="keyword">while</span>(nums[i]+nums[j]!=target)&#123;</span><br><span class="line">            <span class="keyword">if</span>(j==max)&#123;</span><br><span class="line">                i++;</span><br><span class="line">                j=i;</span><br><span class="line">            &#125;</span><br><span class="line">        j++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;i,j&#125;;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="解法三-使用哈希表">解法三 使用哈希表</h2>
+<h3 id="解题思路-2">解题思路</h3>
+<p>使用哈希表来存储数组元素。只需一层循环。 if 条件要点为：哈希表 maps 中是否存在有 target-nums[i] 这个值。 如果没有，则将 nums[i] 的值放入表中。</p>
+<h3 id="代码-2">代码</h3>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] twoSum(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target) &#123;</span><br><span class="line">        HashMap&lt;Integer,Integer&gt; maps=<span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.length;++i)&#123;</span><br><span class="line">            <span class="keyword">if</span>(maps.containsKey(target-nums[i]))&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;maps.get(target-nums[i]),i&#125;;</span><br><span class="line">            &#125;</span><br><span class="line">            maps.put(nums[i],i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>【java】【leetcode】面试题 08 04.幂集</title>
     <url>/2021/11/03/%E3%80%90java%E3%80%91%E3%80%90leetcode%E3%80%91%E9%9D%A2%E8%AF%95%E9%A2%98%2008%2004.%E5%B9%82%E9%9B%86/</url>
     <content><![CDATA[<p>题目链接： <a href="https://leetcode-cn.com/problems/power-set-lcci/">幂集</a></p>
@@ -733,80 +733,6 @@
       </tags>
   </entry>
   <entry>
-    <title>【久远讲算法】栈——后进先出的数据结构</title>
-    <url>/2021/11/07/%E3%80%90%E4%B9%85%E8%BF%9C%E8%AE%B2%E7%AE%97%E6%B3%95%E3%80%91%E6%A0%88%E2%80%94%E5%90%8E%E8%BF%9B%E5%85%88%E5%87%BA%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</url>
-    <content><![CDATA[<p>你好我是久远，我们先来复习一下上周我们讲的知识。</p>
-<ul>
-<li>什么是链表？</li>
-</ul>
-<p>在计算机科学中，链表是一种常见的基础数据结构，是一种线性表，但是并不会按线性的顺序存储数据，而是在每一个节点里存到下一个节点的指针。</p>
-<ul>
-<li>链表的优点</li>
-</ul>
-<p>由于不必须按顺序存储，链表在插入的时候可以达到O(1)的复杂度，比数组快得多，但是查找一个节点或者访问特定编号的节点则需要O(n)的时间，而顺序表相应的时间复杂度分别是O(logn)和O(1)。使用链表结构可以克服数组链表需要预先知道数据大小的缺点，链表结构可以充分利用计算机内存空间，实现灵活的内存动态管理。但是链表失去了数组随机读取的优点，同时链表由于增加了结点的指针域，空间开销比较大。</p>
-<h2 id="什么是栈">什么是栈</h2>
-<p>栈有时也被称作堆栈或者堆叠。栈是有序集合，它的添加，移除操作总是发生在同一端，设这一端为顶端，则未执行操作的一端为底端。 栈中的元素离底端越近，代表其在栈中的时间越长，最新添加的元素将被最先移除。这种排序原则被称作 LIFO（last-in first-out），即后进先出。它提供了一种基于在集合中的时间来排序的方式。最近添加的元素靠近顶端，旧元素则靠近底端。</p>
-<p>生活中的例子：</p>
-<p>在我们的生活中也很常见关于栈的例子，假设我们有一个放羽毛球的球桶，我们只能从桶的上面取出球，底部是不能取的，靠近开口的球，更先被取到。</p>
-<p>既然有取出的先后，那么我们的栈也算是有顺序的，我们依旧使用列表来实现栈的一些操作。</p>
-<p>举例来说，对于列表[1, 5, 3, 7, 8, 6]，只需要考虑将它的哪一边视为栈的顶端。一旦确定了顶端，所有的操作就可以利用 append 和pop 等列表方法来实现。</p>
-<p>在这里我们视列表的尾部为栈顶，因此当进行 push 操作时，新的元素会被添加到列表的尾部。pop 操作同样会修改这一端。</p>
-<h2 id="栈的操作">栈的操作</h2>
-<p>我们前面已经介绍了栈的基本情况，既然我们要实现栈的操作，那我们肯定要新建一个栈，有了这个栈，我们肯定要做一些彰显出栈特性的事情————出栈，入栈。还有我们常见的操作，判断是否为空，判断栈的大小等等。</p>
-<p>以下是我们要实现的方法：</p>
-<ul>
-<li>Stack()创建一个空栈。不传任何参数，返回空栈。</li>
-<li>push(item)将一个元素添加到栈的顶端。它需要一个参数 item，且无返回值。</li>
-<li>pop()将栈顶端的元素移除。它不需要参数，但会返回顶端的元素，并且修改栈的内容。</li>
-<li>peek()返回栈顶端的元素，但是并不移除该元素。它不需要参数，也不会修改栈的内容。</li>
-<li>isEmpty()检查栈是否为空。它不需要参数，且会返回一个布尔值。</li>
-<li>size()返回栈中元素的数目。它不需要参数，且会返回一个整数。</li>
-</ul>
-<h3 id="栈的定义">栈的定义</h3>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Stack</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.items = []</span><br></pre></td></tr></table></figure>
-<p>定义一个 stack 类来告诉计算机，我们现在定义了一个全新的类型叫做 stack ，每个类有一个定义方法即 <strong>init</strong>() ,我们使用 <strong>init</strong> 方法来定义栈的一些属性。我们新建一个栈，栈中最重要的就是元素，多个元素构成栈，而一开始当我们没有向栈中放入任何元素时，栈是空的，因此有 self.items = []，我们定义了一个空栈来作为栈的初始化。</p>
-<h3 id="栈是否为空">栈是否为空</h3>
-<p>既然栈存在，我们就可以进行栈有无的判断，我们也像之前的数据结构类型一样，引入 isEmpty() 方法来判断栈中是否有元素，没有元素则为空栈，返回 true ；包含有元素，则说明栈不为空，返回 false。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">isEmpty</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> self.items == []</span><br></pre></td></tr></table></figure>
-<h3 id="栈的大小">栈的大小</h3>
-<p>栈的大小实际上就是判断栈中有多少元素，而我们使用列表来进行栈的实现，因此我们只需要使用 len() 方法计算引入的列表的长度即可判断栈中元素的多少了，即栈的大小。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">size</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">len</span>(self.items)</span><br></pre></td></tr></table></figure>
-<h3 id="入栈操作">入栈操作</h3>
-<p>现在我们既可以判断栈中是否有元素，又可以判断栈的大小了，那么接下来就要实现栈最主要的两个操作了，入栈和出栈。</p>
-<p>进行入栈操作我们就要想到，既然要把元素加入到栈中，那么我们就要传入一个参数去表示要加入到栈中的元素，然后将这个参数加入到栈中即可。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">push</span>(<span class="params">self, item</span>):</span></span><br><span class="line">        self.items.append(item)</span><br></pre></td></tr></table></figure>
-<p>我们传入一个 item 参数，为我们要加入到栈中的元素，然后将其加入到我们引入的 items 列表中即可完成栈中元素的加入了。</p>
-<h3 id="出栈操作">出栈操作</h3>
-<p>既然有元素加入到栈中，那我们就可以将元素从栈中删除，因此我们有了出栈的操作，出栈操作一般的思维是这样的：我们让栈顶的元素弹出，同时也要告诉大家，我弹出的是哪个元素。</p>
-<p>因此要返回弹出的那个元素。</p>
-<p>代码实现为：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">pop</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> self.items.pop()</span><br></pre></td></tr></table></figure>
-<p>使用列表中的 pop方法，返回列表末尾的那个元素，并将该元素从列表中删除，实现出栈。</p>
-<h3 id="查看栈顶">查看栈顶</h3>
-<p>我们的栈操作中通常还包含一项查看栈顶元素的操作，因为我们在此将引入的列表末尾视为栈顶，因此我们只需要返回所引入的列表的最后一个元素即可。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">peek</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span>  self.items[<span class="built_in">len</span>(self.items)-<span class="number">1</span>]</span><br></pre></td></tr></table></figure>
-<p>整体的代码如下：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Stack</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.items = []</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isEmpty</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> self.items == []</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">size</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">len</span>(self.items)</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">push</span>(<span class="params">self, item</span>):</span></span><br><span class="line">        self.items.append(item)</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">pop</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> self.items.pop()</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">peek</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span>  self.items[<span class="built_in">len</span>(self.items)-<span class="number">1</span>]</span><br></pre></td></tr></table></figure>
-<h2 id="总结">总结</h2>
-<p>恭喜你又学完了一个知识点，栈是一个后进先出的数据类型，它有两个非常主要的操作，进栈和出栈：</p>
-<ul>
-<li>进栈：将资料放入栈的顶端，栈的顶端移到新放入的资料。</li>
-<li>出栈：将堆栈顶端资料移除，堆栈顶端移到移除后的下一笔资料。</li>
-</ul>
-<p>它可以用数组或者链表来实现，而由于 python 的特殊性，我们常使用列表来实现栈的操作。</p>
-<p>与栈相对的有队列，队列是一种先进先出的数据类型，我们下次会进行讲解。</p>
-<blockquote>
-<p>流沙团队联合AI悦创|久远·推出辅导班啦，包括「Python 语言辅导班、C++ 辅导班、java 辅导班、算法/数据结构辅导班、少儿编程、pygame 游戏开发」，全部都是一对一教学：一对一辅导 + 一对一答疑 + 布置作业 + 项目实践等。QQ、微信在线，随时响应！</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>data structure</category>
-      </categories>
-      <tags>
-        <tag>data structure</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>【久远讲算法】数组——最简单的数据结构</title>
     <url>/2021/10/30/%E3%80%90%E4%B9%85%E8%BF%9C%E8%AE%B2%E7%AE%97%E6%B3%95%E3%80%91%E6%95%B0%E7%BB%84%E2%80%94%E2%80%94%E6%9C%80%E7%AE%80%E5%8D%95%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</url>
     <content><![CDATA[<p>前言：</p>
@@ -933,6 +859,80 @@
 <p>流沙团队联合AI悦创|久远·推出辅导班啦，包括「Python 语言辅导班、C++ 辅导班、java 辅导班、算法/数据结构辅导班、少儿编程、pygame 游戏开发」，全部都是一对一教学：一对一辅导 + 一对一答疑 + 布置作业 + 项目实践等。QQ、微信在线，随时响应！</p>
 </blockquote>
 <p><img src="新建文本文档.assets/202110302224870.jpg" /></p>
+]]></content>
+      <categories>
+        <category>data structure</category>
+      </categories>
+      <tags>
+        <tag>data structure</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【久远讲算法】栈——后进先出的数据结构</title>
+    <url>/2021/11/07/%E3%80%90%E4%B9%85%E8%BF%9C%E8%AE%B2%E7%AE%97%E6%B3%95%E3%80%91%E6%A0%88%E2%80%94%E5%90%8E%E8%BF%9B%E5%85%88%E5%87%BA%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</url>
+    <content><![CDATA[<p>你好我是久远，我们先来复习一下上周我们讲的知识。</p>
+<ul>
+<li>什么是链表？</li>
+</ul>
+<p>在计算机科学中，链表是一种常见的基础数据结构，是一种线性表，但是并不会按线性的顺序存储数据，而是在每一个节点里存到下一个节点的指针。</p>
+<ul>
+<li>链表的优点</li>
+</ul>
+<p>由于不必须按顺序存储，链表在插入的时候可以达到O(1)的复杂度，比数组快得多，但是查找一个节点或者访问特定编号的节点则需要O(n)的时间，而顺序表相应的时间复杂度分别是O(logn)和O(1)。使用链表结构可以克服数组链表需要预先知道数据大小的缺点，链表结构可以充分利用计算机内存空间，实现灵活的内存动态管理。但是链表失去了数组随机读取的优点，同时链表由于增加了结点的指针域，空间开销比较大。</p>
+<h2 id="什么是栈">什么是栈</h2>
+<p>栈有时也被称作堆栈或者堆叠。栈是有序集合，它的添加，移除操作总是发生在同一端，设这一端为顶端，则未执行操作的一端为底端。 栈中的元素离底端越近，代表其在栈中的时间越长，最新添加的元素将被最先移除。这种排序原则被称作 LIFO（last-in first-out），即后进先出。它提供了一种基于在集合中的时间来排序的方式。最近添加的元素靠近顶端，旧元素则靠近底端。</p>
+<p>生活中的例子：</p>
+<p>在我们的生活中也很常见关于栈的例子，假设我们有一个放羽毛球的球桶，我们只能从桶的上面取出球，底部是不能取的，靠近开口的球，更先被取到。</p>
+<p>既然有取出的先后，那么我们的栈也算是有顺序的，我们依旧使用列表来实现栈的一些操作。</p>
+<p>举例来说，对于列表[1, 5, 3, 7, 8, 6]，只需要考虑将它的哪一边视为栈的顶端。一旦确定了顶端，所有的操作就可以利用 append 和pop 等列表方法来实现。</p>
+<p>在这里我们视列表的尾部为栈顶，因此当进行 push 操作时，新的元素会被添加到列表的尾部。pop 操作同样会修改这一端。</p>
+<h2 id="栈的操作">栈的操作</h2>
+<p>我们前面已经介绍了栈的基本情况，既然我们要实现栈的操作，那我们肯定要新建一个栈，有了这个栈，我们肯定要做一些彰显出栈特性的事情————出栈，入栈。还有我们常见的操作，判断是否为空，判断栈的大小等等。</p>
+<p>以下是我们要实现的方法：</p>
+<ul>
+<li>Stack()创建一个空栈。不传任何参数，返回空栈。</li>
+<li>push(item)将一个元素添加到栈的顶端。它需要一个参数 item，且无返回值。</li>
+<li>pop()将栈顶端的元素移除。它不需要参数，但会返回顶端的元素，并且修改栈的内容。</li>
+<li>peek()返回栈顶端的元素，但是并不移除该元素。它不需要参数，也不会修改栈的内容。</li>
+<li>isEmpty()检查栈是否为空。它不需要参数，且会返回一个布尔值。</li>
+<li>size()返回栈中元素的数目。它不需要参数，且会返回一个整数。</li>
+</ul>
+<h3 id="栈的定义">栈的定义</h3>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Stack</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.items = []</span><br></pre></td></tr></table></figure>
+<p>定义一个 stack 类来告诉计算机，我们现在定义了一个全新的类型叫做 stack ，每个类有一个定义方法即 <strong>init</strong>() ,我们使用 <strong>init</strong> 方法来定义栈的一些属性。我们新建一个栈，栈中最重要的就是元素，多个元素构成栈，而一开始当我们没有向栈中放入任何元素时，栈是空的，因此有 self.items = []，我们定义了一个空栈来作为栈的初始化。</p>
+<h3 id="栈是否为空">栈是否为空</h3>
+<p>既然栈存在，我们就可以进行栈有无的判断，我们也像之前的数据结构类型一样，引入 isEmpty() 方法来判断栈中是否有元素，没有元素则为空栈，返回 true ；包含有元素，则说明栈不为空，返回 false。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">isEmpty</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> self.items == []</span><br></pre></td></tr></table></figure>
+<h3 id="栈的大小">栈的大小</h3>
+<p>栈的大小实际上就是判断栈中有多少元素，而我们使用列表来进行栈的实现，因此我们只需要使用 len() 方法计算引入的列表的长度即可判断栈中元素的多少了，即栈的大小。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">size</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">len</span>(self.items)</span><br></pre></td></tr></table></figure>
+<h3 id="入栈操作">入栈操作</h3>
+<p>现在我们既可以判断栈中是否有元素，又可以判断栈的大小了，那么接下来就要实现栈最主要的两个操作了，入栈和出栈。</p>
+<p>进行入栈操作我们就要想到，既然要把元素加入到栈中，那么我们就要传入一个参数去表示要加入到栈中的元素，然后将这个参数加入到栈中即可。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">push</span>(<span class="params">self, item</span>):</span></span><br><span class="line">        self.items.append(item)</span><br></pre></td></tr></table></figure>
+<p>我们传入一个 item 参数，为我们要加入到栈中的元素，然后将其加入到我们引入的 items 列表中即可完成栈中元素的加入了。</p>
+<h3 id="出栈操作">出栈操作</h3>
+<p>既然有元素加入到栈中，那我们就可以将元素从栈中删除，因此我们有了出栈的操作，出栈操作一般的思维是这样的：我们让栈顶的元素弹出，同时也要告诉大家，我弹出的是哪个元素。</p>
+<p>因此要返回弹出的那个元素。</p>
+<p>代码实现为：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">pop</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> self.items.pop()</span><br></pre></td></tr></table></figure>
+<p>使用列表中的 pop方法，返回列表末尾的那个元素，并将该元素从列表中删除，实现出栈。</p>
+<h3 id="查看栈顶">查看栈顶</h3>
+<p>我们的栈操作中通常还包含一项查看栈顶元素的操作，因为我们在此将引入的列表末尾视为栈顶，因此我们只需要返回所引入的列表的最后一个元素即可。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">peek</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span>  self.items[<span class="built_in">len</span>(self.items)-<span class="number">1</span>]</span><br></pre></td></tr></table></figure>
+<p>整体的代码如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Stack</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.items = []</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isEmpty</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> self.items == []</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">size</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">len</span>(self.items)</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">push</span>(<span class="params">self, item</span>):</span></span><br><span class="line">        self.items.append(item)</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">pop</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> self.items.pop()</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">peek</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span>  self.items[<span class="built_in">len</span>(self.items)-<span class="number">1</span>]</span><br></pre></td></tr></table></figure>
+<h2 id="总结">总结</h2>
+<p>恭喜你又学完了一个知识点，栈是一个后进先出的数据类型，它有两个非常主要的操作，进栈和出栈：</p>
+<ul>
+<li>进栈：将资料放入栈的顶端，栈的顶端移到新放入的资料。</li>
+<li>出栈：将堆栈顶端资料移除，堆栈顶端移到移除后的下一笔资料。</li>
+</ul>
+<p>它可以用数组或者链表来实现，而由于 python 的特殊性，我们常使用列表来实现栈的操作。</p>
+<p>与栈相对的有队列，队列是一种先进先出的数据类型，我们下次会进行讲解。</p>
+<blockquote>
+<p>流沙团队联合AI悦创|久远·推出辅导班啦，包括「Python 语言辅导班、C++ 辅导班、java 辅导班、算法/数据结构辅导班、少儿编程、pygame 游戏开发」，全部都是一对一教学：一对一辅导 + 一对一答疑 + 布置作业 + 项目实践等。QQ、微信在线，随时响应！</p>
+</blockquote>
 ]]></content>
       <categories>
         <category>data structure</category>
@@ -1147,6 +1147,51 @@
       </tags>
   </entry>
   <entry>
+    <title>【面向就业式复习】【java基础】接口</title>
+    <url>/2021/12/11/%E3%80%90%E9%9D%A2%E5%90%91%E5%B0%B1%E4%B8%9A%E5%BC%8F%E5%A4%8D%E4%B9%A0%E3%80%91%E3%80%90java%E5%9F%BA%E7%A1%80%E3%80%91%E6%8E%A5%E5%8F%A3/</url>
+    <content><![CDATA[<h2 id="概念">概念</h2>
+<p>接口不是类，是对类的一组需求描述，这些类要遵从接口描述的统一格式进行定义。</p>
+<p>如果类遵从某个特定接口，那么就履行这项服务。</p>
+<p>实例：Arrays类中的 sort 方法可以对对象数组进行排序，但是前提是 对象所属的类必须实现了 Comparable 接口。</p>
+<p>Comparable 接口的代码：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Comparable</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(Object other)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这就是说，任何实现 Comparable 接口的类都需要包含 compareTo 方法，并且这个方法的参数必须是一个 Object 对象，返回一个整型数值。</p>
+<p>接口中的所有方法皆属于public 因此在接口中声明方法时，不必提供关键字public。</p>
+<p>为了类实现一个接口，通常需要下面两个步骤：</p>
+<ol type="1">
+<li>将类声明为实现给定的接口。（需要使用关键字implements）</li>
+<li>对接口中的所有方法进行定义。</li>
+</ol>
+<h2 id="接口的特性">接口的特性</h2>
+<ul>
+<li>接口不是类，不能使用 new 实例化接口。</li>
+<li>虽然不能构造接口对象，但是可以声明接口变量。</li>
+<li>接口变量必须引用实现了接口的类对象。</li>
+<li>可以使用 instanceof 检查一个对象是否实现了某个接口。</li>
+<li>接口也可以被继承。</li>
+<li>虽然接口中不能包含实例域和静态方法，但可以包含常量。</li>
+</ul>
+<p>接口中的方法都自动地被设置为 public—样，接口中的域将被自动设为 public static final。</p>
+<h2 id="接口与抽象类">接口与抽象类</h2>
+<p>关于抽象类：每个类只能拓展一个类。Java 不支持多继承。一个类只能有一个超类。</p>
+<p>但是接口可以提供多重继承。</p>
+<h2 id="接口相关的面试题">接口相关的面试题：</h2>
+<ul>
+<li>接口和抽象类的区别是什么？</li>
+</ul>
+<ol type="1">
+<li>接⼝的方法默认是 public ，所有⽅法在接⼝中不能有实现(Java 8 开始接口方法可以有默认实现），而抽象类可以有非抽象的方法。</li>
+<li>接⼝中除了 static 、 final 变量，不能有其他变量，而抽象类中则不⼀定。</li>
+<li>⼀个类可以实现多个接口，但只能实现⼀个抽象类。接口自己本身可以通过 extends 关键字扩展多个接口。</li>
+<li>接口方法默认修饰符是 public ，抽象⽅法可以有 public 、protected 和 default 这些修饰符（抽象方法就是为了被重写所以不能使用 private 关键字修饰！）。</li>
+<li>从设计层面来说，抽象是对类的抽象，是⼀种模板设计，而接口是对行为的抽象，是⼀种行为的规范。</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>哈夫曼树类型的实现和应用</title>
     <url>/2021/07/29/%E5%93%88%E5%A4%AB%E6%9B%BC%E6%A0%91%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%92%8C%E5%BA%94%E7%94%A8/</url>
     <content><![CDATA[<h1 id="哈夫曼树类型的实现和应用">哈夫曼树类型的实现和应用</h1>
@@ -1243,51 +1288,6 @@
       <tags>
         <tag>java</tag>
         <tag>data structure</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【面向就业式复习】【java基础】接口</title>
-    <url>/2021/12/11/%E3%80%90%E9%9D%A2%E5%90%91%E5%B0%B1%E4%B8%9A%E5%BC%8F%E5%A4%8D%E4%B9%A0%E3%80%91%E3%80%90java%E5%9F%BA%E7%A1%80%E3%80%91%E6%8E%A5%E5%8F%A3/</url>
-    <content><![CDATA[<h2 id="概念">概念</h2>
-<p>接口不是类，是对类的一组需求描述，这些类要遵从接口描述的统一格式进行定义。</p>
-<p>如果类遵从某个特定接口，那么就履行这项服务。</p>
-<p>实例：Arrays类中的 sort 方法可以对对象数组进行排序，但是前提是 对象所属的类必须实现了 Comparable 接口。</p>
-<p>Comparable 接口的代码：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Comparable</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(Object other)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这就是说，任何实现 Comparable 接口的类都需要包含 compareTo 方法，并且这个方法的参数必须是一个 Object 对象，返回一个整型数值。</p>
-<p>接口中的所有方法皆属于public 因此在接口中声明方法时，不必提供关键字public。</p>
-<p>为了类实现一个接口，通常需要下面两个步骤：</p>
-<ol type="1">
-<li>将类声明为实现给定的接口。（需要使用关键字implements）</li>
-<li>对接口中的所有方法进行定义。</li>
-</ol>
-<h2 id="接口的特性">接口的特性</h2>
-<ul>
-<li>接口不是类，不能使用 new 实例化接口。</li>
-<li>虽然不能构造接口对象，但是可以声明接口变量。</li>
-<li>接口变量必须引用实现了接口的类对象。</li>
-<li>可以使用 instanceof 检查一个对象是否实现了某个接口。</li>
-<li>接口也可以被继承。</li>
-<li>虽然接口中不能包含实例域和静态方法，但可以包含常量。</li>
-</ul>
-<p>接口中的方法都自动地被设置为 public—样，接口中的域将被自动设为 public static final。</p>
-<h2 id="接口与抽象类">接口与抽象类</h2>
-<p>关于抽象类：每个类只能拓展一个类。Java 不支持多继承。一个类只能有一个超类。</p>
-<p>但是接口可以提供多重继承。</p>
-<h2 id="接口相关的面试题">接口相关的面试题：</h2>
-<ul>
-<li>接口和抽象类的区别是什么？</li>
-</ul>
-<ol type="1">
-<li>接⼝的方法默认是 public ，所有⽅法在接⼝中不能有实现(Java 8 开始接口方法可以有默认实现），而抽象类可以有非抽象的方法。</li>
-<li>接⼝中除了 static 、 final 变量，不能有其他变量，而抽象类中则不⼀定。</li>
-<li>⼀个类可以实现多个接口，但只能实现⼀个抽象类。接口自己本身可以通过 extends 关键字扩展多个接口。</li>
-<li>接口方法默认修饰符是 public ，抽象⽅法可以有 public 、protected 和 default 这些修饰符（抽象方法就是为了被重写所以不能使用 private 关键字修饰！）。</li>
-<li>从设计层面来说，抽象是对类的抽象，是⼀种模板设计，而接口是对行为的抽象，是⼀种行为的规范。</li>
-</ol>
-]]></content>
-      <tags>
-        <tag>java</tag>
       </tags>
   </entry>
   <entry>
