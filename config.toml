@@ -1,7 +1,7 @@
 baseURL = "https://naruuu-xx.github.io/"
 
 # 更改使用 Hugo 构建网站时使用的默认主题
-theme = "LoveIt-0.2.10"
+theme = "LoveIt"
 
 # 网站标题
 title = "naru的博客"
