@@ -17,7 +17,7 @@ other = "Posts"
 
 # === Taxonomy ===
 [allSome]
-other = "{{ .Some }}"
+other = "Todos {{ .Some }}"
 
 [tag]
 other = "Tag"
@@ -47,7 +47,7 @@ other = "Trocar tema"
 
 # === partials/footer.html ===
 [poweredBySome]
-other = "Possibilitado por {{ .Hugo }} | Tema - {{ .Theme }}"
+other = "Movido a {{ .Hugo }} | Tema - {{ .Theme }}"
 # === partials/footer.html ===
 
 # === partials/comment.html ===
@@ -59,9 +59,6 @@ other = "O seu comentário ..."
 
 [facebookLanguageCode]
 other = "pt_BR"
-
-[giscusLang]
-other = "en"
 # === partials/comment.html ===
 
 # === partials/assets.html ===
@@ -200,3 +197,4 @@ other = "ALTERADO"
 [deleted]
 other = "EXCLUÍDO"
 # === shortcodes/version.html ===
+

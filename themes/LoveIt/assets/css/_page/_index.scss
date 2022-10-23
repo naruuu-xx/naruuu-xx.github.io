@@ -4,11 +4,11 @@
   width: 60%;
   margin: 0 auto;
 
-  [data-header-desktop] & {
-    padding-top: var(--header-height);
+  [header-desktop] & {
+    padding-top: $header-height;
   }
 
-  [data-header-desktop=normal] & {
+  [header-desktop=normal] & {
     padding-top: 0;
   }
 

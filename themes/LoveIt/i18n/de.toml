@@ -4,7 +4,7 @@
 
 # === baseof ==
 [backToTop]
-other = "Nach oben"
+other = "nach oben"
 
 [viewComments]
 other = "Kommentare anzeigen"
@@ -42,12 +42,12 @@ other = "Mehr"
 other = "Sprache wählen"
 
 [switchTheme]
-other = "Darstellung ändern"
+other = "Thema wechseln"
 # === partials/header.html ===
 
 # === partials/footer.html ===
 [poweredBySome]
-other = "Realisiert durch {{ .Hugo }} | Thema - {{ .Theme }}"
+other = "Ermöglicht durch {{ .Hugo }} | Thema - {{ .Theme }}"
 # === partials/footer.html ===
 
 # === partials/comment.html ===
@@ -59,9 +59,6 @@ other = "Ihr Kommentar ..."
 
 [facebookLanguageCode]
 other = "de_DE"
-
-[giscusLang]
-other = "de"
 # === partials/comment.html ===
 
 # === partials/assets.html ===
@@ -109,21 +106,21 @@ other = "Teilen auf"
 other = "Inhalt"
 
 [publishedOnDate]
-other = "veröffentlicht an {{ .Date }}"
+other = "veröffentlicht auf {{ .Date }}"
 
 [includedInCategories]
 other = "enthalten in {{ .Categories }}"
 
 [wordCount]
-one = "Ein Wort"
-other = "{{ .Count }} Wörter"
+one = "Ein wort"
+other = "{{ .Count }} wörter"
 
 [readingTime]
-one = "Eine Minute"
-other = "{{ .Count }} Minuten"
+one = "Eine minute"
+other = "{{ .Count }} minuten"
 
 [views]
-other = "Aufrufe"
+other = "aufrufe"
 
 [author]
 other = "Autor"
@@ -157,13 +154,13 @@ other = "Leider konnte die von Ihnen angeforderte Seite nicht aufgerufen werden.
 other = "Notiz"
 
 [abstract]
-other = "Kurzfassung"
+other = "Ausblick"
 
 [info]
 other = "Info"
 
 [tip]
-other = "Tipp"
+other = "Tip"
 
 [success]
 other = "Erfolg"
@@ -178,7 +175,7 @@ other = "Warnung"
 other = "Fehler"
 
 [danger]
-other = "Vorsicht"
+other = "Gefahr"
 
 [bug]
 other = "Bug"
